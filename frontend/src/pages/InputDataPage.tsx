@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import type { DoorscrieftRowInput, KodeAnggaranItem } from '@/types';
-import { Plus, Search } from 'lucide-react';
+import { Lock, Plus, Search } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { toast } from 'sonner';
 
 function useDebouncedValue<T>(value: T, delayMs: number) {
   const [debounced, setDebounced] = useState(value);
@@ -28,7 +29,8 @@ const initialForm = {
 };
 
 export function InputDataPage() {
-  const { tahunAktif, kodeAnggarans, setKodeAnggarans, doorscrieftTransaksis, addDoorscrieftTransaksi } = useStore();
+  const { tahunAktif, lockedYears, kodeAnggarans, setKodeAnggarans, doorscrieftTransaksis, addDoorscrieftTransaksi } = useStore();
+  const isYearLocked = lockedYears.includes(tahunAktif);
 
   // Load kode anggaran dari Excel DATA BASE2 on mount
   useEffect(() => {
@@ -77,22 +79,31 @@ export function InputDataPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isYearLocked) {
+      toast.error(`Tahun ${tahunAktif} terkunci. Buka kunci di Pengaturan untuk mengubah data.`);
+      return;
+    }
     const mata = validateKodeAnggaran(form.kodeAnggaran);
     if (!mata) {
       alert('Kode anggaran tidak valid (tidak ada di DATA BASE2).');
       return;
     }
 
-    addDoorscrieftTransaksi({
-      tanggal: new Date(form.tanggal),
-      no: form.no.trim(),
-      uraian: form.uraian.trim(),
-      kodeAnggaran: form.kodeAnggaran,
-      mataAnggaran: mata.mataAnggaran,
-      penerimaan: Number(form.penerimaan),
-      pengeluaran: Number(form.pengeluaran),
-      createdBy: 'admin',
-    });
+    try {
+      addDoorscrieftTransaksi({
+        tanggal: new Date(form.tanggal),
+        no: form.no.trim(),
+        uraian: form.uraian.trim(),
+        kodeAnggaran: form.kodeAnggaran,
+        mataAnggaran: mata.mataAnggaran,
+        penerimaan: Number(form.penerimaan),
+        pengeluaran: Number(form.pengeluaran),
+        createdBy: 'admin',
+      });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Data gagal disimpan.');
+      return;
+    }
 
     setIsOpen(false);
     setForm(initialForm);
@@ -104,8 +115,14 @@ export function InputDataPage() {
         <div>
           <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Input Data</h1>
           <p className='text-slate-500 dark:text-slate-400'>Tab input data floating/tabular berbasis KODE ANGGARAN</p>
+          {isYearLocked && (
+            <p className='mt-1 inline-flex items-center gap-1 rounded-md bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700'>
+              <Lock className='h-3.5 w-3.5' />
+              Tahun {tahunAktif} terkunci
+            </p>
+          )}
         </div>
-        <Button onClick={() => { setForm(initialForm); setIsOpen(true); }}>
+        <Button disabled={isYearLocked} onClick={() => { setForm(initialForm); setIsOpen(true); }}>
           <Plus className='mr-2 h-4 w-4' /> Tambah
         </Button>
       </div>

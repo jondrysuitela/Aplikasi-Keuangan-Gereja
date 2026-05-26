@@ -39,6 +39,27 @@ export function getMonthName(month: number): string {
   return months[month - 1] || '';
 }
 
+export function getLatestFilledMonth<T extends { tanggal: Date | string | number }>(
+  rows: T[],
+  year: number,
+  hasValue: (row: T) => boolean = () => true,
+): number | null {
+  let latestMonth: number | null = null;
+
+  rows.forEach((row) => {
+    const date = new Date(row.tanggal);
+    if (Number.isNaN(date.getTime())) return;
+    if (date.getFullYear() !== year || !hasValue(row)) return;
+
+    const month = date.getMonth() + 1;
+    if (latestMonth === null || month > latestMonth) {
+      latestMonth = month;
+    }
+  });
+
+  return latestMonth;
+}
+
 export function getYearOptions(activeYear: number, dataYears: number[] = []): number[] {
   const currentYear = new Date().getFullYear();
   const startYear = currentYear - 5;

@@ -1,12 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@/stores';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, CheckCircle, AlertCircle } from 'lucide-react';
-import { formatCurrency, getMonthName } from '@/lib/utils';
+import { formatCurrency, getLatestFilledMonth, getMonthName } from '@/lib/utils';
 
 export function RekonsiliasiPage() {
   const { doorscrieftTransaksis, tahunAktif } = useStore();
   const [selectedBulan, setSelectedBulan] = useState(new Date().getMonth() + 1);
+  const hasUserSelectedMonthRef = useRef(false);
+
+  useEffect(() => {
+    hasUserSelectedMonthRef.current = false;
+  }, [tahunAktif]);
+
+  useEffect(() => {
+    if (hasUserSelectedMonthRef.current) return;
+    const filledMonth = getLatestFilledMonth(
+      doorscrieftTransaksis,
+      tahunAktif,
+      (row) => Number(row.penerimaan || 0) !== 0 || Number(row.pengeluaran || 0) !== 0,
+    );
+    if (filledMonth) setSelectedBulan(filledMonth);
+  }, [doorscrieftTransaksis, tahunAktif]);
 
   const data = (() => {
     const filtered = doorscrieftTransaksis.filter(
@@ -56,7 +71,10 @@ export function RekonsiliasiPage() {
         <select
           className='h-10 rounded-md border border-input bg-white dark:bg-slate-800 dark:text-white px-3 text-sm font-medium'
           value={selectedBulan}
-          onChange={(e) => setSelectedBulan(Number(e.target.value))}
+          onChange={(e) => {
+            hasUserSelectedMonthRef.current = true;
+            setSelectedBulan(Number(e.target.value));
+          }}
         >
           {Array.from({ length: 12 }, (_, i) => i + 1).map((bulan) => (
             <option key={bulan} value={bulan}>

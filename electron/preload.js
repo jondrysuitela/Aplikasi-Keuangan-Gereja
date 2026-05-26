@@ -27,6 +27,7 @@ contextBridge.exposeInMainWorld("electronAPI", {
   // Sub Seksi Database (complete hierarchy from Excel SUB SEKSI sheets)
   loadSubSeksiDb: () => ipcRenderer.invoke('subSeksiDb:load'),
   loadSubSeksiDbFlat: () => ipcRenderer.invoke('subSeksiDbFlat:load'),
+  exportSubSeksiExcel: (config) => ipcRenderer.invoke('subSeksi:exportExcel', config),
   // Batang Tubuh Database
   loadBatangTubuh: () => ipcRenderer.invoke('batangTubuh:load'),
   saveBatangTubuh: (items) => ipcRenderer.invoke('batangTubuh:save', items),
@@ -35,17 +36,10 @@ contextBridge.exposeInMainWorld("electronAPI", {
   // Doorscrieft (still from Excel for now)
   loadDoorscrieft: () => ipcRenderer.invoke('excel:loadDoorscrieft'),
   exportDoorscrieftToExcel: (data) => ipcRenderer.invoke('excel:exportDoorscrieft', data),
-  openDoorscrieftInputWindow: (data) => ipcRenderer.invoke('doorscrieft:openInputWindow', data),
-  submitDoorscrieftInputWindow: (data) => ipcRenderer.invoke('doorscrieft:submitInputWindow', data),
-  closeDoorscrieftInputWindow: () => ipcRenderer.invoke('doorscrieft:closeInputWindow'),
-  onDoorscrieftExternalSubmit: (callback) => {
-    const handler = (_event, payload) => callback(payload);
-    ipcRenderer.on('doorscrieft:externalSubmit', handler);
-    return () => {
-      ipcRenderer.removeListener('doorscrieft:externalSubmit', handler);
-    };
-  },
+  importDoorscrieftFromExcel: (options) => ipcRenderer.invoke('excel:importDoorscrieft', options),
   // Project
   saveProject: (data, defaultName, asNew) => ipcRenderer.invoke('project:save', data, defaultName, !!asNew),
   openProject: () => ipcRenderer.invoke('project:open'),
+  newProject: () => ipcRenderer.invoke('project:new'),
+  createAutoBackup: (data, reason) => ipcRenderer.invoke('backup:createAuto', data, reason),
 });

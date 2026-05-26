@@ -1,7 +1,9 @@
-import { Component, useEffect } from 'react';
+import { Component } from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'sonner';
 import { Layout } from '@/components/Layout';
 import { BatangTubuhPage } from '@/pages/BatangTubuhPage';
+import { CekDataPage } from '@/pages/CekDataPage';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { DoorscrieftInputPage } from '@/pages/DoorscrieftInputPage';
 import { InputDataPage } from '@/pages/InputDataPage';
@@ -17,7 +19,6 @@ import { PengeluaranPerbulanPage } from '@/pages/PengeluaranPerbulanPage';
 import { RealisasiPage } from '@/pages/RealisasiPage';
 import { RekonsiliasiPage } from '@/pages/RekonsiliasiPage';
 import { SubSeksiPage } from '@/pages/SubSeksiPage';
-import { initSyncWorkerOnce } from '@/lib/syncWorkerInit';
 import { useStore } from '@/stores';
 
 class ErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean; error?: Error }> {
@@ -59,10 +60,6 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, { hasError:
 }
 
 export default function App() {
-  useEffect(() => {
-    initSyncWorkerOnce();
-  }, []);
-
   return (
     <ErrorBoundary>
       <HashRouter>
@@ -70,6 +67,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/*" element={<ProtectedApp />} />
         </Routes>
+        <Toaster richColors position="top-right" />
       </HashRouter>
     </ErrorBoundary>
   );
@@ -99,6 +97,7 @@ function ProtectedApp() {
         <Route path="/rekonsiliasi" element={<RekonsiliasiPage />} />
         <Route path="/sub-seksi" element={<SubSeksiPage />} />
         <Route path="/doorscrieft" element={<DoorscrieftInputPage />} />
+        <Route path="/cek-data" element={<CekDataPage />} />
         <Route path="/pengaturan" element={<PengaturanPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useStore } from '@/stores';
 import { formatCurrency, getMonthName } from '@/lib/utils';
 import { ArrowUpCircle, ArrowDownCircle, Wallet, TrendingUp, Calendar } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
-import {
-  getFinanceSummary,
-  getMonthlyChart,
-  getFinanceCategories,
-  getRecentTransactions,
-} from '@/lib/financeClient';
-import type { SummaryData, RecentTransaction } from '@/lib/financeClient';
 
 type MonthlyDataItem = {
   bulan: string;
@@ -23,21 +16,23 @@ type PieDatum = {
   value: number;
 };
 
+type RecentTransaction = {
+  id: string;
+  tanggal: Date;
+  uraian: string;
+  kodeAnggaran?: string;
+  penerimaan: number;
+  pengeluaran: number;
+};
+
 export function DashboardPage() {
-  const { tahunAktif } = useStore();
-  const [summary, setSummary] = useState<SummaryData | null>(null);
-  const [monthlyData, setMonthlyData] = useState<MonthlyDataItem[]>(
-    Array.from({ length: 12 }, (_, i) => ({
-      bulan: getMonthName(i + 1).substring(0, 3),
-      pemasukan: 0,
-      pengeluaran: 0,
-    }))
-  );
-  const [kategoriData, setKategoriData] = useState<PieDatum[]>([]);
-  const [recentPemasukan, setRecentPemasukan] = useState<RecentTransaction[]>([]);
-  const [recentPengeluaran, setRecentPengeluaran] = useState<RecentTransaction[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    tahunAktif,
+    doorscrieftTransaksis,
+    pemasukans,
+    pengeluarans,
+    kategoriBelanjas,
+  } = useStore();
   const [isDark] = useState(() => localStorage.getItem('theme') === 'dark');
 
   const chartGridColor = isDark ? '#334155' : '#e5e7eb';
@@ -45,69 +40,114 @@ export function DashboardPage() {
   const chartTooltipBorder = isDark ? '#334155' : '#e5e7eb';
   const chartTextColor = isDark ? '#94a3b8' : '#64748b';
 
-  useEffect(() => {
-    let active = true;
+  const {
+    currentSummary,
+    monthlyData,
+    kategoriData,
+    recentPemasukan,
+    recentPengeluaran,
+  } = useMemo(() => {
+    const emptyMonths: MonthlyDataItem[] = Array.from({ length: 12 }, (_, index) => ({
+      bulan: getMonthName(index + 1).substring(0, 3),
+      pemasukan: 0,
+      pengeluaran: 0,
+    }));
 
-    async function loadDashboard() {
-      setIsLoading(true);
-      setError(null);
+    const recentRows: RecentTransaction[] = [];
+    const expenseByCategory = new Map<string, number>();
+    let totalPemasukan = 0;
+    let totalPengeluaran = 0;
 
-      try {
-        const [summaryResult, monthlyChart, categoriesResult, recentResult] = await Promise.all([
-          getFinanceSummary(tahunAktif),
-          getMonthlyChart(tahunAktif),
-          getFinanceCategories(tahunAktif),
-          getRecentTransactions(tahunAktif),
-        ]);
+    const addExpenseCategory = (name: string, amount: number) => {
+      if (amount <= 0) return;
+      const key = name || 'Tanpa Kategori';
+      expenseByCategory.set(key, (expenseByCategory.get(key) || 0) + amount);
+    };
 
-        if (!active) return;
+    doorscrieftTransaksis.forEach((row) => {
+      const tanggal = row.tanggal instanceof Date ? row.tanggal : new Date(row.tanggal);
+      if (Number.isNaN(tanggal.getTime()) || tanggal.getFullYear() !== tahunAktif) return;
 
-        setSummary(summaryResult);
+      const penerimaan = Number(row.penerimaan || 0);
+      const pengeluaran = Number(row.pengeluaran || 0);
+      const monthIndex = tanggal.getMonth();
 
-        setMonthlyData(
-          Array.from({ length: 12 }, (_, index) => ({
-            bulan: getMonthName(index + 1).substring(0, 3),
-            pemasukan: monthlyChart.pemasukan[index]?.jumlah ?? 0,
-            pengeluaran: monthlyChart.pengeluaran[index]?.jumlah ?? 0,
-          }))
-        );
+      totalPemasukan += penerimaan;
+      totalPengeluaran += pengeluaran;
+      emptyMonths[monthIndex].pemasukan += penerimaan;
+      emptyMonths[monthIndex].pengeluaran += pengeluaran;
+      addExpenseCategory(row.mataAnggaran || row.kodeAnggaran, pengeluaran);
 
-        const sortedCategories = categoriesResult
-          .map((item) => ({ name: item.kategori, value: item.pengeluaran }))
-          .sort((a, b) => b.value - a.value);
+      recentRows.push({
+        id: row.id,
+        tanggal,
+        uraian: row.uraian,
+        kodeAnggaran: row.kodeAnggaran,
+        penerimaan,
+        pengeluaran,
+      });
+    });
 
-        const topCategories = sortedCategories.slice(0, 7);
-        const totalCategoryValue = sortedCategories.reduce((sum, item) => sum + item.value, 0);
-        const shownCategoryValue = topCategories.reduce((sum, item) => sum + item.value, 0);
+    pemasukans.forEach((row) => {
+      const tanggal = row.tanggal instanceof Date ? row.tanggal : new Date(row.tanggal);
+      if (Number.isNaN(tanggal.getTime()) || tanggal.getFullYear() !== tahunAktif) return;
 
-        if (totalCategoryValue > shownCategoryValue) {
-          topCategories.push({ name: 'Lainnya', value: totalCategoryValue - shownCategoryValue });
-        }
+      const jumlah = Number(row.jumlah || 0);
+      totalPemasukan += jumlah;
+      emptyMonths[tanggal.getMonth()].pemasukan += jumlah;
+      recentRows.push({
+        id: row.id,
+        tanggal,
+        uraian: row.keterangan,
+        penerimaan: jumlah,
+        pengeluaran: 0,
+      });
+    });
 
-        setKategoriData(topCategories);
+    pengeluarans.forEach((row) => {
+      const tanggal = row.tanggal instanceof Date ? row.tanggal : new Date(row.tanggal);
+      if (Number.isNaN(tanggal.getTime()) || tanggal.getFullYear() !== tahunAktif) return;
 
-        setRecentPemasukan(recentResult.filter((row) => row.penerimaan > 0).slice(0, 5));
-        setRecentPengeluaran(recentResult.filter((row) => row.pengeluaran > 0).slice(0, 5));
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
-      } finally {
-        if (active) {
-          setIsLoading(false);
-        }
-      }
+      const jumlah = Number(row.jumlah || 0);
+      const kategori = kategoriBelanjas.find((item) => item.id === row.kategoriId)?.nama || row.kategoriId;
+      totalPengeluaran += jumlah;
+      emptyMonths[tanggal.getMonth()].pengeluaran += jumlah;
+      addExpenseCategory(kategori, jumlah);
+      recentRows.push({
+        id: row.id,
+        tanggal,
+        uraian: row.keterangan,
+        kodeAnggaran: kategori,
+        penerimaan: 0,
+        pengeluaran: jumlah,
+      });
+    });
+
+    const sortedRecentRows = recentRows.sort((a, b) => b.tanggal.getTime() - a.tanggal.getTime());
+    const sortedCategories = Array.from(expenseByCategory.entries())
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+
+    const topCategories: PieDatum[] = sortedCategories.slice(0, 7);
+    const totalCategoryValue = sortedCategories.reduce((sum, item) => sum + item.value, 0);
+    const shownCategoryValue = topCategories.reduce((sum, item) => sum + item.value, 0);
+
+    if (totalCategoryValue > shownCategoryValue) {
+      topCategories.push({ name: 'Lainnya', value: totalCategoryValue - shownCategoryValue });
     }
 
-    loadDashboard();
-    return () => {
-      active = false;
+    return {
+      currentSummary: {
+        totalPemasukan,
+        totalPengeluaran,
+        saldoAkhir: totalPemasukan - totalPengeluaran,
+      },
+      monthlyData: emptyMonths,
+      kategoriData: topCategories,
+      recentPemasukan: sortedRecentRows.filter((row) => row.penerimaan > 0).slice(0, 5),
+      recentPengeluaran: sortedRecentRows.filter((row) => row.pengeluaran > 0).slice(0, 5),
     };
-  }, [tahunAktif]);
-
-  const currentSummary = summary ?? {
-    totalPemasukan: 0,
-    totalPengeluaran: 0,
-    saldoAkhir: 0,
-  };
+  }, [doorscrieftTransaksis, kategoriBelanjas, pemasukans, pengeluarans, tahunAktif]);
 
   const PIE_COLORS = [
     '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6',
@@ -122,18 +162,6 @@ export function DashboardPage() {
           <p className='text-slate-500 dark:text-slate-400'>Ringkasan keuangan Tahun {tahunAktif}</p>
         </div>
       </div>
-
-      {isLoading && (
-        <div className='rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200'>
-          Memuat dashboard dari server...
-        </div>
-      )}
-
-      {error && (
-        <div className='rounded-lg border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-700/40 dark:bg-red-950/20 dark:text-red-200'>
-          Gagal memuat data: {error}
-        </div>
-      )}
 
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
         <Card>
@@ -279,13 +307,13 @@ export function DashboardPage() {
             {recentPemasukan.length > 0 ? (
               <div className='space-y-4'>
                 {recentPemasukan.map((item) => (
-                  <div key={item.uuid} className='flex items-center justify-between border-b dark:border-slate-700 pb-3 last:border-0 last:pb-0'>
+                  <div key={item.id} className='flex items-center justify-between border-b dark:border-slate-700 pb-3 last:border-0 last:pb-0'>
                     <div>
                       <p className='font-medium text-slate-900 dark:text-white'>{item.uraian}</p>
                       <p className='text-sm text-slate-500 dark:text-slate-400'>
-                        {new Date(item.tanggal).toLocaleDateString('id-ID')}
-                        {item.kode_anggaran && (
-                          <span className='ml-1 font-mono text-xs'>({item.kode_anggaran})</span>
+                        {item.tanggal.toLocaleDateString('id-ID')}
+                        {item.kodeAnggaran && (
+                          <span className='ml-1 font-mono text-xs'>({item.kodeAnggaran})</span>
                         )}
                       </p>
                     </div>
@@ -312,13 +340,13 @@ export function DashboardPage() {
             {recentPengeluaran.length > 0 ? (
               <div className='space-y-4'>
                 {recentPengeluaran.map((item) => (
-                  <div key={item.uuid} className='flex items-center justify-between border-b dark:border-slate-700 pb-3 last:border-0 last:pb-0'>
+                  <div key={item.id} className='flex items-center justify-between border-b dark:border-slate-700 pb-3 last:border-0 last:pb-0'>
                     <div>
                       <p className='font-medium text-slate-900 dark:text-white'>{item.uraian}</p>
                       <p className='text-sm text-slate-500 dark:text-slate-400'>
-                        {new Date(item.tanggal).toLocaleDateString('id-ID')}
-                        {item.kode_anggaran && (
-                          <span className='ml-1 font-mono text-xs'>({item.kode_anggaran})</span>
+                        {item.tanggal.toLocaleDateString('id-ID')}
+                        {item.kodeAnggaran && (
+                          <span className='ml-1 font-mono text-xs'>({item.kodeAnggaran})</span>
                         )}
                       </p>
                     </div>

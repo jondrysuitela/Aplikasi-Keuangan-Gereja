@@ -2,12 +2,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn, getYearOptions } from '@/lib/utils';
 import { churchLogoUrl } from '@/lib/assets';
 import { useAppVersion } from '@/lib/appVersion';
-import { useStore } from '@/stores';
-import { useEffect, useMemo, useState } from 'react';
+import { createAutoBackup, stringifyProjectSnapshot } from '@/lib/projectSnapshot';
+import { applyBatangTubuhAnggaranForYear, useStore } from '@/stores';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   LayoutDashboard,
   ArrowUpCircle,
-  ArrowDownCircle,
   FileText,
   BarChart3,
   Settings,
@@ -17,10 +17,10 @@ import {
   Calendar,
   Users,
   Wallet,
-  BookOpen
+  BookOpen,
+  ShieldCheck
 } from 'lucide-react';
 import { Button } from './ui/button';
-import { SyncStatusBadge } from '@/components/SyncStatusBadge';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -33,6 +33,7 @@ const navigation = [
   { name: 'Rekonsiliasi', href: '/rekonsiliasi', icon: Calendar },
   { name: 'Sub Seksi', href: '/sub-seksi', icon: Users },
   { name: 'Doorscrieft', href: '/doorscrieft', icon: FileText },
+  { name: 'Cek Data', href: '/cek-data', icon: ShieldCheck },
 
   { name: 'Pengaturan', href: '/pengaturan', icon: Settings },
 ];
@@ -46,11 +47,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
     tahunAktif,
     setTahunAktif,
     doorscrieftTransaksis,
-    setDoorscrieftTransaksis,
     kodeAnggarans,
     subSeksis,
     setSubSeksis,
     batangTubuhs,
+    batangTubuhAnggaranByYear,
     namaJemaat,
     kopGereja,
     kopKlas,
@@ -58,6 +59,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     appSubtitle,
   } = useStore();
   const [showAbout, setShowAbout] = useState(false);
+  const [showNewProject, setShowNewProject] = useState(false);
+  const [newProjectName, setNewProjectName] = useState('');
   const appVersion = useAppVersion();
 
   // Load Sub Seksi from database on mount
@@ -105,7 +108,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         handleSaveProject(true);
       }
       if (action === 'new-project') {
-        handleNewProject();
+        openNewProjectDialog();
       }
       if (action === 'export-data') {
         handleExportData();
@@ -127,28 +130,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
     try {
       state = useStore.getState();
-      data = JSON.stringify({
-        user: state.user ?? null,
-        kategoriPendapatans: state.kategoriPendapatans,
-        kategoriBelanjas: state.kategoriBelanjas,
-        subSeksis: state.subSeksis,
-        pemasukans: state.pemasukans,
-        pengeluarans: state.pengeluarans,
-        realisasis: state.realisasis,
-        kodeAnggarans: state.kodeAnggarans,
-        batangTubuhs: state.batangTubuhs,
-        doorscrieftTransaksis: state.doorscrieftTransaksis,
-        tahunAktif: state.tahunAktif,
-        selectedBulan: state.selectedBulan,
-        namaJemaat: state.namaJemaat,
-        kopGereja: state.kopGereja,
-        kopKlas: state.kopKlas,
-        appName: state.appName,
-        appSubtitle: state.appSubtitle,
-        loginBackgroundImage: state.loginBackgroundImage,
-        adminUsername: state.adminUsername,
-        adminPassword: state.adminPassword,
-      });
+      data = stringifyProjectSnapshot();
     } catch (error) {
       console.error('[PROJECT] Failed to prepare save data:', error);
       alert(`Gagal menyiapkan data project: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -176,6 +158,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       alert('Fitur ini hanya tersedia di mode Electron.');
       return;
     }
+    await createAutoBackup('sebelum-buka-project');
     const result = await anyWin.electronAPI.openProject();
     if (result.success && result.data) {
       try {
@@ -209,8 +192,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           ...(parsed.kodeAnggarans && { kodeAnggarans: parsed.kodeAnggarans }),
           ...(parsed.subSeksis && { subSeksis: parsed.subSeksis }),
           ...(parsed.batangTubuhs && { batangTubuhs: parsed.batangTubuhs }),
+          ...(parsed.batangTubuhAnggaranByYear && { batangTubuhAnggaranByYear: parsed.batangTubuhAnggaranByYear }),
           ...(parsed.namaJemaat && { namaJemaat: parsed.namaJemaat }),
           ...(parsed.tahunAktif && { tahunAktif: parsed.tahunAktif }),
+          ...(Array.isArray(parsed.lockedYears) && { lockedYears: parsed.lockedYears }),
           ...(parsed.user && { user: parsed.user }),
           ...(parsed.kopGereja && { kopGereja: parsed.kopGereja }),
           ...(parsed.kopKlas && { kopKlas: parsed.kopKlas }),
@@ -234,10 +219,38 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const handleNewProject = () => {
-    if (confirm('Buat project baru? Data yang belum disimpan akan hilang.')) {
-      window.location.reload();
-    }
+  const openNewProjectDialog = () => {
+    setNewProjectName('');
+    setShowNewProject(true);
+  };
+
+  const handleCreateNewProject = async (event: FormEvent) => {
+    event.preventDefault();
+    const projectName = newProjectName.trim();
+    if (!projectName) return;
+    if (!confirm('Buat project baru? Data yang belum disimpan akan hilang.')) return;
+
+    const anyWin = window as unknown as { electronAPI?: { newProject?: () => Promise<{ success: boolean }> } };
+    await createAutoBackup('sebelum-project-baru');
+    await anyWin.electronAPI?.newProject?.();
+
+    const tahun = new Date().getFullYear();
+    useStore.setState((state) => ({
+      pemasukans: [],
+      pengeluarans: [],
+      realisasis: [],
+      doorscrieftTransaksis: [],
+      batangTubuhAnggaranByYear: {},
+      lockedYears: [],
+      tahunAktif: tahun,
+      selectedBulan: new Date().getMonth() + 1,
+      namaJemaat: projectName,
+      appSubtitle: projectName,
+      user: state.user,
+    }));
+    localStorage.removeItem('keuangan-gereja-autosave');
+    setShowNewProject(false);
+    window.location.hash = '#/';
   };
 
   const handleExportData = async () => {
@@ -267,7 +280,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       doorscrieftTransaksis,
       kodeAnggarans,
       subSeksis,
-      batangTubuhs,
+      batangTubuhs: applyBatangTubuhAnggaranForYear(batangTubuhs, batangTubuhAnggaranByYear, tahunAktif),
     });
 
     if (result.success) {
@@ -415,8 +428,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
             })}</span>
           </div>
 
-          {/* Sync status (online/offline + pending) */}
-          <SyncStatusBadge />
         </header>
 
         {/* Page content */}
@@ -426,6 +437,50 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* About Dialog */}
+      {showNewProject && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4' onClick={() => setShowNewProject(false)}>
+          <form
+            className='w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-slate-800'
+            onClick={(e) => e.stopPropagation()}
+            onSubmit={handleCreateNewProject}
+          >
+            <div className='flex items-start justify-between gap-4'>
+              <div>
+                <h2 className='text-xl font-bold text-slate-900 dark:text-white'>Project Baru</h2>
+                <p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>Masukkan nama project untuk memulai ruang kerja baru.</p>
+              </div>
+              <button
+                type='button'
+                className='rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-700 dark:hover:text-white'
+                onClick={() => setShowNewProject(false)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <label className='mt-5 block text-sm font-medium text-slate-700 dark:text-slate-200'>
+              Nama Project
+              <input
+                autoFocus
+                className='mt-2 h-10 w-full rounded-md border border-slate-300 bg-white px-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-700 dark:text-white'
+                value={newProjectName}
+                onChange={(e) => setNewProjectName(e.target.value)}
+                placeholder='Contoh: Laporan Keuangan Jemaat Suli 2026'
+              />
+            </label>
+
+            <div className='mt-6 flex justify-end gap-2'>
+              <Button type='button' variant='outline' onClick={() => setShowNewProject(false)}>
+                Batal
+              </Button>
+              <Button type='submit' disabled={!newProjectName.trim()}>
+                Buat Project
+              </Button>
+            </div>
+          </form>
+        </div>
+      )}
+
       {showAbout && (
         <div className='fixed inset-0 z-50 bg-black/50 flex items-center justify-center' onClick={() => setShowAbout(false)}>
           <div className='bg-white rounded-lg shadow-xl p-6 max-w-sm w-full mx-4' onClick={(e) => e.stopPropagation()}>

@@ -3,10 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Settings, Database, Download, Upload, Trash2, Moon, Sun, Plus, Lock, Edit3, Building2, Shield, Info, Palette, Calendar } from 'lucide-react';
+import { Settings, Database, Download, Upload, Trash2, Moon, Sun, Plus, Lock, Unlock, Edit3, Building2, Shield, Info, Palette, Calendar } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAppVersion } from '@/lib/appVersion';
 import { loginBackgroundTwoUrl } from '@/lib/assets';
+import { toast } from 'sonner';
+import { createAutoBackup } from '@/lib/projectSnapshot';
 
 const STORAGE_KEY = 'keuangan-gereja-autosave';
 const LEGACY_STORAGE_KEY = 'keuangan-gereja-storage';
@@ -46,10 +48,11 @@ const compressLoginBackground = (file: File): Promise<string> => new Promise((re
 });
 
 export function PengaturanPage() {
-  const { user, namaJemaat, setNamaJemaat, kopGereja, setKopGereja, kopKlas, setKopKlas, appName, setAppName, appSubtitle, setAppSubtitle, loginBackgroundImage, setLoginBackgroundImage, resetLoginBackgroundImage, adminUsername, adminPassword, setAdminCredentials } = useStore();
+  const { user, namaJemaat, setNamaJemaat, kopGereja, setKopGereja, kopKlas, setKopKlas, appName, setAppName, appSubtitle, setAppSubtitle, loginBackgroundImage, setLoginBackgroundImage, resetLoginBackgroundImage, adminUsername, adminPassword, setAdminCredentials, tahunAktif, lockedYears, lockYear, unlockYear } = useStore();
   const [darkMode, setDarkMode] = useState(false);
   const [uploadingBackground, setUploadingBackground] = useState(false);
   const appVersion = useAppVersion();
+  const isCurrentYearLocked = lockedYears.includes(tahunAktif);
 
   useEffect(() => {
     const isDark = localStorage.getItem('theme') === 'dark';
@@ -93,6 +96,7 @@ export function PengaturanPage() {
         const text = await file.text();
         try {
           JSON.parse(text);
+          await createAutoBackup('sebelum-restore-pengaturan');
           localStorage.setItem(STORAGE_KEY, text);
           localStorage.removeItem(LEGACY_STORAGE_KEY);
           alert('Data berhasil direstore. Silakan refresh halaman.');
@@ -105,12 +109,26 @@ export function PengaturanPage() {
     input.click();
   };
 
-  const handleClearData = () => {
+  const handleClearData = async () => {
     if (confirm('Yakin hapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
+      await createAutoBackup('sebelum-hapus-data-pengaturan');
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(LEGACY_STORAGE_KEY);
       window.location.reload();
     }
+  };
+
+  const handleToggleYearLock = () => {
+    if (isCurrentYearLocked) {
+      if (!confirm(`Buka kunci tahun ${tahunAktif}? Data tahun ini bisa diedit kembali.`)) return;
+      unlockYear(tahunAktif);
+      toast.success(`Tahun ${tahunAktif} dibuka kembali.`);
+      return;
+    }
+
+    if (!confirm(`Kunci tahun ${tahunAktif}? Setelah dikunci, data tahun ini tidak bisa ditambah, diedit, dihapus, atau diimport sampai dibuka kembali.`)) return;
+    lockYear(tahunAktif);
+    toast.success(`Tahun ${tahunAktif} dikunci.`);
   };
 
   const handleUploadLoginBackground = () => {
@@ -271,6 +289,42 @@ export function PengaturanPage() {
           </CardContent>
         </Card>
 
+        {/* Lock Tahun */}
+        <Card>
+          <CardHeader>
+            <CardTitle className='flex items-center gap-2'>
+              {isCurrentYearLocked ? <Lock className='h-5 w-5 text-red-600' /> : <Unlock className='h-5 w-5 text-slate-500' />}
+              Kunci Tahun
+            </CardTitle>
+            <CardDescription>Lindungi data tahun final agar tidak berubah tanpa sengaja</CardDescription>
+          </CardHeader>
+          <CardContent className='space-y-3'>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <p className='text-sm font-medium text-slate-700 dark:text-slate-200'>Tahun Aktif {tahunAktif}</p>
+                <p className='text-xs text-slate-500 dark:text-slate-400'>
+                  {isCurrentYearLocked
+                    ? 'Tahun ini terkunci. Input, edit, hapus, dan import Doorscrieft akan ditolak.'
+                    : 'Tahun ini masih terbuka dan bisa diubah.'}
+                </p>
+              </div>
+              <Button
+                variant={isCurrentYearLocked ? 'outline' : 'destructive'}
+                size='sm'
+                onClick={handleToggleYearLock}
+              >
+                {isCurrentYearLocked ? <Unlock className='mr-2 h-4 w-4' /> : <Lock className='mr-2 h-4 w-4' />}
+                {isCurrentYearLocked ? 'Buka Kunci' : 'Kunci Tahun'}
+              </Button>
+            </div>
+            {lockedYears.length > 0 && (
+              <div className='rounded-md border bg-slate-50 p-3 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300'>
+                Tahun terkunci: {lockedYears.join(', ')}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Database */}
         <Card>
           <CardHeader>
@@ -377,9 +431,10 @@ function AdminForm() {
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
+    if (editing) return;
     setUsername(adminUsername);
     setPassword(adminPassword);
-  }, [adminUsername, adminPassword]);
+  }, [adminUsername, adminPassword, editing]);
 
   const handleSave = () => {
     if (!username.trim()) {
@@ -388,6 +443,7 @@ function AdminForm() {
     }
     setAdminCredentials(username.trim(), password);
     setEditing(false);
+    toast.success('Data admin disimpan.');
   };
 
   const handleCancel = () => {
@@ -399,7 +455,10 @@ function AdminForm() {
   return (
     <div className='space-y-3'>
       <div>
-        <label className='text-sm font-medium text-slate-700 mb-1 block'>Username</label>
+        <div className='mb-1 flex items-center justify-between gap-2'>
+          <label className='text-sm font-medium text-slate-700 dark:text-slate-200'>Username</label>
+          {!editing && <span className='text-xs text-slate-400'>Klik Ubah untuk mengedit</span>}
+        </div>
         <Input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -408,7 +467,7 @@ function AdminForm() {
         />
       </div>
       <div>
-        <label className='text-sm font-medium text-slate-700 mb-1 block'>Password</label>
+        <label className='text-sm font-medium text-slate-700 dark:text-slate-200 mb-1 block'>Password</label>
         <div className='flex gap-2'>
           <Input
             type={showPw ? 'text' : 'password'}
@@ -466,7 +525,7 @@ function TambahKodeAnggaran() {
 
     setIsOpen(false);
     setForm({ kodeAnggaran: '', mataAnggaran: '' });
-    alert('Kode anggaran berhasil ditambahkan dan disimpan ke database.');
+    toast.success('Kode anggaran berhasil ditambahkan dan disimpan.');
   };
 
   return (

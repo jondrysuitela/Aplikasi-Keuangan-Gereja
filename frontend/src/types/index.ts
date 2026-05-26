@@ -140,20 +140,7 @@ export interface KodeAnggaranItem {
 }
 
 export interface DoorscrieftRowInput {
-  /** UUID unik (jadi key untuk upsert & cegah double) */
   id: string;
-
-  /** Status sinkronisasi ke Supabase */
-  sync_status?: 'pending' | 'synced' | 'failed';
-
-  /** apakah baris transaksi ini boleh tampil di dashboard publik */
-  is_public?: boolean;
-
-  /** audit fields (ISO string) */
-  created_at?: string;
-  updated_at?: string;
-  deleted_at?: string | null;
-
   no: string;
   tanggal: Date;
   uraian: string;
@@ -203,4 +190,3 @@ export interface LaporanBulanan {
     pengeluaran: number;
   }[];
 }
-

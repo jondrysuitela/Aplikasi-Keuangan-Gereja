@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useStore } from '@/stores';
+import { applyBatangTubuhAnggaranForYear, BASE_BATANG_TUBUH_BUDGET_YEAR, useStore } from '@/stores';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,14 @@ import { formatCurrency } from '@/lib/utils';
 import type { BatangTubuhItem } from '@/types';
 
 export function BatangTubuhPage() {
-  const { batangTubuhs, setBatangTubuhs, doorscrieftTransaksis, tahunAktif } = useStore();
+  const {
+    batangTubuhs,
+    setBatangTubuhs,
+    batangTubuhAnggaranByYear,
+    setBatangTubuhAnggaranForYear,
+    doorscrieftTransaksis,
+    tahunAktif,
+  } = useStore();
   const [search, setSearch] = useState('');
   const [jenis, setJenis] = useState<'pendapatan' | 'pengeluaran'>('pendapatan');
   const [expandedKode, setExpandedKode] = useState<string | null>(null);
@@ -37,8 +44,21 @@ export function BatangTubuhPage() {
     if (editingKode && editInputRef.current) editInputRef.current.focus();
   }, [editingKode]);
 
+  const activeBatangTubuhs = useMemo(
+    () => applyBatangTubuhAnggaranForYear(batangTubuhs, batangTubuhAnggaranByYear, tahunAktif),
+    [batangTubuhs, batangTubuhAnggaranByYear, tahunAktif],
+  );
+
   const handleSaveDianggarkan = async (kode: string) => {
     const val = Number(editValue) || 0;
+    setBatangTubuhAnggaranForYear(tahunAktif, kode, val);
+
+    if (tahunAktif !== BASE_BATANG_TUBUH_BUDGET_YEAR) {
+      setEditingKode(null);
+      setEditValue('');
+      return;
+    }
+
     const updated = batangTubuhs.map((bt) => ({
       ...bt,
       detailRows: bt.detailRows.map((dr) =>
@@ -70,6 +90,7 @@ export function BatangTubuhPage() {
       klas: 'KLASIS PULAU AMBON TIMUR',
       jemaat: 'JEMAAT SULI',
       tahun: String(tahunAktif),
+      batangTubuhs: activeBatangTubuhs,
       doorscrieftTransaksis,
     });
     if (result?.success && result.path) {
@@ -79,7 +100,7 @@ export function BatangTubuhPage() {
     }
   };
 
-  const filtered = batangTubuhs.filter(
+  const filtered = activeBatangTubuhs.filter(
     (bt) => {
       const isPendapatan = !bt.kode.startsWith('II.');
       if (jenis === 'pendapatan' && !isPendapatan) return false;

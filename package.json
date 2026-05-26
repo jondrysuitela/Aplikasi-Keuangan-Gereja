@@ -9,7 +9,52 @@
     "dev:electron": "wait-on http://localhost:5173 && node start-electron.js",
     "build": "npm run build --prefix frontend && npm run build:electron",
     "build:electron": "electron-builder --win --publish never",
-    "start": "electron ."
+    "start": "electron .",
+    "version:dry": "standard-version --dry-run",
+    "version:bump": "standard-version",
+    "version:patch": "standard-version --release-as patch",
+    "version:minor": "standard-version --release-as minor",
+    "version:major": "standard-version --release-as major",
+    "version:beta": "standard-version --prerelease beta",
+    "version:rc": "standard-version --prerelease rc"
+  },
+  "standard-version": {
+    "tagPrefix": "v",
+    "skip": {
+      "commit": false,
+      "tag": false
+    },
+    "types": [
+      {
+        "type": "feat",
+        "section": "Fitur"
+      },
+      {
+        "type": "fix",
+        "section": "Perbaikan"
+      },
+      {
+        "type": "perf",
+        "section": "Performa"
+      },
+      {
+        "type": "refactor",
+        "section": "Refactor"
+      },
+      {
+        "type": "docs",
+        "section": "Dokumentasi"
+      },
+      {
+        "type": "test",
+        "section": "Testing"
+      },
+      {
+        "type": "chore",
+        "section": "Maintenance",
+        "hidden": false
+      }
+    ]
   },
   "build": {
     "appId": "com.gereja.keuangan",
@@ -47,6 +92,14 @@
       {
         "from": "data/APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx",
         "to": "data/APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx"
+      },
+      {
+        "from": "data/MAPPING.xlsx",
+        "to": "data/MAPPING.xlsx"
+      },
+      {
+        "from": "data/sub-seksi-export-db.json",
+        "to": "data/sub-seksi-export-db.json"
       }
     ],
     "win": {
@@ -81,6 +134,7 @@
     "cross-env": "^7.0.3",
     "electron": "^31.7.7",
     "electron-builder": "^25.1.7",
+    "standard-version": "^9.5.0",
     "wait-on": "^8.0.1"
   },
   "dependencies": {

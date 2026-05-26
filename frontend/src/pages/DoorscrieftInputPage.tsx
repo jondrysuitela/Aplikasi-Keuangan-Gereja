@@ -3,13 +3,30 @@ import { useStore } from '@/stores';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { formatCurrency } from '@/lib/utils';
-import { Search, Plus, Edit2, Trash2, X, ChevronLeft, ChevronRight, Trash, Download, ExternalLink } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, X, ChevronLeft, ChevronRight, Trash, Download, Upload, CalendarDays, Lock } from 'lucide-react';
 import type { KodeAnggaranItem, DoorscrieftRowInput } from '@/types';
+import { toast } from 'sonner';
+import { createAutoBackup } from '@/lib/projectSnapshot';
 
 function generateId() {
   return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9);
+}
+
+function toDateInputValue(value: Date | string | number) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return new Date().toLocaleDateString('en-CA');
+  return date.toLocaleDateString('en-CA');
+}
+
+function formatIndonesianDate(value: Date | string | number) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return 'Tanggal belum valid';
+  return date.toLocaleDateString('id-ID', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
 }
 
 function useDebouncedValue<T>(value: T, delayMs: number) {
@@ -22,7 +39,7 @@ function useDebouncedValue<T>(value: T, delayMs: number) {
 }
 
 const initialForm = {
-  tanggal: new Date().toISOString().split('T')[0],
+  tanggal: toDateInputValue(new Date()),
   no: '',
   uraian: '',
   kodeAnggaran: '',
@@ -34,6 +51,7 @@ const initialForm = {
 export function DoorscrieftInputPage() {
   const {
     tahunAktif,
+    lockedYears,
     kodeAnggarans,
     setKodeAnggarans,
     doorscrieftTransaksis,
@@ -42,6 +60,11 @@ export function DoorscrieftInputPage() {
     deleteDoorscrieftTransaksi,
     setDoorscrieftTransaksis,
   } = useStore();
+  const isYearLocked = lockedYears.includes(tahunAktif);
+
+  const showLockedYearMessage = () => {
+    toast.error(`Tahun ${tahunAktif} terkunci. Buka kunci di Pengaturan untuk mengubah data.`);
+  };
 
   // --- Undo history: snapshot-based, max 50 steps ---
   const undoHistoryRef = useRef<DoorscrieftRowInput[][]>([]);
@@ -56,6 +79,10 @@ export function DoorscrieftInputPage() {
   };
 
   const handleUndo = () => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     const snapshot = undoHistoryRef.current.pop();
     if (!snapshot) {
       alert('Tidak ada aksi yang bisa di-undo.');
@@ -82,7 +109,7 @@ export function DoorscrieftInputPage() {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  });
+  }, [handleUndo]);
 
 
   // Load kode anggaran dari Excel DATA BASE2 on mount
@@ -107,29 +134,26 @@ export function DoorscrieftInputPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
   const noInputRef = useRef<HTMLInputElement>(null);
 
   // Lembar aktif (index unique lembarId groups)
   const [activeLembar, setActiveLembar] = useState(0);
+  const [jumpLembarValue, setJumpLembarValue] = useState('1');
   // Per-lembar labels (editable)
   const [lembarLabels, setLembarLabels] = useState<Record<string, string>>({});
   // Track lembarId targeted by the currently open input dialog.
   const inputLembarIdRef = useRef<string | null>(null);
   // Backward-compatible alias for pending new lembar state used by close/reset logic.
   const pendingNewLembarIdRef = useRef<string | null>(null);
+  const defaultedYearRef = useRef<number | null>(null);
 
-  // All rows filtered by tahunAktif, sorted by tanggal then no
+  // All rows filtered by tahunAktif. Keep store/import order so imported Excel
+  // worksheet blocks stay aligned with the original Doorscrieft lembar order.
   const allRows = useMemo(() => {
     return doorscrieftTransaksis
-      .filter((r: DoorscrieftRowInput) => new Date(r.tanggal).getFullYear() === tahunAktif)
-      .sort((a: DoorscrieftRowInput, b: DoorscrieftRowInput) => {
-        const da = new Date(a.tanggal).getTime();
-        const db = new Date(b.tanggal).getTime();
-        if (da !== db) return da - db;
-        const na = Number(a.no) || 0;
-        const nb = Number(b.no) || 0;
-        return na - nb;
-      });
+      .filter((r: DoorscrieftRowInput) => new Date(r.tanggal).getFullYear() === tahunAktif);
   }, [doorscrieftTransaksis, tahunAktif]);
 
   // Group by lembarId instead of date — each lembar is independent
@@ -149,6 +173,26 @@ export function DoorscrieftInputPage() {
   }, [allRows]);
 
   const activeLembarId = dateGroups[activeLembar]?.[0] ?? '';
+
+  useEffect(() => {
+    if (dateGroups.length === 0) {
+      defaultedYearRef.current = null;
+      setActiveLembar(0);
+      return;
+    }
+    if (defaultedYearRef.current !== tahunAktif) {
+      defaultedYearRef.current = tahunAktif;
+      setActiveLembar(dateGroups.length - 1);
+      return;
+    }
+    if (activeLembar >= dateGroups.length) {
+      setActiveLembar(dateGroups.length - 1);
+    }
+  }, [dateGroups.length, activeLembar, tahunAktif]);
+
+  useEffect(() => {
+    setJumpLembarValue(String(activeLembar + 1));
+  }, [activeLembar]);
 
   useEffect(() => {
     if (!isOpen || editingId) return;
@@ -186,41 +230,24 @@ export function DoorscrieftInputPage() {
     });
   }, [dateGroups, activeLembar, debouncedSearch]);
 
-  // Sisa Saldo Tahun Lalu: read I.1.1.01 from first lembar only
-  const sisaTahunLalu = useMemo(() => {
-    const firstLembarRows = dateGroups[0]?.[1] || [];
-    const i101Rows = firstLembarRows.filter(
-      (r: DoorscrieftRowInput) => r.kodeAnggaran === 'I.1.1.01'
-    );
-    return {
-      p: i101Rows.reduce((s, r) => s + Number(r.penerimaan || 0), 0),
-      q: i101Rows.reduce((s, r) => s + Number(r.pengeluaran || 0), 0),
-    };
-  }, [dateGroups]);
-
-  // Per-lembar totals: first lembar excludes I.1.1.01 from daily sum, uses it as S/D
-  // Subsequent lembar: daily = all rows, S/D = previous lembar total
+  // Per-lembar totals: first lembar starts from zero, subsequent lembar continues
+  // from previous lembar total. No automatic previous-year balance.
   const lembarTotals = useMemo(() => {
     const totals: { harianP: number; harianQ: number; sDP: number; sDQ: number; totalP: number; totalQ: number }[] = [];
 
     for (let i = 0; i < dateGroups.length; i++) {
       const [, rows] = dateGroups[i];
-      // First lembar: exclude I.1.1.01 from daily sum
-      const harianP = i === 0
-        ? rows.filter(r => r.kodeAnggaran !== 'I.1.1.01').reduce((s, r) => s + Number(r.penerimaan || 0), 0)
-        : rows.reduce((s, r) => s + Number(r.penerimaan || 0), 0);
-      const harianQ = i === 0
-        ? rows.filter(r => r.kodeAnggaran !== 'I.1.1.01').reduce((s, r) => s + Number(r.pengeluaran || 0), 0)
-        : rows.reduce((s, r) => s + Number(r.pengeluaran || 0), 0);
+      const harianP = rows.reduce((s, r) => s + Number(r.penerimaan || 0), 0);
+      const harianQ = rows.reduce((s, r) => s + Number(r.pengeluaran || 0), 0);
 
-      const sDP = i === 0 ? sisaTahunLalu.p : totals[i - 1].totalP;
-      const sDQ = i === 0 ? sisaTahunLalu.q : totals[i - 1].totalQ;
+      const sDP = i === 0 ? 0 : totals[i - 1].totalP;
+      const sDQ = i === 0 ? 0 : totals[i - 1].totalQ;
 
       totals.push({ harianP, harianQ, sDP, sDQ, totalP: sDP + harianP, totalQ: sDQ + harianQ });
     }
 
     return totals;
-  }, [dateGroups, sisaTahunLalu]);
+  }, [dateGroups]);
 
   // Summary for active lembar — uses pre-computed lembarTotals
   const summary = useMemo(() => {
@@ -250,6 +277,30 @@ export function DoorscrieftInputPage() {
     const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     return `${months[d.getMonth()]} ${tahunAktif}`;
   }, [dateGroups, activeLembar, tahunAktif]);
+
+  const getInputDateForLembarIndex = (lembarIndex: number) => {
+    const rows = dateGroups[lembarIndex]?.[1] || [];
+    if (rows.length > 0) {
+      const latest = rows.reduce((max, row) => {
+        const time = new Date(row.tanggal).getTime();
+        return Number.isFinite(time) && time > max ? time : max;
+      }, -Infinity);
+
+      if (Number.isFinite(latest)) {
+        return toDateInputValue(new Date(latest));
+      }
+    }
+
+    return toDateInputValue(new Date(tahunAktif, 0, 1));
+  };
+
+  const activeLembarInputDate = useMemo(() => {
+    return getInputDateForLembarIndex(activeLembar);
+  }, [dateGroups, activeLembar, tahunAktif]);
+
+  const selectedDateLabel = useMemo(() => {
+    return formatIndonesianDate(form.tanggal);
+  }, [form.tanggal]);
 
   // Kode anggaran master search
   const filteredMaster = useMemo(() => {
@@ -323,9 +374,13 @@ export function DoorscrieftInputPage() {
     formData = form,
     targetLembarIdOverride?: string | null,
     resetLocalForm = true,
-  ) => {
+  ): boolean => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return false;
+    }
     const mata = validateKodeAnggaran(formData.kodeAnggaran);
-    if (!mata) return;
+    if (!mata) return false;
 
     // Determine which lembar this row belongs to. Keep the dialog target stable
     // so consecutive inputs after creating a new lembar stay in that new lembar.
@@ -363,33 +418,75 @@ export function DoorscrieftInputPage() {
         // Reset form tapi tetap buka dialog untuk input berikutnya
         setForm({
           tanggal: formData.tanggal,
-          no: '',
+          no: newNo,
           uraian: '',
           kodeAnggaran: '',
           mataAnggaran: '',
           penerimaan: '',
           pengeluaran: '',
         });
-        // Auto-fill nomor berikutnya untuk input selanjutnya
-        setTimeout(() => {
-          setForm((prev) => ({ ...prev, no: newNo }));
-          noInputRef.current?.focus();
-        }, 120);
       }
     }
+
+    return true;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitDoorscrieftForm();
+    if (isSubmitting) return;
+
+    const snapshot = { ...form };
+    const wasEditing = Boolean(editingId);
+    const nextNoAfterSave = String((Number(snapshot.no) || 0) + 1);
+
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      try {
+        const saved = submitDoorscrieftForm(snapshot, undefined, false);
+        if (saved) {
+          setKodeDropdownOpen(false);
+          setKodeHighlightIdx(-1);
+          setKodeSearch('');
+
+          if (wasEditing) {
+            setIsOpen(false);
+            setEditingId(null);
+            toast.success('Data Doorscrieft diperbarui.');
+          } else {
+            setForm({
+              tanggal: snapshot.tanggal,
+              no: nextNoAfterSave,
+              uraian: '',
+              kodeAnggaran: '',
+              mataAnggaran: '',
+              penerimaan: '',
+              pengeluaran: '',
+            });
+            toast.success('Data Doorscrieft disimpan.');
+            window.requestAnimationFrame(() => {
+              noInputRef.current?.focus();
+              noInputRef.current?.select();
+            });
+          }
+        }
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'Data Doorscrieft gagal disimpan.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }, 0);
   };
 
   const handleEdit = (item: DoorscrieftRowInput) => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     setEditingId(item.id);
     inputLembarIdRef.current = item.lembarId || null;
     pendingNewLembarIdRef.current = null;
     setForm({
-      tanggal: new Date(item.tanggal).toISOString().split('T')[0],
+      tanggal: toDateInputValue(item.tanggal),
       no: String(item.no || ''),
       uraian: item.uraian || '',
       kodeAnggaran: item.kodeAnggaran || '',
@@ -399,9 +496,56 @@ export function DoorscrieftInputPage() {
     });
     setKodeSearch(item.kodeAnggaran || '');
     setIsOpen(true);
+    window.requestAnimationFrame(() => {
+      noInputRef.current?.focus();
+      noInputRef.current?.select();
+    });
+  };
+
+  const closeInputPanel = () => {
+    setIsOpen(false);
+    setEditingId(null);
+    setIsSubmitting(false);
+    setForm({ ...initialForm, tanggal: activeLembarInputDate, no: nextNomor });
+    setKodeSearch('');
+    setKodeDropdownOpen(false);
+    setKodeHighlightIdx(-1);
+    inputLembarIdRef.current = null;
+    pendingNewLembarIdRef.current = null;
+  };
+
+  const handleStartInputCurrentLembar = () => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
+    let targetLembarId = activeLembarId;
+    if (!targetLembarId) {
+      targetLembarId = generateId();
+      setLembarLabels((prev) => ({ ...prev, [targetLembarId]: 'Lembar 1' }));
+      pendingNewLembarIdRef.current = targetLembarId;
+    } else {
+      pendingNewLembarIdRef.current = null;
+    }
+
+    inputLembarIdRef.current = targetLembarId;
+    setEditingId(null);
+    setForm({ ...initialForm, tanggal: activeLembarInputDate, no: nextNomor });
+    setKodeSearch('');
+    setKodeDropdownOpen(false);
+    setKodeHighlightIdx(-1);
+    setIsOpen(true);
+    window.requestAnimationFrame(() => {
+      noInputRef.current?.focus();
+      noInputRef.current?.select();
+    });
   };
 
   const handleDelete = (id: string) => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     if (!confirm('Yakin hapus baris ini?')) return;
     pushUndoSnapshot();
     deleteDoorscrieftTransaksi(id);
@@ -416,7 +560,7 @@ export function DoorscrieftInputPage() {
       const harianP = rows.reduce((s, r) => s + Number(r.penerimaan || 0), 0);
       const harianQ = rows.reduce((s, r) => s + Number(r.pengeluaran || 0), 0);
 
-      // Use lembarTotals for correct opening balance chaining
+      // Use lembarTotals for correct per-lembar total chaining
       const sDP = lembarTotals[idx]?.sDP ?? 0;
       const sDQ = lembarTotals[idx]?.sDQ ?? 0;
       const totalP = lembarTotals[idx]?.totalP ?? (sDP + harianP);
@@ -424,11 +568,16 @@ export function DoorscrieftInputPage() {
 
       return {
         dateKey: lembarId,
+        bulan: rows[0] ? new Date(rows[0].tanggal).getMonth() : undefined,
+        monthName: rows[0]
+          ? new Date(rows[0].tanggal).toLocaleDateString('id-ID', { month: 'long' }).toUpperCase()
+          : 'BULAN',
         rows: rows.map((r: DoorscrieftRowInput) => ({
           no: r.no,
-          tanggal: new Date(r.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }),
+          tanggal: toDateInputValue(r.tanggal),
           uraian: r.uraian,
           kodeAnggaran: r.kodeAnggaran,
+          mataAnggaran: r.mataAnggaran,
           penerimaan: r.penerimaan || 0,
           pengeluaran: r.pengeluaran || 0,
         })),
@@ -444,8 +593,10 @@ export function DoorscrieftInputPage() {
 
     const exportData = {
       lembars,
+      kodeAnggarans,
+      tahun: tahunAktif,
       monthName: sheetLabel || 'BULAN',
-      fileName: `Doorscrieft_${namaJemaat.replace(/\s+/g, '_')}_${tahunAktif}.xlsx`,
+      fileName: `Doorscrieft_${tahunAktif}.xlsx`,
     };
 
     if (anyWin?.electronAPI?.exportDoorscrieftToExcel) {
@@ -460,6 +611,72 @@ export function DoorscrieftInputPage() {
       });
     } else {
       exportFallbackCSV(exportData);
+    }
+  };
+
+  const handleImportExcel = async () => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
+    const anyWin = window as unknown as {
+      electronAPI?: {
+        importDoorscrieftFromExcel?: (options: { year: number }) => Promise<{
+          success: boolean;
+          canceled?: boolean;
+          error?: string;
+          rows?: Array<Partial<DoorscrieftRowInput> & { tanggal?: string; lembarId?: string }>;
+          path?: string;
+        }>;
+      };
+    };
+
+    if (!anyWin?.electronAPI?.importDoorscrieftFromExcel) {
+      alert('Import Excel tidak tersedia. Pastikan aplikasi berjalan di desktop Electron.');
+      return;
+    }
+
+    setIsImporting(true);
+    try {
+      const result = await anyWin.electronAPI.importDoorscrieftFromExcel({ year: tahunAktif });
+      if (!result?.success) {
+        if (!result?.canceled) alert(`Import gagal: ${result?.error || 'Error tidak diketahui'}`);
+        return;
+      }
+
+      const importedRows = Array.isArray(result.rows) ? result.rows : [];
+      if (importedRows.length === 0) {
+        alert('Tidak ada data Doorscrieft yang terbaca dari file Excel.');
+        return;
+      }
+
+      await createAutoBackup('sebelum-import-doorscrieft');
+      pushUndoSnapshot();
+      const now = new Date();
+      const rows = importedRows.map((row) => {
+        const kode = String(row.kodeAnggaran || '').trim();
+        const master = kodeAnggarans.find((item) => item.kodeAnggaran === kode);
+        return {
+          id: generateId(),
+          no: String(row.no || ''),
+          tanggal: row.tanggal ? new Date(row.tanggal) : new Date(tahunAktif, Number(row.bulan || 0), 1),
+          uraian: String(row.uraian || ''),
+          kodeAnggaran: kode,
+      mataAnggaran: master?.mataAnggaran || String(row.mataAnggaran || ''),
+      penerimaan: Number(row.penerimaan || 0),
+      pengeluaran: Number(row.pengeluaran || 0),
+          lembarId: row.lembarId || generateId(),
+          bulan: typeof row.bulan === 'number' ? row.bulan : undefined,
+          createdBy: 'admin',
+          createdAt: now,
+          updatedAt: now,
+        } as DoorscrieftRowInput;
+      });
+
+      setDoorscrieftTransaksis([...doorscrieftTransaksis, ...rows]);
+      alert(`Import berhasil: ${rows.length} baris Doorscrieft ditambahkan.`);
+    } finally {
+      setIsImporting(false);
     }
   };
 
@@ -514,8 +731,6 @@ export function DoorscrieftInputPage() {
     URL.revokeObjectURL(url);
   };
 
-  const namaJemaat = useStore.getState().namaJemaat || 'Gereja';
-
   // Context menu for lembar right-click
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; idx: number } | null>(null);
 
@@ -533,6 +748,10 @@ export function DoorscrieftInputPage() {
   }, [contextMenu]);
 
   const handleEditLembar = (idx: number) => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     const [lembarId] = dateGroups[idx] || [];
     if (!lembarId) return;
     setEditingId(null);
@@ -541,6 +760,7 @@ export function DoorscrieftInputPage() {
     pendingNewLembarIdRef.current = null;
     setForm({
       ...initialForm,
+      tanggal: getInputDateForLembarIndex(idx),
       no: nextNomor,
     });
     setKodeSearch('');
@@ -549,6 +769,10 @@ export function DoorscrieftInputPage() {
   };
 
   const handleDeleteLembar = (idx: number) => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     const [lembarId] = dateGroups[idx] || [];
     if (!lembarId) return;
     const label = lembarLabels[lembarId] || `Lembar ${idx + 1}`;
@@ -563,16 +787,46 @@ export function DoorscrieftInputPage() {
     setContextMenu(null);
   };
 
-  const handleHapusSemua = () => {
+  const handleHapusSemua = async () => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     if (!confirm('Hapus SEMUA data Doorscrieft? Tindakan ini tidak bisa dibatalkan.')) return;
+    await createAutoBackup('sebelum-hapus-semua-doorscrieft');
     pushUndoSnapshot();
     setDoorscrieftTransaksis([]);
   };
 
   const goPrev = () => setActiveLembar((l) => Math.max(0, l - 1));
   const goNext = () => setActiveLembar((l) => Math.min(dateGroups.length - 1, l + 1));
+  const goFirst = () => setActiveLembar(0);
+  const goLast = () => setActiveLembar(Math.max(0, dateGroups.length - 1));
+  const handleJumpLembar = (value: string) => {
+    setJumpLembarValue(value);
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    const next = Number(trimmed);
+    if (!Number.isFinite(next)) return;
+    setActiveLembar(Math.max(0, Math.min(dateGroups.length - 1, next - 1)));
+  };
+
+  const compactLembarIndexes = useMemo(() => {
+    const total = dateGroups.length;
+    if (total <= 9) return Array.from({ length: total }, (_, index) => index);
+
+    const indexes = new Set<number>([0, total - 1]);
+    for (let index = activeLembar - 2; index <= activeLembar + 2; index += 1) {
+      if (index >= 0 && index < total) indexes.add(index);
+    }
+    return Array.from(indexes).sort((a, b) => a - b);
+  }, [activeLembar, dateGroups.length]);
 
   const handleAddLembarLanjutan = () => {
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
     // Create a new lembar with its own ID
     const newLembarId = generateId();
     const newLabel = `Lembar ${dateGroups.length + 1}`;
@@ -589,78 +843,26 @@ export function DoorscrieftInputPage() {
     inputLembarIdRef.current = newLembarId;
     pendingNewLembarIdRef.current = newLembarId;
 
-    // Open input dialog with today's date (user can change freely)
+    // Open input panel using the active lembar month, not the system month.
     setEditingId(null);
     setForm({
       ...initialForm,
+      tanggal: activeLembarInputDate,
       no: newNo,
     });
     setKodeSearch('');
+    setKodeDropdownOpen(false);
+    setKodeHighlightIdx(-1);
     setIsOpen(true);
-  };
-
-  const openExternalInputWindow = async (createNewLembar = false, seedForm = form) => {
-    const anyWin = window as unknown as {
-      electronAPI?: {
-        openDoorscrieftInputWindow?: (data: unknown) => Promise<{ success: boolean; error?: string }>;
-      };
-    };
-
-    if (!anyWin?.electronAPI?.openDoorscrieftInputWindow) {
-      setEditingId(null);
-      setForm({ ...initialForm, no: nextNomor });
-      setIsOpen(true);
-      return;
-    }
-
-    let targetLembarId = inputLembarIdRef.current || activeLembarId || 'default';
-    let nextLabelCount = dateGroups.length;
-    if (createNewLembar || !targetLembarId) {
-      targetLembarId = generateId();
-      nextLabelCount = dateGroups.length + 1;
-      setLembarLabels((prev) => ({ ...prev, [targetLembarId]: `Lembar ${nextLabelCount}` }));
-    }
-    inputLembarIdRef.current = targetLembarId;
-    pendingNewLembarIdRef.current = createNewLembar ? targetLembarId : null;
-
-    const initialNo = seedForm.no || nextNomor;
-    const result = await anyWin.electronAPI.openDoorscrieftInputWindow({
-      targetLembarId,
-      kodeAnggarans,
-      form: {
-        ...initialForm,
-        ...seedForm,
-        no: initialNo,
-      },
+    window.requestAnimationFrame(() => {
+      noInputRef.current?.focus();
+      noInputRef.current?.select();
     });
-    if (!result?.success) {
-      alert(result?.error || 'Gagal membuka window input.');
-    }
   };
-
-  const moveCurrentDialogToExternalWindow = async () => {
-    await openExternalInputWindow(false, form);
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    const anyWin = window as unknown as {
-      electronAPI?: {
-        onDoorscrieftExternalSubmit?: (cb: (payload: { form: typeof form; targetLembarId?: string | null }) => void) => (() => void) | undefined;
-      };
-    };
-    if (!anyWin?.electronAPI?.onDoorscrieftExternalSubmit) return;
-
-    const cleanup = anyWin.electronAPI.onDoorscrieftExternalSubmit((payload) => {
-      if (!payload?.form) return;
-      submitDoorscrieftForm(payload.form, payload.targetLembarId, false);
-    });
-    return () => cleanup?.();
-  }, [kodeAnggarans, activeLembarId, editingId, doorscrieftTransaksis, form]);
 
   // Format date display
-  const formatDateDisplay = (dateStr: string) => {
-    const d = new Date(dateStr);
+  const formatDateDisplay = (value: Date | string | number) => {
+    const d = value instanceof Date ? value : new Date(value);
     return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
   };
 
@@ -670,6 +872,12 @@ export function DoorscrieftInputPage() {
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-3'>
           <h1 className='text-xl font-bold text-slate-900 dark:text-white'>Doorscrieft</h1>
+          {isYearLocked && (
+            <span className='inline-flex items-center gap-1 rounded-md bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/40 dark:text-red-300'>
+              <Lock className='h-3.5 w-3.5' />
+              Tahun {tahunAktif} terkunci
+            </span>
+          )}
           {undoCount > 0 && (
             <span className='text-xs text-slate-400 dark:text-slate-500 select-none' title='Undo (Ctrl+Z)'>Ctrl+Z untuk undo</span>
           )}
@@ -680,7 +888,7 @@ export function DoorscrieftInputPage() {
               Undo
             </Button>
           )}
-          {doorscrieftTransaksis.length > 0 && (
+          {doorscrieftTransaksis.length > 0 && !isYearLocked && (
             <Button variant='destructive' size='sm' onClick={handleHapusSemua}>
               <Trash className='mr-1 h-3.5 w-3.5' /> Hapus Semua
             </Button>
@@ -691,8 +899,8 @@ export function DoorscrieftInputPage() {
       {/* Search + Lembar nav — sticky on scroll */}
       <div className='sticky top-0 z-20 bg-gray-50 dark:bg-slate-900 pt-1 -mx-1 px-1 space-y-2'>
         {/* Search + Tambah Lembar */}
-        <div className='flex items-center gap-2 max-w-lg'>
-          <div className='relative flex-1'>
+        <div className='flex flex-wrap items-center gap-2'>
+          <div className='relative min-w-[260px] flex-1'>
             <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400' />
             <Input
               placeholder='Cari No, Uraian, atau Kode Anggaran...'
@@ -701,50 +909,78 @@ export function DoorscrieftInputPage() {
               className='pl-10'
             />
           </div>
-          <Button variant='outline' size='sm' onClick={handleAddLembarLanjutan}>
+          <Button variant='outline' size='sm' onClick={handleAddLembarLanjutan} disabled={isYearLocked}>
             <Plus className='mr-1 h-3.5 w-3.5' /> Lembar
           </Button>
-          <Button variant='outline' size='sm' onClick={() => openExternalInputWindow(false)} title='Buka input di window luar'>
-            <ExternalLink className='mr-1 h-3.5 w-3.5' /> Window
+          <Button size='sm' onClick={handleStartInputCurrentLembar} disabled={isYearLocked}>
+            <Plus className='mr-1 h-3.5 w-3.5' /> Tambah Data
+          </Button>
+          <Button variant='outline' size='sm' onClick={handleImportExcel} disabled={isImporting || isYearLocked}>
+            <Upload className='mr-1 h-3.5 w-3.5' /> {isImporting ? 'Menganalisis...' : 'Import Excel'}
           </Button>
         </div>
 
         {/* Lembar navigation */}
         {dateGroups.length > 0 && (
-          <div className='flex items-center gap-3 bg-white dark:bg-slate-800 dark:border-slate-700 rounded-lg border px-4 py-2'>
-          <span className='text-sm font-semibold text-slate-700 dark:text-slate-200'>
-            Tahun {tahunAktif}
-          </span>
-          <Button variant='ghost' size='icon' onClick={goPrev} disabled={activeLembar === 0}>
-            <ChevronLeft className='h-4 w-4' />
-          </Button>
-          <div className='flex gap-1 overflow-x-auto flex-1'>
-            {dateGroups.map(([lembarId], idx) => {
-              const label = lembarLabels[lembarId] || `Lembar ${idx + 1}`;
-              return (
-                <button
-                  key={lembarId}
-                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
-                    idx === activeLembar ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
-                  }`}
-                  onClick={() => setActiveLembar(idx)}
-                  onContextMenu={(e) => handleLembarRightClick(e, idx)}
-                  title={`Klik kanan untuk opsi (klik kanan)`}
-                >
-                  {label}
-                </button>
-              );
-            })}
+          <div className='space-y-2 rounded-lg border bg-white px-4 py-2 dark:border-slate-700 dark:bg-slate-800'>
+            <div className='flex flex-wrap items-center gap-2'>
+              <span className='text-sm font-semibold text-slate-700 dark:text-slate-200'>
+                Tahun {tahunAktif}
+              </span>
+              <Button variant='outline' size='sm' onClick={goFirst} disabled={activeLembar === 0}>
+                Awal
+              </Button>
+              <Button variant='ghost' size='icon' onClick={goPrev} disabled={activeLembar === 0}>
+                <ChevronLeft className='h-4 w-4' />
+              </Button>
+              <Button variant='ghost' size='icon' onClick={goNext} disabled={activeLembar >= dateGroups.length - 1}>
+                <ChevronRight className='h-4 w-4' />
+              </Button>
+              <Button variant='outline' size='sm' onClick={goLast} disabled={activeLembar >= dateGroups.length - 1}>
+                Akhir
+              </Button>
+              <label className='ml-auto flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400'>
+                Lembar ke
+                <input
+                  type='number'
+                  min={1}
+                  max={dateGroups.length}
+                  value={jumpLembarValue}
+                  onChange={(event) => handleJumpLembar(event.target.value)}
+                  className='h-8 w-20 rounded-md border border-slate-300 bg-white px-2 text-center text-sm font-semibold text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-700 dark:text-white'
+                />
+              </label>
+              <span className='text-xs text-slate-500 dark:text-slate-400'>dari {dateGroups.length}</span>
+              <Button variant='outline' size='sm' onClick={handleExportExcel}>
+                <Download className='mr-1 h-3.5 w-3.5' /> Export Excel
+              </Button>
+            </div>
+
+            <div className='flex flex-wrap items-center gap-1'>
+              {compactLembarIndexes.map((idx, position) => {
+                const [lembarId] = dateGroups[idx];
+                const label = lembarLabels[lembarId] || `Lembar ${idx + 1}`;
+                const previous = compactLembarIndexes[position - 1];
+                const showGap = previous !== undefined && idx - previous > 1;
+                return (
+                  <div key={lembarId} className='flex items-center gap-1'>
+                    {showGap && <span className='px-1 text-xs text-slate-400'>...</span>}
+                    <button
+                      className={`h-8 min-w-10 rounded-md px-2 text-sm font-medium transition-colors ${
+                        idx === activeLembar ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700'
+                      }`}
+                      onClick={() => setActiveLembar(idx)}
+                      onContextMenu={(e) => handleLembarRightClick(e, idx)}
+                      title={`${label}. Klik kanan untuk opsi.`}
+                    >
+                      {idx + 1}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <Button variant='ghost' size='icon' onClick={goNext} disabled={activeLembar >= dateGroups.length - 1}>
-            <ChevronRight className='h-4 w-4' />
-          </Button>
-          <span className='ml-auto text-xs text-slate-500'>{dateGroups.length} lembar</span>
-          <Button variant='outline' size='sm' onClick={handleExportExcel}>
-            <Download className='mr-1 h-3.5 w-3.5' /> Export Excel
-          </Button>
-        </div>
-      )}
+        )}
       </div>
 
       {/* Context menu for lembar */}
@@ -765,6 +1001,18 @@ export function DoorscrieftInputPage() {
           >
             <Trash2 className='h-3.5 w-3.5' /> Hapus Lembar {contextMenu.idx + 1}
           </button>
+        </div>
+      )}
+
+      {isImporting && (
+        <div className='fixed inset-0 z-[10000] flex items-center justify-center bg-black/45 px-4'>
+          <div className='w-full max-w-sm rounded-lg border border-slate-200 bg-white p-5 text-center shadow-2xl dark:border-slate-700 dark:bg-slate-800'>
+            <div className='mx-auto h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600 dark:border-slate-700 dark:border-t-blue-400' />
+            <h2 className='mt-4 text-base font-semibold text-slate-900 dark:text-white'>Menganalisis Sheet DOORSCRIEFT</h2>
+            <p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>
+              Aplikasi sedang membaca blok lembar kerja, kolom kode anggaran, dan nominal transaksi.
+            </p>
+          </div>
         </div>
       )}
 
@@ -805,7 +1053,7 @@ export function DoorscrieftInputPage() {
                       <tr key={r.id} className='border-b hover:bg-slate-50 dark:hover:bg-slate-700 dark:border-slate-700'>
                         <td className='px-3 py-2 border-r dark:border-slate-600 font-mono text-xs text-slate-500 dark:text-slate-400 w-16 text-center'>{r.no || idx + 1}</td>
                         <td className='px-3 py-2 border-r dark:border-slate-600 whitespace-nowrap w-36 text-xs text-center'>
-                          {formatDateDisplay(new Date(r.tanggal).toISOString().split('T')[0])}
+                          {formatDateDisplay(r.tanggal)}
                         </td>
                         <td className='px-3 py-2 border-r dark:border-slate-600 text-xs'>{r.uraian}</td>
                         <td className='px-3 py-2 border-r dark:border-slate-600 text-xs text-center'>{r.kodeAnggaran}</td>
@@ -890,21 +1138,22 @@ export function DoorscrieftInputPage() {
       </Card>
       </div>
 
-      {/* Input Dialog - bisa di-drag dan ada toggle lembar baru */}
-      <Dialog open={isOpen} onOpenChange={(open) => {
-        setIsOpen(open);
-        if (!open) {
-          setEditingId(null);
-          setForm({ ...initialForm, no: nextNomor });
-          setKodeSearch('');
-          inputLembarIdRef.current = null;
-          pendingNewLembarIdRef.current = null;
-        }
-      }} draggable>
-        <DialogContent>
-          <DialogHeader>
-            <div className='flex items-center justify-between'>
-              <DialogTitle>{editingId ? 'Edit Doorscrieft' : 'Tambah Doorscrieft'}</DialogTitle>
+      {/* Input Panel */}
+      {isOpen && (
+        <Card className='print-hidden overflow-hidden border-blue-200 bg-blue-50/60 shadow-sm animate-[doorscrieftPanelIn_.38s_cubic-bezier(.2,.85,.25,1)] dark:border-blue-900/60 dark:bg-blue-950/20'>
+          <div className='h-1 bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500' />
+          <CardHeader className='pb-3'>
+            <div className='flex items-center justify-between gap-3'>
+              <div>
+                <h2 className='text-lg font-semibold dark:text-white'>{editingId ? 'Edit Doorscrieft' : 'Tambah Doorscrieft'}</h2>
+                <div
+                  key={form.tanggal}
+                  className='mt-1 inline-flex items-center gap-2 rounded-md border border-blue-200 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-blue-700 animate-[doorscrieftDateChipIn_.22s_ease-out] dark:border-blue-900 dark:bg-slate-800 dark:text-blue-300'
+                >
+                  <CalendarDays className='h-3.5 w-3.5' />
+                  {selectedDateLabel}
+                </div>
+              </div>
               <div className='flex items-center gap-1'>
                 {!editingId && dateGroups.length > 0 && (
                   <Button
@@ -917,25 +1166,20 @@ export function DoorscrieftInputPage() {
                     <Plus className='mr-1 h-3.5 w-3.5' /> Lembar
                   </Button>
                 )}
-                {!editingId && (
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    className='h-6 text-xs'
-                    onClick={moveCurrentDialogToExternalWindow}
-                    title='Pindahkan input ke window luar'
-                  >
-                    <ExternalLink className='mr-1 h-3.5 w-3.5' /> Window
-                  </Button>
-                )}
-                <Button variant='ghost' size='icon' className='h-6 w-6' onClick={() => setIsOpen(false)}>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='h-6 w-6'
+                  onClick={closeInputPanel}
+                >
                   <X className='h-4 w-4' />
                 </Button>
               </div>
             </div>
-          </DialogHeader>
+          </CardHeader>
 
-          <form onSubmit={handleSubmit} className='space-y-3'>
+          <CardContent>
+            <form onSubmit={handleSubmit} className='space-y-3'>
             <div className='grid grid-cols-2 gap-3'>
               <Input
                 label='No'
@@ -948,6 +1192,7 @@ export function DoorscrieftInputPage() {
               <Input
                 label='Tanggal'
                 type='date'
+                lang='id-ID'
                 value={form.tanggal}
                 onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
                 required
@@ -1089,12 +1334,15 @@ export function DoorscrieftInputPage() {
               />
             </div>
 
-            <DialogFooter>
-              <Button type='submit'>{editingId ? 'Simpan' : 'Tambah'}</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+            <div className='mt-4 flex justify-end gap-2'>
+              <Button type='submit' disabled={isSubmitting}>
+                {isSubmitting ? 'Menyimpan...' : editingId ? 'Simpan' : 'Tambah'}
+              </Button>
+            </div>
+            </form>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

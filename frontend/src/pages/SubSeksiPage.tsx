@@ -4,24 +4,32 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Plus, ChevronRight, ChevronDown, Search } from 'lucide-react';
+import { Plus, ChevronRight, ChevronDown, Search, Download } from 'lucide-react';
 import { formatCurrency, getMonthName } from '@/lib/utils';
+import type { SubSeksi } from '@/types';
+
+type SubSeksiLoadApi = {
+  electronAPI?: {
+    loadSubSeksiDb?: () => Promise<Array<Omit<SubSeksi, 'id'>>>;
+    loadSubSeksi?: () => Promise<Array<Omit<SubSeksi, 'id'>>>;
+  };
+};
 
 export function SubSeksiPage() {
   const { subSeksis, setSubSeksis, doorscrieftTransaksis, tahunAktif, addSubSeksi, updateSubSeksi } = useStore();
 
   // Load Sub Seksi from database on mount
   useEffect(() => {
-    const anyWin = window as any;
+    const anyWin = window as unknown as SubSeksiLoadApi;
     if (!anyWin?.electronAPI?.loadSubSeksiDb) return;
     anyWin.electronAPI
       .loadSubSeksiDb()
-      .then((items: any[]) => {
+      .then((items) => {
         if (Array.isArray(items) && items.length > 0) setSubSeksis(items);
       })
       .catch(() => {
         if (anyWin?.electronAPI?.loadSubSeksi) {
-          anyWin.electronAPI.loadSubSeksi().then((items: any[]) => {
+          anyWin.electronAPI.loadSubSeksi().then((items) => {
             if (Array.isArray(items) && items.length > 0) setSubSeksis(items);
           }).catch(() => {});
         }
@@ -57,12 +65,12 @@ export function SubSeksiPage() {
     return 'pendapatan';
   };
 
-  const filtered = subSeksis.filter(
+  const filtered = useMemo(() => subSeksis.filter(
     (s) => getJenis(s.kode) === jenis && (s.nama.toLowerCase().includes(search.toLowerCase()) || s.kode.toLowerCase().includes(search.toLowerCase()))
-  );
+  ), [subSeksis, jenis, search]);
 
   // Find active node info (Sub Seksi or anak)
-  const activeNode = useMemo(() => {
+  const activeNode = (() => {
     if (!activeKode) return null;
     for (const ss of filtered) {
       if (ss.kode === activeKode) return { nama: ss.nama, kode: ss.kode, anak: ss.anak || [] };
@@ -71,7 +79,7 @@ export function SubSeksiPage() {
       }
     }
     return null;
-  }, [activeKode, filtered]);
+  })();
 
   // Get codes for a node: parent = all anak codes, anak = just its own code
   const getNodeCodes = useCallback((kode: string): string[] => {
@@ -134,6 +142,34 @@ export function SubSeksiPage() {
     setIsOpen(false); setEditingId(null); setFormMaster({ nama: '', kode: '' });
   };
 
+  const handleExportExcel = async () => {
+    const anyWin = window as unknown as {
+      electronAPI?: {
+        exportSubSeksiExcel?: (config: unknown) => Promise<{ success: boolean; path?: string; error?: string; canceled?: boolean }>;
+      };
+    };
+
+    if (!anyWin?.electronAPI?.exportSubSeksiExcel) {
+      alert('Export Excel SUB SEKSI hanya tersedia di aplikasi desktop.');
+      return;
+    }
+
+    try {
+      const result = await anyWin.electronAPI.exportSubSeksiExcel({
+        tahun: tahunAktif,
+        doorscrieftTransaksis,
+      });
+
+      if (result?.success) {
+        alert(`Berhasil export ke:\n${result.path}`);
+      } else if (!result?.canceled) {
+        alert(`Gagal export: ${result?.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      alert(`Gagal export: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  };
+
   // Stats per Sub Seksi (sum of anak) and per anak
   const statsMap = useMemo(() => {
     const stats: Record<string, { tr: number; tk: number; count: number }> = {};
@@ -180,6 +216,9 @@ export function SubSeksiPage() {
           <p className="text-slate-500 dark:text-slate-400">Klik untuk expand anak Sub Seksi</p>
         </div>
         <div className="flex gap-2">
+          <Button variant="outline" onClick={handleExportExcel}>
+            <Download className="mr-2 h-4 w-4" /> Export Excel
+          </Button>
           <Button variant="outline" onClick={() => { setFormMaster({ nama: '', kode: '' }); setEditingId(null); setIsOpen(true); }}>
             <Plus className="mr-2 h-4 w-4" /> Tambah
           </Button>

@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import type { User, KategoriPendapatan, KategoriBelanja, SubSeksi, Pemasukan, Pengeluaran, RealisasiAnggaran, KodeAnggaranItem, DoorscrieftRowInput, BatangTubuhItem } from '@/types';
 import { generateId } from '@/lib/utils';
-import { ensureTxId } from '@/lib/uuid';
-import { addPendingUuid, removePendingUuid as removePendingUuidFromOutbox } from '@/lib/syncOutbox';
 
 
 
@@ -56,11 +54,14 @@ interface AppState {
   // Batang Tubuh (from BATANG TUBUH.xlsx)
   batangTubuhs: BatangTubuhItem[];
   setBatangTubuhs: (items: BatangTubuhItem[]) => void;
+  batangTubuhAnggaranByYear: Record<string, Record<string, number>>;
+  setBatangTubuhAnggaranByYear: (items: Record<string, Record<string, number>>) => void;
+  setBatangTubuhAnggaranForYear: (tahun: number, kode: string, dianggarkan: number) => void;
 
   // Transaksi doorscrieft (DOORSCRIEFT2)
   doorscrieftTransaksis: DoorscrieftRowInput[];
   setDoorscrieftTransaksis: (transaksis: DoorscrieftRowInput[]) => void;
-  addDoorscrieftTransaksi: (transaksi: Omit<DoorscrieftRowInput, 'id' | 'createdAt' | 'created_at' | 'updated_at'>) => void;
+  addDoorscrieftTransaksi: (transaksi: Omit<DoorscrieftRowInput, 'id' | 'createdAt'>) => void;
   updateDoorscrieftTransaksi: (id: string, data: Partial<DoorscrieftRowInput>) => void;
   deleteDoorscrieftTransaksi: (id: string) => void;
 
@@ -68,6 +69,10 @@ interface AppState {
   // Tahun
   tahunAktif: number;
   setTahunAktif: (tahun: number) => void;
+  lockedYears: number[];
+  lockYear: (tahun: number) => void;
+  unlockYear: (tahun: number) => void;
+  isYearLocked: (tahun: number) => boolean;
 
   // Bulan filter (untuk halaman bulanan)
   selectedBulan: number; // 1-12
@@ -91,18 +96,34 @@ interface AppState {
   adminPassword: string;
   setAdminCredentials: (username: string, password: string) => void;
 
-  // Clear synced Excel data (keeps default sample data)
-  clearSyncedData: () => void;
+}
 
-  // --- Sync Online (Supabase) ---
-  markTransactionsSynced: (ids: string[]) => void;
-  markTransactionsFailed: (ids: string[]) => void;
-  removePendingUuid: (uuid: string) => void;
+export const BASE_BATANG_TUBUH_BUDGET_YEAR = 2026;
+
+export function applyBatangTubuhAnggaranForYear(
+  items: BatangTubuhItem[],
+  byYear: Record<string, Record<string, number>>,
+  tahun: number,
+) {
+  const yearKey = String(tahun);
+  const yearValues = byYear[yearKey] || {};
+
+  return items.map((bt) => ({
+    ...bt,
+    detailRows: bt.detailRows.map((dr) => ({
+      ...dr,
+      dianggarkan: Object.prototype.hasOwnProperty.call(yearValues, dr.kode)
+        ? Number(yearValues[dr.kode] || 0)
+        : tahun === BASE_BATANG_TUBUH_BUDGET_YEAR
+          ? Number(dr.dianggarkan || 0)
+          : 0,
+    })),
+  }));
 }
 
 
 export const useStore = create<AppState>()(
-    (set) => ({
+    (set, get) => ({
       user: null,
       setUser: (user) => set({ user }),
       logout: () => set({ user: null }),
@@ -196,42 +217,7 @@ export const useStore = create<AppState>()(
           subSeksis: state.subSeksis.filter((s) => s.id !== id),
         })),
         
-      pemasukans: [
-
-        {
-          id: '1',
-          tanggal: new Date('2025-01-05'),
-          kategoriId: '1',
-          subKategoriId: '1',
-          keterangan: 'Persembahan Minggu pertama Januari',
-          jumlah: 15000000,
-          sumberDana: 'Kas Gereja',
-          createdBy: 'admin',
-          createdAt: new Date('2025-01-05'),
-        },
-        {
-          id: '2',
-          tanggal: new Date('2025-01-12'),
-          kategoriId: '1',
-          subKategoriId: '1',
-          keterangan: 'Persembahan Minggu kedua Januari',
-          jumlah: 12500000,
-          sumberDana: 'Kas Gereja',
-          createdBy: 'admin',
-          createdAt: new Date('2025-01-12'),
-        },
-        {
-          id: '3',
-          tanggal: new Date('2025-01-19'),
-          kategoriId: '1',
-          subKategoriId: '1',
-          keterangan: 'Persembahan Minggu ketiga Januari',
-          jumlah: 18000000,
-          sumberDana: 'Kas Gereja',
-          createdBy: 'admin',
-          createdAt: new Date('2025-01-19'),
-        },
-      ],
+      pemasukans: [],
       addPemasukan: (pemasukan) =>
         set((state) => ({
           pemasukans: [...state.pemasukans, { ...pemasukan, id: generateId(), createdAt: new Date() }],
@@ -247,30 +233,7 @@ export const useStore = create<AppState>()(
           pemasukans: state.pemasukans.filter((p) => p.id !== id),
         })),
         
-      pengeluarans: [
-        {
-          id: '1',
-          tanggal: new Date('2025-01-08'),
-          kategoriId: '1',
-          subKategoriId: '1',
-          keterangan: 'Honorarium Pendeta Januari',
-          jumlah: 8000000,
-          penanggungJawab: 'Pdt. John Doe',
-          createdBy: 'admin',
-          createdAt: new Date('2025-01-08'),
-        },
-        {
-          id: '2',
-          tanggal: new Date('2025-01-15'),
-          kategoriId: '2',
-          subKategoriId: '1',
-          keterangan: 'Listrik dan Air Januari',
-          jumlah: 2500000,
-          penanggungJawab: 'Bendahara',
-          createdBy: 'admin',
-          createdAt: new Date('2025-01-15'),
-        },
-      ],
+      pengeluarans: [],
       addPengeluaran: (pengeluaran) =>
         set((state) => ({
           pengeluarans: [...state.pengeluarans, { ...pengeluaran, id: generateId(), createdAt: new Date() }],
@@ -377,6 +340,18 @@ export const useStore = create<AppState>()(
       // Batang Tubuh
       batangTubuhs: [],
       setBatangTubuhs: (items) => set({ batangTubuhs: items }),
+      batangTubuhAnggaranByYear: {},
+      setBatangTubuhAnggaranByYear: (items) => set({ batangTubuhAnggaranByYear: items }),
+      setBatangTubuhAnggaranForYear: (tahun, kode, dianggarkan) =>
+        set((state) => ({
+          batangTubuhAnggaranByYear: {
+            ...state.batangTubuhAnggaranByYear,
+            [String(tahun)]: {
+              ...(state.batangTubuhAnggaranByYear[String(tahun)] || {}),
+              [kode]: Number(dianggarkan || 0),
+            },
+          },
+        })),
 
 
       // Transaksi doorscrieft
@@ -385,6 +360,10 @@ export const useStore = create<AppState>()(
 
       addDoorscrieftTransaksi: (transaksi) =>
         set((state) => {
+          const year = new Date(transaksi.tanggal).getFullYear();
+          if (state.lockedYears.includes(year)) {
+            throw new Error(`Tahun ${year} terkunci.`);
+          }
           const hit = state.kodeAnggarans.find((k) => k.kodeAnggaran === transaksi.kodeAnggaran);
           if (!hit) {
             throw new Error(`Kode anggaran tidak valid: ${transaksi.kodeAnggaran}`);
@@ -395,16 +374,7 @@ export const useStore = create<AppState>()(
             return existingLembarIds.length > 0 ? existingLembarIds[existingLembarIds.length - 1] : generateId();
           })();
 
-          // UUID untuk sync: uuid = id (anti-double via upsert on conflict uuid)
-          const nextId = ensureTxId({
-            id: (transaksi as { id?: string }).id,
-            uuid: (transaksi as { uuid?: string }).uuid,
-          });
-          const uuid = nextId;
-
-
-          // Add to outbox immediately so sync worker can pick it up
-          addPendingUuid(String(uuid));
+          const nextId = (transaksi as { id?: string }).id || generateId();
 
           return {
             doorscrieftTransaksis: [
@@ -412,15 +382,7 @@ export const useStore = create<AppState>()(
               {
                 ...transaksi,
                 id: nextId,
-                uuid,
-
-                // sync metadata
-                sync_status: 'pending',
-                is_public: true,
-
-
                 createdAt: new Date(),
-                created_at: new Date().toISOString(),
                 lembarId,
 
                 // mataAnggaran dipaksa mengikuti master
@@ -435,15 +397,17 @@ export const useStore = create<AppState>()(
         set((state) => {
           const target = state.doorscrieftTransaksis.find((t) => t.id === id);
           if (!target) return state;
+          const targetYear = new Date(target.tanggal).getFullYear();
+          const nextYear = new Date(data.tanggal || target.tanggal).getFullYear();
+          if (state.lockedYears.includes(targetYear) || state.lockedYears.includes(nextYear)) {
+            throw new Error(`Tahun ${state.lockedYears.includes(targetYear) ? targetYear : nextYear} terkunci.`);
+          }
 
           const nextKode = data.kodeAnggaran ?? target.kodeAnggaran;
           const hit = state.kodeAnggarans.find((k) => k.kodeAnggaran === nextKode);
           if (!hit) {
             throw new Error(`Kode anggaran tidak valid: ${nextKode}`);
           }
-
-          // Add/update in outbox so worker can retry
-          addPendingUuid(String(id));
 
           return {
             doorscrieftTransaksis: state.doorscrieftTransaksis.map((t) =>
@@ -454,9 +418,6 @@ export const useStore = create<AppState>()(
                     kodeAnggaran: nextKode,
                     mataAnggaran: hit.mataAnggaran,
                     updatedAt: new Date(),
-                    updated_at: new Date().toISOString(),
-                    // mark pending sync
-                    sync_status: 'pending',
                   }
                 : t
             ),
@@ -468,18 +429,12 @@ export const useStore = create<AppState>()(
       deleteDoorscrieftTransaksi: (id) =>
         set((state) => {
           const target = state.doorscrieftTransaksis.find((t) => t.id === id);
-          if (!target) {
-            return { doorscrieftTransaksis: state.doorscrieftTransaksis };
+          if (target) {
+            const year = new Date(target.tanggal).getFullYear();
+            if (state.lockedYears.includes(year)) {
+              throw new Error(`Tahun ${year} terkunci.`);
+            }
           }
-
-          // Soft delete metadata for sync (tetap hapus dari UI lama)
-
-          // Menyimpan logis deleted_at tidak bisa dipertahankan jika baris benar-benar dihapus.
-
-          // Jadi untuk tahap 1 ini, kita mark pending untuk item itu jika tetap ada.
-          // Karena app lama menghapus dari array, baris tidak lagi ada untuk dikirim.
-          // Penghapusan fisik masih bisa di-handle di fase berikutnya (outbox + tombstone).
-
           return {
             doorscrieftTransaksis: state.doorscrieftTransaksis.filter((t) => t.id !== id),
           };
@@ -489,6 +444,16 @@ export const useStore = create<AppState>()(
 
       tahunAktif: new Date().getFullYear(),
       setTahunAktif: (tahun) => set({ tahunAktif: tahun }),
+      lockedYears: [],
+      lockYear: (tahun) =>
+        set((state) => ({
+          lockedYears: Array.from(new Set([...state.lockedYears, Number(tahun)])).sort((a, b) => a - b),
+        })),
+      unlockYear: (tahun) =>
+        set((state) => ({
+          lockedYears: state.lockedYears.filter((year) => year !== Number(tahun)),
+        })),
+      isYearLocked: (tahun) => get().lockedYears.includes(Number(tahun)),
 
       selectedBulan: new Date().getMonth() + 1,
       setSelectedBulan: (bulan) => set({ selectedBulan: bulan }),
@@ -509,48 +474,6 @@ export const useStore = create<AppState>()(
       adminUsername: 'admin',
       adminPassword: 'admin123',
       setAdminCredentials: (username, password) => set({ adminUsername: username, adminPassword: password }),
-
-      clearSyncedData: () =>
-        set(() => ({
-          subSeksis: [],
-          batangTubuhs: [],
-          doorscrieftTransaksis: [],
-          kodeAnggarans: [],
-          pemasukans: [],
-          pengeluarans: [],
-          realisasis: [],
-        })),
-
-      // --- Sync Online (Supabase) ---
-      markTransactionsSynced: (ids) =>
-        set((state) => ({
-          doorscrieftTransaksis: state.doorscrieftTransaksis.map((t) =>
-            ids.includes(t.id)
-              ? {
-                  ...t,
-                  sync_status: 'synced',
-                  updated_at: new Date().toISOString(),
-                }
-              : t
-          ),
-        })),
-
-      markTransactionsFailed: (ids) =>
-        set((state) => ({
-          doorscrieftTransaksis: state.doorscrieftTransaksis.map((t) =>
-            ids.includes(t.id)
-              ? {
-                  ...t,
-                  sync_status: 'failed',
-                  updated_at: new Date().toISOString(),
-                }
-              : t
-          ),
-        })),
-
-      removePendingUuid: (uuid) => {
-        removePendingUuidFromOutbox(uuid);
-      },
     }),
 );
 
@@ -627,11 +550,17 @@ if (saved.subSeksis) {
 if (saved.batangTubuhs) {
   useStore.setState({ batangTubuhs: saved.batangTubuhs });
 }
+if (saved.batangTubuhAnggaranByYear) {
+  useStore.setState({ batangTubuhAnggaranByYear: saved.batangTubuhAnggaranByYear });
+}
 if (saved.namaJemaat) {
   useStore.setState({ namaJemaat: saved.namaJemaat });
 }
 if (saved.tahunAktif) {
   useStore.setState({ tahunAktif: saved.tahunAktif });
+}
+if (Array.isArray((saved as Partial<AppState>).lockedYears)) {
+  useStore.setState({ lockedYears: (saved as Partial<AppState>).lockedYears });
 }
 if (saved.kopGereja) {
   useStore.setState({ kopGereja: saved.kopGereja });
@@ -660,8 +589,10 @@ useStore.subscribe((state) => {
     kodeAnggarans: state.kodeAnggarans,
     subSeksis: state.subSeksis,
     batangTubuhs: state.batangTubuhs,
+    batangTubuhAnggaranByYear: state.batangTubuhAnggaranByYear,
     namaJemaat: state.namaJemaat,
     tahunAktif: state.tahunAktif,
+    lockedYears: state.lockedYears,
     kopGereja: state.kopGereja,
     kopKlas: state.kopKlas,
     appName: state.appName,

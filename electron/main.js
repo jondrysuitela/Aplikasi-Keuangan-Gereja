@@ -39,7 +39,6 @@ writeLog('App starting, Electron ' + process.versions.electron + ', Node ' + pro
 // app.commandLine.appendSwitch('disable-gpu-compositing');
 
 let mainWindow;
-let doorscrieftInputWindow = null;
 let projectFilePath = null;
 
 function createApplicationMenu() {
@@ -323,6 +322,11 @@ const subSeksiDbPath = path.join(dataDir, 'sub-seksi-db.json');
 const subSeksiDbFlatPath = path.join(dataDir, 'sub-seksi-db-flat.json');
 const templateDataDir = app.isPackaged ? bundledDataDir : path.join(__dirname, '..', 'data');
 const templateWorkbookPath = path.join(templateDataDir, 'APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx');
+const mappingWorkbookPath = path.join(templateDataDir, 'MAPPING.xlsx');
+const subSeksiExportDbPath = path.join(templateDataDir, 'sub-seksi-export-db.json');
+const logoImagePath = app.isPackaged
+  ? path.join(__dirname, '..', 'frontend', 'dist', 'church-logo-256.png')
+  : path.join(__dirname, '..', 'frontend', 'public', 'church-logo-256.png');
 
 function ensureWritableDataFiles() {
   if (!app.isPackaged) return;
@@ -368,6 +372,41 @@ function saveJsonFile(filePath, data) {
 function ensureProjectExtension(filePath) {
   return path.extname(filePath).toLowerCase() === '.gpm' ? filePath : `${filePath}.gpm`;
 }
+
+function sanitizeBackupReason(reason) {
+  return String(reason || 'backup')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-_]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60) || 'backup';
+}
+
+function createAutoBackupFile(data, reason) {
+  const backupsDir = path.join(app.getPath('userData'), 'backups');
+  fs.mkdirSync(backupsDir, { recursive: true });
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const fileName = `auto-${timestamp}-${sanitizeBackupReason(reason)}.gpm`;
+  const filePath = path.join(backupsDir, fileName);
+  fs.writeFileSync(filePath, data, 'utf-8');
+  writeLog('[BACKUP] auto backup created: ' + filePath);
+  return filePath;
+}
+
+ipcMain.handle('backup:createAuto', async (_event, data, reason) => {
+  try {
+    if (!data || typeof data !== 'string') {
+      return { success: false, error: 'Data backup kosong.' };
+    }
+
+    const filePath = createAutoBackupFile(data, reason);
+    return { success: true, path: filePath };
+  } catch (e) {
+    writeLog('backup:createAuto failed: ' + (e.stack || e.message || String(e)));
+    return { success: false, error: e.message || String(e) };
+  }
+});
 
 ipcMain.handle('kodeAnggaran:load', async () => {
   return loadJsonFile(kodeAnggaranPath);
@@ -439,7 +478,10 @@ ipcMain.handle('excel:loadDataKodeAnggaran', async () => {
 ipcMain.handle('batangTubuh:export', async (_event, config) => {
   try {
     const { BatangTubuhExportService } = require('./services/batang-tubuh-export');
-    const exporter = new BatangTubuhExportService();
+    const exporter = new BatangTubuhExportService({
+      templatePath: mappingWorkbookPath,
+      logoPath: logoImagePath,
+    });
 
     // Load hierarchical data
     const hierarchicalData = loadJsonFile(path.join(dataDir, 'batang-tubuh.json'));
@@ -452,7 +494,7 @@ ipcMain.handle('batangTubuh:export', async (_event, config) => {
     // Save dialog
     const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
       title: 'Export Batang Tubuh',
-      defaultPath: `BATANG TUBUH ${config.tahun || '2025'}.xlsx`,
+      defaultPath: `Batang_Tubuh_${config.tahun || new Date().getFullYear()}.xlsx`,
       filters: [{ name: 'Excel Workbook', extensions: ['xlsx'] }],
     });
 
@@ -464,6 +506,38 @@ ipcMain.handle('batangTubuh:export', async (_event, config) => {
     return { success: true, path: result.filePath };
   } catch (e) {
     console.error('batangTubuh:export error:', e);
+    return { success: false, error: e.message };
+  }
+});
+
+// --- Export Sub Seksi to Excel using the MAPPING.xlsx SUB SEKSI template ---
+ipcMain.handle('subSeksi:exportExcel', async (_event, config = {}) => {
+  try {
+    const { SubSeksiExportService } = require('./services/sub-seksi-export');
+    const tahun = Number(config.tahun) || new Date().getFullYear();
+    const exporter = new SubSeksiExportService({
+      templatePath: mappingWorkbookPath,
+      databasePath: subSeksiExportDbPath,
+    });
+    const buffer = await exporter.export({
+      ...config,
+      tahun,
+    });
+
+    const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow() || mainWindow, {
+      title: 'Export Realisasi Sub Seksi',
+      defaultPath: `Realisasi_Sub_Seksi_${tahun}.xlsx`,
+      filters: [{ name: 'Excel Workbook', extensions: ['xlsx'] }],
+    });
+
+    if (result.canceled || !result.filePath) {
+      return { success: false, canceled: true };
+    }
+
+    fs.writeFileSync(result.filePath, buffer);
+    return { success: true, path: result.filePath };
+  } catch (e) {
+    console.error('subSeksi:exportExcel failed:', e);
     return { success: false, error: e.message };
   }
 });
@@ -548,232 +622,27 @@ ipcMain.handle('project:open', async () => {
   }
 });
 
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function buildDoorscrieftInputHtml(payload = {}) {
-  const data = JSON.stringify(payload).replace(/</g, '\\u003c');
-  const options = (payload.kodeAnggarans || [])
-    .map((item) => `<option value="${escapeHtml(item.kodeAnggaran)}">${escapeHtml(item.kodeAnggaran)} - ${escapeHtml(item.mataAnggaran)}</option>`)
-    .join('');
-
-  return `<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:; script-src 'unsafe-inline';">
-  <title>Input Doorscrieft</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #f8fafc; color: #0f172a; }
-    .drag { -webkit-app-region: drag; height: 34px; background: #0f172a; color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 10px 0 14px; font-size: 12px; font-weight: 600; }
-    .drag button { -webkit-app-region: no-drag; border: 0; background: transparent; color: white; width: 26px; height: 26px; border-radius: 5px; cursor: pointer; }
-    .drag button:hover { background: rgba(255,255,255,.16); }
-    .wrap { padding: 16px; }
-    h1 { margin: 0 0 12px; font-size: 18px; }
-    form { display: grid; gap: 12px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; color: #334155; }
-    input { height: 38px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 10px; font-size: 13px; outline: none; background: white; }
-    input:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,.18); }
-    input[disabled] { opacity: .58; background: #e2e8f0; }
-    .readonly { min-height: 38px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 9px 10px; font-size: 13px; background: #f1f5f9; color: #475569; }
-    .badge { display: none; font-size: 12px; padding: 7px 9px; border-radius: 6px; }
-    .badge.income { background: #dcfce7; color: #166534; }
-    .badge.expense { background: #fee2e2; color: #991b1b; }
-    .footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 2px; }
-    .hint { color: #64748b; font-size: 12px; }
-    button.primary { border: 0; background: #2563eb; color: white; height: 38px; padding: 0 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
-    button.secondary { border: 1px solid #cbd5e1; background: white; color: #334155; height: 38px; padding: 0 14px; border-radius: 6px; font-weight: 600; cursor: pointer; }
-    button:hover { filter: brightness(.96); }
-  </style>
-</head>
-<body>
-  <div class="drag">
-    <span>Input Doorscrieft - window luar</span>
-    <button id="closeBtn" title="Tutup">x</button>
-  </div>
-  <div class="wrap">
-    <h1 id="title">Tambah Doorscrieft</h1>
-    <form id="form">
-      <div class="grid">
-        <label>No
-          <input id="no" required />
-        </label>
-        <label>Tanggal
-          <input id="tanggal" type="date" required />
-        </label>
-      </div>
-      <label>Uraian
-        <input id="uraian" required placeholder="Masukkan uraian" />
-      </label>
-      <label>Kode Anggaran
-        <input id="kodeAnggaran" list="kodeOptions" required placeholder="Ketik kode anggaran..." />
-        <datalist id="kodeOptions">${options}</datalist>
-      </label>
-      <label>Mata Anggaran
-        <div id="mataAnggaran" class="readonly">-</div>
-      </label>
-      <div id="incomeBadge" class="badge income">Pendapatan - hanya kolom Penerimaan aktif</div>
-      <div id="expenseBadge" class="badge expense">Pengeluaran - hanya kolom Pengeluaran aktif</div>
-      <div class="grid">
-        <label>Penerimaan
-          <input id="penerimaan" inputmode="numeric" />
-        </label>
-        <label>Pengeluaran
-          <input id="pengeluaran" inputmode="numeric" />
-        </label>
-      </div>
-      <div class="footer">
-        <span class="hint">Setelah tambah, form tetap terbuka untuk input berikutnya.</span>
-        <div>
-          <button type="button" class="secondary" id="clearBtn">Bersihkan</button>
-          <button type="submit" class="primary">Tambah</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <script>
-    const initial = ${data};
-    const kodeAnggarans = initial.kodeAnggarans || [];
-    const kodeMap = new Map(kodeAnggarans.map((item) => [String(item.kodeAnggaran || ''), String(item.mataAnggaran || '')]));
-    const ids = ['no', 'tanggal', 'uraian', 'kodeAnggaran', 'penerimaan', 'pengeluaran'];
-    const el = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
-    const mataEl = document.getElementById('mataAnggaran');
-    const incomeBadge = document.getElementById('incomeBadge');
-    const expenseBadge = document.getElementById('expenseBadge');
-
-    function cleanNumber(value) {
-      return String(value || '').replace(/[^\\d,.-]/g, '');
-    }
-    function updateKodeState() {
-      const kode = el.kodeAnggaran.value.trim();
-      mataEl.textContent = kodeMap.get(kode) || '-';
-      const isIncome = kode.startsWith('I.');
-      const isExpense = kode.startsWith('II.');
-      incomeBadge.style.display = isIncome ? 'block' : 'none';
-      expenseBadge.style.display = isExpense ? 'block' : 'none';
-      el.penerimaan.disabled = isExpense;
-      el.pengeluaran.disabled = isIncome;
-      if (isIncome) el.pengeluaran.value = '';
-      if (isExpense) el.penerimaan.value = '';
-    }
-    function resetForNext(nextNo) {
-      const tanggal = el.tanggal.value;
-      el.no.value = nextNo || '';
-      el.tanggal.value = tanggal;
-      el.uraian.value = '';
-      el.kodeAnggaran.value = '';
-      el.penerimaan.value = '';
-      el.pengeluaran.value = '';
-      updateKodeState();
-      el.no.focus();
-    }
-    function fillForm(form) {
-      el.no.value = form?.no || '';
-      el.tanggal.value = form?.tanggal || new Date().toISOString().slice(0, 10);
-      el.uraian.value = form?.uraian || '';
-      el.kodeAnggaran.value = form?.kodeAnggaran || '';
-      el.penerimaan.value = form?.penerimaan || '';
-      el.pengeluaran.value = form?.pengeluaran || '';
-      updateKodeState();
-    }
-
-    fillForm(initial.form || {});
-    el.kodeAnggaran.addEventListener('input', updateKodeState);
-    el.penerimaan.addEventListener('input', () => { el.penerimaan.value = cleanNumber(el.penerimaan.value); });
-    el.pengeluaran.addEventListener('input', () => { el.pengeluaran.value = cleanNumber(el.pengeluaran.value); });
-    document.getElementById('clearBtn').addEventListener('click', () => resetForNext(el.no.value));
-    document.getElementById('closeBtn').addEventListener('click', () => window.electronAPI.closeDoorscrieftInputWindow());
-    document.getElementById('form').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const kode = el.kodeAnggaran.value.trim();
-      if (!kodeMap.has(kode)) {
-        alert('Kode anggaran tidak valid.');
-        el.kodeAnggaran.focus();
-        return;
-      }
-      const currentNo = Number(el.no.value) || 0;
-      const payload = {
-        targetLembarId: initial.targetLembarId || null,
-        form: {
-          no: el.no.value,
-          tanggal: el.tanggal.value,
-          uraian: el.uraian.value,
-          kodeAnggaran: kode,
-          mataAnggaran: kodeMap.get(kode) || '',
-          penerimaan: el.penerimaan.value,
-          pengeluaran: el.pengeluaran.value,
-        },
-      };
-      const result = await window.electronAPI.submitDoorscrieftInputWindow(payload);
-      if (!result || !result.success) {
-        alert(result?.error || 'Gagal mengirim data.');
-        return;
-      }
-      resetForNext(String(currentNo + 1));
-    });
-  </script>
-</body>
-</html>`;
-}
-
-ipcMain.handle('doorscrieft:openInputWindow', async (_event, payload = {}) => {
-  if (doorscrieftInputWindow && !doorscrieftInputWindow.isDestroyed()) {
-    doorscrieftInputWindow.close();
-  }
-
-  doorscrieftInputWindow = new BrowserWindow({
-    width: 520,
-    height: 650,
-    minWidth: 460,
-    minHeight: 580,
-    title: 'Input Doorscrieft',
-    parent: mainWindow || undefined,
-    modal: false,
-    alwaysOnTop: false,
-    frame: false,
-    show: false,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      preload: path.join(__dirname, 'preload.js'),
-    },
-  });
-
-  doorscrieftInputWindow.on('closed', () => {
-    doorscrieftInputWindow = null;
-  });
-  await doorscrieftInputWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(buildDoorscrieftInputHtml(payload)));
-  doorscrieftInputWindow.show();
-  return { success: true };
-});
-
-ipcMain.handle('doorscrieft:submitInputWindow', async (_event, payload = {}) => {
-  if (!mainWindow || mainWindow.isDestroyed()) {
-    return { success: false, error: 'Window utama tidak tersedia.' };
-  }
-  mainWindow.webContents.send('doorscrieft:externalSubmit', payload);
-  return { success: true };
-});
-
-ipcMain.handle('doorscrieft:closeInputWindow', async () => {
-  if (doorscrieftInputWindow && !doorscrieftInputWindow.isDestroyed()) {
-    doorscrieftInputWindow.close();
-  }
+ipcMain.handle('project:new', async () => {
+  projectFilePath = null;
+  writeLog('[IPC] project:new called, project path cleared');
   return { success: true };
 });
 
 // --- Export Doorscrieft to Excel (all lembar, separated per lembar with styling) ---
 ipcMain.handle('excel:exportDoorscrieft', async (_event, data) => {
   try {
+    const { DoorscrieftExportService } = require('./services/doorscrieft-export');
+    const exporter = new DoorscrieftExportService({ templatePath: mappingWorkbookPath });
+    const buffer = await exporter.export(data || {});
+    const saveResult = await dialog.showSaveDialog(mainWindow, {
+      title: 'Export Doorscrieft ke Excel',
+      defaultPath: data?.fileName || `Doorscrieft_${new Date().toISOString().slice(0, 10)}.xlsx`,
+      filters: [{ name: 'Excel Workbook', extensions: ['xlsx'] }],
+    });
+    if (saveResult.canceled || !saveResult.filePath) return { success: false, canceled: true };
+    fs.writeFileSync(saveResult.filePath, buffer);
+    return { success: true, path: saveResult.filePath };
+
     loadXLSX();
     const { lembars, monthName, fileName } = data;
     const result = await dialog.showSaveDialog(mainWindow, {
@@ -1021,6 +890,28 @@ ipcMain.handle('excel:exportDoorscrieft', async (_event, data) => {
     return { success: true, path: result.filePath };
   } catch (e) {
     console.error('excel:exportDoorscrieft failed:', e);
+    return { success: false, error: e.message };
+  }
+});
+
+ipcMain.handle('excel:importDoorscrieft', async (_event, options = {}) => {
+  try {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      title: 'Import Doorscrieft dari Excel',
+      properties: ['openFile'],
+      filters: [{ name: 'Excel Workbook', extensions: ['xlsx'] }],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+      return { success: false, canceled: true };
+    }
+
+    const { DoorscrieftImportService } = require('./services/doorscrieft-import');
+    const importer = new DoorscrieftImportService();
+    const data = await importer.import(result.filePaths[0], options);
+    return { success: true, path: result.filePaths[0], ...data };
+  } catch (e) {
+    console.error('excel:importDoorscrieft failed:', e);
     return { success: false, error: e.message };
   }
 });
