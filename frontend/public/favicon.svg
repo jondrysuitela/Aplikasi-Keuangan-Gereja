@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00bfff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0080cc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Outer white ring with text -->
+  <circle cx="100" cy="100" r="95" fill="#ffffff" stroke="#2d5a27" stroke-width="2"/>
+  <!-- Inner circle with emblem -->
+  <circle cx="100" cy="100" r="82" fill="url(#skyGrad)"/>
+  <!-- Yellow sun -->
+  <circle cx="100" cy="50" r="18" fill="#ffd700"/>
+  <!-- Green hills -->
+  <path d="M20 130 Q50 95 100 110 Q150 125 180 100 L180 170 L20 170 Z" fill="#228b22"/>
+  <path d="M30 145 Q70 115 100 130 Q140 145 170 120 L170 170 L30 170 Z" fill="#2d5a27"/>
+  <!-- Trees -->
+  <rect x="65" y="115" width="6" height="25" fill="#4a2800"/>
+  <polygon points="68,95 52,120 84,120" fill="#1a6b1a"/>
+  <polygon points="68,80 56,105 80,105" fill="#1a6b1a"/>
+  <rect x="125" y="110" width="6" height="25" fill="#4a2800"/>
+  <polygon points="128,90 112,115 144,115" fill="#1a6b1a"/>
+  <polygon points="128,75 116,100 140,100" fill="#1a6b1a"/>
+  <!-- Cross on hill -->
+  <rect x="97" y="95" width="6" height="20" fill="#ffffff" opacity="0.9"/>
+  <rect x="92" y="100" width="16" height="5" fill="#ffffff" opacity="0.9"/>
+  <!-- Ring text - top -->
+  <path id="topArc" d="M 100,8 a 92,92 0 1,1 -0.01,0" fill="none"/>
+  <text font-size="10.5" fill="#2d5a27" font-weight="bold" font-family="Arial, sans-serif" letter-spacing="1.5">
+    <textPath href="#topArc" startOffset="15%">GEREJA PROTESTAN MALUKU</textPath>
+  </text>
+  <!-- Ring text - bottom -->
+  <path id="botArc" d="M 100,192 a 92,92 0 1,1 -0.01,0" fill="none"/>
+  <text font-size="10.5" fill="#2d5a27" font-weight="bold" font-family="Arial, sans-serif" letter-spacing="1.5">
+    <textPath href="#botArc" startOffset="28%">ANNO 1605</textPath>
+  </text>
+</svg>

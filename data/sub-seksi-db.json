@@ -1,0 +1,504 @@
+[
+  {
+    "kode": "I.3.1.1.01",
+    "nama": "Sub Seksi Pembinaan Warga Gereja",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.1.01.001",
+        "nama": "Pembinaan Anak Remaja & Katekisasi",
+        "parentKode": "I.3.1.1.01"
+      },
+      {
+        "kode": "I.3.1.1.01.002",
+        "nama": "Pembinaan Pemuda",
+        "parentKode": "I.3.1.1.01"
+      },
+      {
+        "kode": "I.3.1.1.01.003",
+        "nama": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+        "parentKode": "I.3.1.1.01"
+      },
+      {
+        "kode": "I.3.1.1.01.004",
+        "nama": "Pembinaan Warga Gereja Senior",
+        "parentKode": "I.3.1.1.01"
+      },
+      {
+        "kode": "I.3.1.1.01.005",
+        "nama": "Pembinaan Keluarga",
+        "parentKode": "I.3.1.1.01"
+      },
+      {
+        "kode": "I.3.1.1.01.006",
+        "nama": "Pembinaan Warga Gereja Profesi",
+        "parentKode": "I.3.1.1.01"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.1.02",
+    "nama": "Sub Seksi Perkebaktianan dan Pastoral",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.1.02.001",
+        "nama": "Pembinaan Perkebaktianan dan Musik Gerejawi",
+        "parentKode": "I.3.1.1.02"
+      },
+      {
+        "kode": "I.3.1.1.02.002",
+        "nama": "Gerejawi Pembinaan Pastoral Konseling",
+        "parentKode": "I.3.1.1.02"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.2.01",
+    "nama": "Sub Seksi Pemberitaan Injil",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.2.01.001",
+        "nama": "Pemberitaan Injil",
+        "parentKode": "I.3.1.2.01"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.2.02",
+    "nama": "Sub Seksi Pelayanan Kasih",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.2.02.001",
+        "nama": "Pelayanan Hukum dan Advokasi",
+        "parentKode": "I.3.1.2.02"
+      },
+      {
+        "kode": "I.3.1.2.02.002",
+        "nama": "Pelayanan Pendidikan",
+        "parentKode": "I.3.1.2.02"
+      },
+      {
+        "kode": "I.3.1.2.02.003",
+        "nama": "Pelayanan Kesehatan",
+        "parentKode": "I.3.1.2.02"
+      },
+      {
+        "kode": "I.3.1.2.02.004",
+        "nama": "Pemberdayaan Ekonomi Umat",
+        "parentKode": "I.3.1.2.02"
+      },
+      {
+        "kode": "I.3.1.2.02.005",
+        "nama": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+        "parentKode": "I.3.1.2.02"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.3.01",
+    "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.3.01.001",
+        "nama": "Pembinaan Kerjasama Lintas Denominasi",
+        "parentKode": "I.3.1.3.01"
+      },
+      {
+        "kode": "I.3.1.3.01.002",
+        "nama": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
+        "parentKode": "I.3.1.3.01"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.3.02",
+    "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.3.02.001",
+        "nama": "Lingkungan Hidup dan Keutuhan Ciptaan",
+        "parentKode": "I.3.1.3.02"
+      },
+      {
+        "kode": "I.3.1.3.02.002",
+        "nama": "Bencana Alam dan Sosial",
+        "parentKode": "I.3.1.3.02"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.01",
+    "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.01.001",
+        "nama": "Pembinaan Administrasi dan Manajemen",
+        "parentKode": "I.3.1.4.01"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.02",
+    "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.02.001",
+        "nama": "Pembinaan Kepegawaian",
+        "parentKode": "I.3.1.4.02"
+      },
+      {
+        "kode": "I.3.1.4.02.002",
+        "nama": "Pengembangan Staf",
+        "parentKode": "I.3.1.4.02"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.03",
+    "nama": "Sub Seksi Penataan dan Pengembangan Keuangan",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.03.001",
+        "nama": "Pembinaan Sistim dan Manajemen Keuangan",
+        "parentKode": "I.3.1.4.03"
+      },
+      {
+        "kode": "I.3.1.4.03.002",
+        "nama": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+        "parentKode": "I.3.1.4.03"
+      },
+      {
+        "kode": "I.3.1.4.03.003",
+        "nama": "Pembinaan Sumber-Sumber Keuangan Gereja",
+        "parentKode": "I.3.1.4.03"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.04",
+    "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.04.001",
+        "nama": "Pengembangan Infrastruktur",
+        "parentKode": "I.3.1.4.04"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.05",
+    "nama": "Sub Seksi Pengembangan KapasitasPelayan",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.05.001",
+        "nama": "Pembinaan Aparatur Pelayan",
+        "parentKode": "I.3.1.4.05"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.06",
+    "nama": "Sub Seksi Penelitian dan Pengembangan",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.06.001",
+        "nama": "Penelitian, Perencanaan dan Pengembangan",
+        "parentKode": "I.3.1.4.06"
+      },
+      {
+        "kode": "I.3.1.4.06.002",
+        "nama": "Pengendalian Program",
+        "parentKode": "I.3.1.4.06"
+      },
+      {
+        "kode": "I.3.1.4.06.003",
+        "nama": "Pengelolaan Hubungan Kerjasama",
+        "parentKode": "I.3.1.4.06"
+      }
+    ]
+  },
+  {
+    "kode": "I.3.1.4.07",
+    "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "jenis": "pendapatan",
+    "anak": [
+      {
+        "kode": "I.3.1.4.07.001",
+        "nama": "Pengelolaan Informasi",
+        "parentKode": "I.3.1.4.07"
+      },
+      {
+        "kode": "I.3.1.4.07.002",
+        "nama": "Dokumentasi dan Publikasi",
+        "parentKode": "I.3.1.4.07"
+      },
+      {
+        "kode": "I.3.1.4.07.003",
+        "nama": "Komunikasi Pelayan",
+        "parentKode": "I.3.1.4.07"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.1.01",
+    "nama": "Sub Seksi Pembinaan Warga Gereja",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.1.01.001",
+        "nama": "Pembinaan Anak Remaja & Katekisasi",
+        "parentKode": "II.3.1.1.01"
+      },
+      {
+        "kode": "II.3.1.1.01.002",
+        "nama": "Pembinaan Pemuda",
+        "parentKode": "II.3.1.1.01"
+      },
+      {
+        "kode": "II.3.1.1.01.003",
+        "nama": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+        "parentKode": "II.3.1.1.01"
+      },
+      {
+        "kode": "II.3.1.1.01.004",
+        "nama": "Pembinaan Warga Gereja Senior",
+        "parentKode": "II.3.1.1.01"
+      },
+      {
+        "kode": "II.3.1.1.01.005",
+        "nama": "Pembinaan Keluarga",
+        "parentKode": "II.3.1.1.01"
+      },
+      {
+        "kode": "II.3.1.1.01.006",
+        "nama": "Pembinaan Warga Gereja Profesi",
+        "parentKode": "II.3.1.1.01"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.1.02",
+    "nama": "Sub Seksi PerKebaktianan dan Pastoral",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.1.02.001",
+        "nama": "Pembinaan PerKebaktianan dan Musik Gerejawi",
+        "parentKode": "II.3.1.1.02"
+      },
+      {
+        "kode": "II.3.1.1.02.002",
+        "nama": "Pembinaan Pastoral Konseling",
+        "parentKode": "II.3.1.1.02"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.2.01",
+    "nama": "Sub Seksi Pemberitaan Injil",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.2.01.001",
+        "nama": "Pemberitaan Injil",
+        "parentKode": "II.3.1.2.01"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.2.02",
+    "nama": "Sub Seksi Pelayanan Kasih",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.2.02.001",
+        "nama": "Pelayanan Hukum dan Advokasi",
+        "parentKode": "II.3.1.2.02"
+      },
+      {
+        "kode": "II.3.1.2.02.002",
+        "nama": "Pelayanan Pendidikan",
+        "parentKode": "II.3.1.2.02"
+      },
+      {
+        "kode": "II.3.1.2.02.003",
+        "nama": "Pelayanan Kesehatan",
+        "parentKode": "II.3.1.2.02"
+      },
+      {
+        "kode": "II.3.1.2.02.004",
+        "nama": "Pemberdayaan Ekonomi Umat",
+        "parentKode": "II.3.1.2.02"
+      },
+      {
+        "kode": "II.3.1.2.02.005",
+        "nama": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+        "parentKode": "II.3.1.2.02"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.3.01",
+    "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.3.01.001",
+        "nama": "Pembinaan Kerjasama Lintas Denominasi",
+        "parentKode": "II.3.1.3.01"
+      },
+      {
+        "kode": "II.3.1.3.01.002",
+        "nama": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
+        "parentKode": "II.3.1.3.01"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.3.02",
+    "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.3.02.001",
+        "nama": "Lingkungan Hidup dan Keutuhan Ciptaan",
+        "parentKode": "II.3.1.3.02"
+      },
+      {
+        "kode": "II.3.1.3.02.002",
+        "nama": "Bencana Alam dan Sosial",
+        "parentKode": "II.3.1.3.02"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.01",
+    "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.01.001",
+        "nama": "Pembinaan Administrasi dan Manajemen",
+        "parentKode": "II.3.1.4.01"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.02",
+    "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.02.001",
+        "nama": "Pembinaan Kepegawaian",
+        "parentKode": "II.3.1.4.02"
+      },
+      {
+        "kode": "II.3.1.4.02.002",
+        "nama": "Pengembangan Staf",
+        "parentKode": "II.3.1.4.02"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.03",
+    "nama": "Sub Seksi Penataan dan PengembanganKeuangan",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.03.001",
+        "nama": "Pembinaan Sistim dan Manajemen Keuangan",
+        "parentKode": "II.3.1.4.03"
+      },
+      {
+        "kode": "II.3.1.4.03.002",
+        "nama": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+        "parentKode": "II.3.1.4.03"
+      },
+      {
+        "kode": "II.3.1.4.03.003",
+        "nama": "Pembinaan Sumber-Sumber Keuangan Gereja",
+        "parentKode": "II.3.1.4.03"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.04",
+    "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.04.001",
+        "nama": "Pengembangan Infrastruktur",
+        "parentKode": "II.3.1.4.04"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.05",
+    "nama": "Sub Seksi Pengembangan Kapasitas Pelayan",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.05.001",
+        "nama": "Pembinaan Aparatur Pelayan",
+        "parentKode": "II.3.1.4.05"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.06",
+    "nama": "Sub Seksi Penelitian dan Pengembangan",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.06.001",
+        "nama": "Penelitian, Perencanaan dan Pengembangan",
+        "parentKode": "II.3.1.4.06"
+      },
+      {
+        "kode": "II.3.1.4.06.002",
+        "nama": "Pengendalian Program",
+        "parentKode": "II.3.1.4.06"
+      },
+      {
+        "kode": "II.3.1.4.06.003",
+        "nama": "Pengelolaan Hubungan Kerjasama",
+        "parentKode": "II.3.1.4.06"
+      }
+    ]
+  },
+  {
+    "kode": "II.3.1.4.07",
+    "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "jenis": "pengeluaran",
+    "anak": [
+      {
+        "kode": "II.3.1.4.07.001",
+        "nama": "Pengelolaan Informasi",
+        "parentKode": "II.3.1.4.07"
+      },
+      {
+        "kode": "II.3.1.4.07.002",
+        "nama": "Dokumentasi dan Publikasi",
+        "parentKode": "II.3.1.4.07"
+      },
+      {
+        "kode": "II.3.1.4.07.003",
+        "nama": "Komunikasi Pelayan",
+        "parentKode": "II.3.1.4.07"
+      }
+    ]
+  }
+]

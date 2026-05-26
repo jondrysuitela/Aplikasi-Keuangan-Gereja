@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(taskkill //F //IM electron.exe)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(cp /tmp/test-doorscrieft.js test-doorscrieft.js)",
+      "Bash(node test-doorscrieft.js)",
+      "Bash(npx tsc *)",
+      "Bash(node_modules/electron/dist/electron.exe dist/win-unpacked/)",
+      "Bash(node_modules/electron/dist/electron.exe --no-sandbox -e \"console.log\\('type:', process.type\\); console.log\\('electron:', process.versions.electron\\); console.log\\('exports:', Object.keys\\(require\\('electron'\\)\\)\\)\")",
+      "Bash(node_modules/electron/dist/electron.exe -e \"console.log\\('hello'\\)\")"
+    ]
+  }
+}

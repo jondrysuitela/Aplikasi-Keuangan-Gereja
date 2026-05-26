@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+codex-dev.stderr.log
+codex-dev.stdout.log
+dev-login-bg.stderr.log
+dev-login-bg.stdout.log
+dev-run.stderr.log
+dev-run.stdout.log
+dev.stderr.log
+dev.stdout.log

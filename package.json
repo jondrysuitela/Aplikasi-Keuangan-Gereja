@@ -1,0 +1,91 @@
+{
+  "name": "keuangan-gereja",
+  "version": "1.3.12",
+  "description": "Sistem Keuangan Gereja Desktop Application",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "npm run dev --prefix frontend",
+    "dev:electron": "wait-on http://localhost:5173 && node start-electron.js",
+    "build": "npm run build --prefix frontend && npm run build:electron",
+    "build:electron": "electron-builder --win --publish never",
+    "start": "electron ."
+  },
+  "build": {
+    "appId": "com.gereja.keuangan",
+    "productName": "Keuangan Gereja",
+    "afterPack": "scripts/after-pack.cjs",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*",
+      "!data/*.xlsx"
+    ],
+    "extraFiles": [
+      {
+        "from": "data/kode-anggaran.json",
+        "to": "data/kode-anggaran.json"
+      },
+      {
+        "from": "data/batang-tubuh.json",
+        "to": "data/batang-tubuh.json"
+      },
+      {
+        "from": "data/batang-tubuh-flat.json",
+        "to": "data/batang-tubuh-flat.json"
+      },
+      {
+        "from": "data/sub-seksi-db.json",
+        "to": "data/sub-seksi-db.json"
+      },
+      {
+        "from": "data/sub-seksi-db-flat.json",
+        "to": "data/sub-seksi-db-flat.json"
+      },
+      {
+        "from": "data/APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx",
+        "to": "data/APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx"
+      }
+    ],
+    "win": {
+      "icon": "frontend/public/church-logo.ico",
+      "sign": null,
+      "target": "nsis"
+    },
+    "fileAssociations": [
+      {
+        "ext": "gpm",
+        "name": "Project Keuangan Gereja",
+        "description": "File project Keuangan Gereja",
+        "icon": "frontend/public/church-logo.ico",
+        "role": "Editor"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Keuangan Gereja",
+      "allowElevation": true,
+      "unicode": true,
+      "license": "LICENSE"
+    }
+  },
+  "devDependencies": {
+    "@electron/fuses": "^2.1.1",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^31.7.7",
+    "electron-builder": "^25.1.7",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
+  }
+}

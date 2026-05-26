@@ -1,0 +1,882 @@
+[
+  {
+    "kodeAnggaran": "I.1.1.01",
+    "mataAnggaran": "Sisa Lebih Perhitungan Anggaran Tahun Lalu"
+  },
+  {
+    "kodeAnggaran": "I.2.1.01",
+    "mataAnggaran": "Tanggungan Pelayanan Warga Jemaat/Celengan"
+  },
+  {
+    "kodeAnggaran": "I.2.1.01.01",
+    "mataAnggaran": "Iuran Jemaat (Per Anggota / Per. Keluarga)"
+  },
+  {
+    "kodeAnggaran": "I.2.1.02",
+    "mataAnggaran": "Tunggakan Tanggungan Pelayanan Warga Jemaat"
+  },
+  {
+    "kodeAnggaran": "I.2.2.01.001",
+    "mataAnggaran": "Kolekta Kebaktian Minggu Gereja Baitrafa dan SK"
+  },
+  {
+    "kodeAnggaran": "I.2.2.01.002",
+    "mataAnggaran": "Kolekta Kebaktian Minggu Perjamuan Kudus"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.001",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Kelahiran"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.002",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perkawinan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.003",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kesembuhan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.004",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Duka"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.005",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Masuk Rumah"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.006",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kenaikan Pangkat/Jabatan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.007",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Purna Bakti"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.008",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Pengangkatan Pegawai."
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.009",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kelulusan dan Wisuda"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.010",
+    "mataAnggaran": "Kolekta Syukur Buka Kebun"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.011",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Panen"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.012",
+    "mataAnggaran": "Kolekta Syukur Mobil Baru"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.013",
+    "mataAnggaran": "Kolekta Syukur Bodi Motor/Perahu"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.014",
+    "mataAnggaran": "Kolekta Syukur Jaring"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.015",
+    "mataAnggaran": "Kolekta Syukur Rompon"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.016",
+    "mataAnggaran": "Kolekta Syukur Buka Usaha Pondok/Kios/Toko"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.017",
+    "mataAnggaran": "Kolekta Syukur Buka Rumah Makan / Restoran"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.018",
+    "mataAnggaran": "Kolekta Kebaktian Perkunjungan Majelis Jemaat"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.019",
+    "mataAnggaran": "Kolekta Kebaktian Sektor"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.020",
+    "mataAnggaran": "Kolekta Kebaktian Unit"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.021",
+    "mataAnggaran": "Kolekta Kebaktian Binakel/Gatris"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.022",
+    "mataAnggaran": "Kolekta Kebaktian Buka Usbu"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.023",
+    "mataAnggaran": "Kolekta Kebaktian Tutup Usbu"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.024",
+    "mataAnggaran": "Kolekta Kebaktian Pantai/Papalele"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.025",
+    "mataAnggaran": "Kolekta Kebaktian SMTPI"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.026",
+    "mataAnggaran": "Kolekta Kebaktian Katekisasi"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.027",
+    "mataAnggaran": "Kolekta Kebaktian Pemuda"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.028",
+    "mataAnggaran": "Kolekta Kebaktian Kemitraan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.029",
+    "mataAnggaran": "Kolekta Kebaktian Pelayanan Perempuan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.030",
+    "mataAnggaran": "Kolekta Kebaktian Pelayanan Laki-Laki"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.031",
+    "mataAnggaran": "Kolekta Kebaktian Pengasuh SMTPI"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.032",
+    "mataAnggaran": "Kolekta Kebaktian Majelis Jemaat/Tuagama"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.033",
+    "mataAnggaran": "Kolekta Kebaktian Tiga Batu Tungku"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.034",
+    "mataAnggaran": "Kolekta Kebaktian Pengemudi Angkot /Ojek/ Becak"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.035",
+    "mataAnggaran": "Kolekta Kebaktian pelayanan rumah / Orang Sakit"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.036",
+    "mataAnggaran": "Kolekta Kebaktian Akhir Bulan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.037",
+    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Baptis"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.038",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Baptis"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.039",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Sidi"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.040",
+    "mataAnggaran": "Sampul Syukur Anggota Sidi Baru"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.041",
+    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Nikah"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.042",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Nikah"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.043",
+    "mataAnggaran": "Kolekta Kebaktian Perjamuan Kudus    (Jumat Agung)"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.044",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Perjamuan Kudus (Jumat Agung)"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.045",
+    "mataAnggaran": "Kolekta Kebaktian Syukur Paskah (Paskah II)"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.046",
+    "mataAnggaran": "Kolekta Kebaktian Pentakosta II"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.047",
+    "mataAnggaran": "Kolekta Kebaktian Kenaikan Tuhan Yesus"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.048",
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Natal"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.049",
+    "mataAnggaran": "Kolekta Kebaktian Natal I"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.050",
+    "mataAnggaran": "Kolekta Kebaktian Natal II"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.051",
+    "mataAnggaran": "Kolekta Kebaktian Natal Wadah / Organisasi"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.052",
+    "mataAnggaran": "Kolekta Kebaktian Natal Persekutuan / Keluarga"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.053",
+    "mataAnggaran": "Kolekta Kebaktian Tahun Baru"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.054",
+    "mataAnggaran": "Kolekta Kebaktian Akhir Tahun"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.055",
+    "mataAnggaran": "Kolekta Kebaktian Malam Puji-Pujian"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.056",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT GPM"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.057",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perempuan"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.058",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Laki-Laki"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.059",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT SMTPI"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.060",
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SD"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.061",
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTP"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.062",
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTA/SMK"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.063",
+    "mataAnggaran": "Natzar Pergumulan Khusus"
+  },
+  {
+    "kodeAnggaran": "I.2.2.02.064",
+    "mataAnggaran": "Kolekta Kebaktian Lainnya"
+  },
+  {
+    "kodeAnggaran": "I.2.3.01",
+    "mataAnggaran": "Persepuluhan Gereja Baitrafa dan SK"
+  },
+  {
+    "kodeAnggaran": "I.2.3.02",
+    "mataAnggaran": "Huluhasil ( Hasil Pertama )"
+  },
+  {
+    "kodeAnggaran": "I.2.4.01",
+    "mataAnggaran": "Surat-Surat Gerejawi"
+  },
+  {
+    "kodeAnggaran": "I.2.4.02",
+    "mataAnggaran": "Barang Cetakan GPM"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.001",
+    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.002",
+    "mataAnggaran": "Pembinaan Pemuda"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.003",
+    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.004",
+    "mataAnggaran": "Pembinaan Warga Gereja Senior"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.005",
+    "mataAnggaran": "Pembinaan Keluarga"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01.006",
+    "mataAnggaran": "Pembinaan Warga Gereja Profesi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.02.001",
+    "mataAnggaran": "Pembinaan Perkebaktianan dan Musik Gerejawi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.02.002",
+    "mataAnggaran": "Gerejawi Pembinaan Pastoral Konseling"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.01.001",
+    "mataAnggaran": "Pemberitaan Injil"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02.001",
+    "mataAnggaran": "Pelayanan Hukum dan Advokasi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02.002",
+    "mataAnggaran": "Pelayanan Pendidikan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02.003",
+    "mataAnggaran": "Pelayanan Kesehatan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02.004",
+    "mataAnggaran": "Pemberdayaan Ekonomi Umat"
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02.005",
+    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya"
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.01.001",
+    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.01.002",
+    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.02.001",
+    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.02.002",
+    "mataAnggaran": "Bencana Alam dan Sosial"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.01.001",
+    "mataAnggaran": "Pembinaan Administrasi dan Manajemen"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.02.001",
+    "mataAnggaran": "Pembinaan Kepegawaian"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.02.002",
+    "mataAnggaran": "Pengembangan Staf"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.03.001",
+    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.03.002",
+    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.03.003",
+    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.04.001",
+    "mataAnggaran": "Pengembangan Infrastruktur"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.05.001",
+    "mataAnggaran": "Pembinaan Aparatur Pelayan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.06.001",
+    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.06.002",
+    "mataAnggaran": "Pengendalian Program"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.06.003",
+    "mataAnggaran": "Pengelolaan Hubungan Kerjasama"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.07.001",
+    "mataAnggaran": "Pengelolaan Informasi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.07.002",
+    "mataAnggaran": "Dokumentasi dan Publikasi"
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.07.003",
+    "mataAnggaran": "Komunikasi Pelayan"
+  },
+  {
+    "kodeAnggaran": "I.4.1.01",
+    "mataAnggaran": "Kebun Jemaat"
+  },
+  {
+    "kodeAnggaran": "I.4.1.02",
+    "mataAnggaran": "Unit Usaha"
+  },
+  {
+    "kodeAnggaran": "I.5.1.01",
+    "mataAnggaran": "Hibah"
+  },
+  {
+    "kodeAnggaran": "I.5.1.02",
+    "mataAnggaran": "Warisan"
+  },
+  {
+    "kodeAnggaran": "I.5.1.03",
+    "mataAnggaran": "Donasi"
+  },
+  {
+    "kodeAnggaran": "I.5.1.04",
+    "mataAnggaran": "Sumbangan-Sumbangan"
+  },
+  {
+    "kodeAnggaran": "I.5.2.01",
+    "mataAnggaran": "Bunga Bank"
+  },
+  {
+    "kodeAnggaran": "I.5.2.02",
+    "mataAnggaran": "Pengembalian Kelebihan Belanja / Program."
+  },
+  {
+    "kodeAnggaran": "I.5.2.03",
+    "mataAnggaran": "Pendapatan Lain-lain"
+  },
+  {
+    "kodeAnggaran": "I.6.1.01",
+    "mataAnggaran": "Kolekta HDS Anak"
+  },
+  {
+    "kodeAnggaran": "I.6.1.02",
+    "mataAnggaran": "Kolekta HDS Perempuan"
+  },
+  {
+    "kodeAnggaran": "I.6.1.03",
+    "mataAnggaran": "Kolekta HDA Anak"
+  },
+  {
+    "kodeAnggaran": "I.6.1.04",
+    "mataAnggaran": "Kolekta HDA Perempuan"
+  },
+  {
+    "kodeAnggaran": "I.6.1.05",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI"
+  },
+  {
+    "kodeAnggaran": "I.6.1.06",
+    "mataAnggaran": "Kolekta Kebaktian AMGPM"
+  },
+  {
+    "kodeAnggaran": "I.6.1.07",
+    "mataAnggaran": "Bantuan Bencana Alam, Non Alam, Sosial."
+  },
+  {
+    "kodeAnggaran": "I.6.1.08",
+    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb"
+  },
+  {
+    "kodeAnggaran": "I.6.1.09",
+    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat Per KK untuk Pembangunan Kampus UKIM"
+  },
+  {
+    "kodeAnggaran": "I.6.1.10",
+    "mataAnggaran": "Penerimaan Pihak ketiga lainnya"
+  },
+  {
+    "kodeAnggaran": "II.1.1.01",
+    "mataAnggaran": "Sisa Kurang Perhitungan Anggaran Tahun Lalu"
+  },
+  {
+    "kodeAnggaran": "II.2.1.01",
+    "mataAnggaran": "Tanggungan Pengembangan Institusi (30%)"
+  },
+  {
+    "kodeAnggaran": "II.2.1.02",
+    "mataAnggaran": "Tanggungan 1 % ke YPPK"
+  },
+  {
+    "kodeAnggaran": "II.2.1.03",
+    "mataAnggaran": "Tanggungan 5% - 10% ke Klasis"
+  },
+  {
+    "kodeAnggaran": "II.2.1.04",
+    "mataAnggaran": "Tunggakan Tanggungan Pelayanan"
+  },
+  {
+    "kodeAnggaran": "II.2.1.05",
+    "mataAnggaran": "Subsidi AMGPM / Panitia Sidang"
+  },
+  {
+    "kodeAnggaran": "II.2.1.06",
+    "mataAnggaran": "Surat-Surat Gerejawi"
+  },
+  {
+    "kodeAnggaran": "II.2.1.07",
+    "mataAnggaran": "Barang Cetakan GPM"
+  },
+  {
+    "kodeAnggaran": "II.2.2.01",
+    "mataAnggaran": "Honor Sopir dan Tenaga Sekretariat"
+  },
+  {
+    "kodeAnggaran": "II.2.2.02",
+    "mataAnggaran": "Biaya Lembur"
+  },
+  {
+    "kodeAnggaran": "II.2.2.03",
+    "mataAnggaran": "Bayar Insentif PHMJ dan MJ"
+  },
+  {
+    "kodeAnggaran": "II.2.2.04",
+    "mataAnggaran": "Bayar Insentif Pengelola Keuangan"
+  },
+  {
+    "kodeAnggaran": "II.2.2.05",
+    "mataAnggaran": "Bayar Insentif Tuagama"
+  },
+  {
+    "kodeAnggaran": "II.2.2.06",
+    "mataAnggaran": "Biaya Perawatan"
+  },
+  {
+    "kodeAnggaran": "II.2.2.07",
+    "mataAnggaran": "Kontrak Rumah"
+  },
+  {
+    "kodeAnggaran": "II.2.2.08",
+    "mataAnggaran": "THR / Open house"
+  },
+  {
+    "kodeAnggaran": "II.2.3.01",
+    "mataAnggaran": "Belanja ATK"
+  },
+  {
+    "kodeAnggaran": "II.2.3.02",
+    "mataAnggaran": "Biaya Tamu Gereja"
+  },
+  {
+    "kodeAnggaran": "II.2.3.03",
+    "mataAnggaran": "Bayar Rekening Listrik Gereja dan Pastori"
+  },
+  {
+    "kodeAnggaran": "II.2.3.04",
+    "mataAnggaran": "Bayar Wifi Gereja Baitrafa dan SK"
+  },
+  {
+    "kodeAnggaran": "II.2.3.05",
+    "mataAnggaran": "Beli Air Gereja Sumber Kasih"
+  },
+  {
+    "kodeAnggaran": "II.2.3.06",
+    "mataAnggaran": "Biaya surat"
+  },
+  {
+    "kodeAnggaran": "II.2.3.07",
+    "mataAnggaran": "Belanja Pajak-Pajak"
+  },
+  {
+    "kodeAnggaran": "II.2.4.01",
+    "mataAnggaran": "Belanja Inventaris Kantor dan Gedung gereja dan Gedung lainnya"
+  },
+  {
+    "kodeAnggaran": "II.2.4.02",
+    "mataAnggaran": "Belanja Inventaris Pastori"
+  },
+  {
+    "kodeAnggaran": "II.2.5.01",
+    "mataAnggaran": "Belanja Pemeliharaan Kantor, Gedung Gereja & gedung lainnya"
+  },
+  {
+    "kodeAnggaran": "II.2.5.02",
+    "mataAnggaran": "Belanja Pemeliharaan Pastori"
+  },
+  {
+    "kodeAnggaran": "II.2.5.03",
+    "mataAnggaran": "Belanja Pemeliharaan Inventaris Gedung Gereja dan gedung lainnya"
+  },
+  {
+    "kodeAnggaran": "II.2.5.04",
+    "mataAnggaran": "Belanja Pemeliharaan Inventaris pastori"
+  },
+  {
+    "kodeAnggaran": "II.2.5.05",
+    "mataAnggaran": "Belanja Pemeliharaan kendaraan"
+  },
+  {
+    "kodeAnggaran": "II.2.6.01",
+    "mataAnggaran": "Belanja Rapat MJ / Rapat Koordinasi"
+  },
+  {
+    "kodeAnggaran": "II.2.6.02",
+    "mataAnggaran": "Belanja Sidang Klasis"
+  },
+  {
+    "kodeAnggaran": "II.2.6.03",
+    "mataAnggaran": "Belanja Rapat Konsultasi Tingkat Klasis"
+  },
+  {
+    "kodeAnggaran": "II.2.6.04",
+    "mataAnggaran": "Belanja Sidang Jemaat"
+  },
+  {
+    "kodeAnggaran": "II.2.7.01",
+    "mataAnggaran": "Belanja Taktis Pimpinan"
+  },
+  {
+    "kodeAnggaran": "II.2.8.01",
+    "mataAnggaran": "Transport Dinas Lokal"
+  },
+  {
+    "kodeAnggaran": "II.2.8.02",
+    "mataAnggaran": "Perjalanan Dinas diluar wilayah Jemaat"
+  },
+  {
+    "kodeAnggaran": "II.2.8.03",
+    "mataAnggaran": "Biaya Perjalanan Mutasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.001",
+    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.002",
+    "mataAnggaran": "Pembinaan Pemuda"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.003",
+    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.004",
+    "mataAnggaran": "Pembinaan Warga Gereja Senior"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.005",
+    "mataAnggaran": "Pembinaan Keluarga"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01.006",
+    "mataAnggaran": "Pembinaan Warga Gereja Profesi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.02.001",
+    "mataAnggaran": "Pembinaan PerKebaktianan dan Musik Gerejawi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.02.002",
+    "mataAnggaran": "Sumbangan Pelayanan Lapas"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.01.001",
+    "mataAnggaran": "Pemberitaan Injil"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02.001",
+    "mataAnggaran": "Pelayanan Hukum dan Advokasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02.002",
+    "mataAnggaran": "Pelayanan Pendidikan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02.003",
+    "mataAnggaran": "Pelayanan Kesehatan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02.004",
+    "mataAnggaran": "Pemberdayaan Ekonomi Umat"
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02.005",
+    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya"
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.01.001",
+    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.01.002",
+    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.02.001",
+    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.02.002",
+    "mataAnggaran": "Bencana Alam dan Sosial"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.01.001",
+    "mataAnggaran": "Pembinaan Administrasi dan Manajemen"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.02.001",
+    "mataAnggaran": "Pembinaan Kepegawaian"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.02.002",
+    "mataAnggaran": "Pengembangan Staf"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.03.001",
+    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.03.002",
+    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.03.003",
+    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.04.001",
+    "mataAnggaran": "Pengembangan Infrastruktur"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.05.001",
+    "mataAnggaran": "Pembinaan Aparatur Pelayan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.06.001",
+    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.06.002",
+    "mataAnggaran": "Pengendalian Program"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.06.003",
+    "mataAnggaran": "Pengelolaan Hubungan Kerjasama"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.07.001",
+    "mataAnggaran": "Pengelolaan Informasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.07.002",
+    "mataAnggaran": "Dokumentasi dan Publikasi"
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.07.003",
+    "mataAnggaran": "Komunikasi Pelayan"
+  },
+  {
+    "kodeAnggaran": "II.4.1.01",
+    "mataAnggaran": "Kebun Jemaat"
+  },
+  {
+    "kodeAnggaran": "II.4.1.02",
+    "mataAnggaran": "Unit Usaha"
+  },
+  {
+    "kodeAnggaran": "II.5.1.01",
+    "mataAnggaran": "Sumbangan Pelayanan sakit"
+  },
+  {
+    "kodeAnggaran": "II.5.1.02",
+    "mataAnggaran": "Bantuan Biaya Studi"
+  },
+  {
+    "kodeAnggaran": "II.5.1.03",
+    "mataAnggaran": "Biaya Verifikasi"
+  },
+  {
+    "kodeAnggaran": "II.5.1.04",
+    "mataAnggaran": "Belanja Partisipasi"
+  },
+  {
+    "kodeAnggaran": "II.5.1.05",
+    "mataAnggaran": "Belanja HUT Nasional/Gerejawi"
+  },
+  {
+    "kodeAnggaran": "II.5.1.06",
+    "mataAnggaran": "Sumbangan Duka"
+  },
+  {
+    "kodeAnggaran": "II.5.1.07",
+    "mataAnggaran": "Belanja Kebaktian Minggu"
+  },
+  {
+    "kodeAnggaran": "II.5.1.08",
+    "mataAnggaran": "Belanja Bahan Perjamuan Kudus"
+  },
+  {
+    "kodeAnggaran": "II.5.1.09",
+    "mataAnggaran": "Belanja BPJS"
+  },
+  {
+    "kodeAnggaran": "II.5.1.10",
+    "mataAnggaran": "Belanja Barang Habis Pakai"
+  },
+  {
+    "kodeAnggaran": "II.5.1.11",
+    "mataAnggaran": "Belanja Lain yang dianggap Sah"
+  },
+  {
+    "kodeAnggaran": "II.5.2.01",
+    "mataAnggaran": "Belanja Tak Terduga"
+  },
+  {
+    "kodeAnggaran": "II.5.2.02",
+    "mataAnggaran": "Belanja Penanggulangan Bencana"
+  },
+  {
+    "kodeAnggaran": "II.6.1.01",
+    "mataAnggaran": "Kolekta HDS Anak"
+  },
+  {
+    "kodeAnggaran": "II.6.1.02",
+    "mataAnggaran": "Kolekta HDS Perempuan"
+  },
+  {
+    "kodeAnggaran": "II.6.1.03",
+    "mataAnggaran": "Kolekta HDA Anak"
+  },
+  {
+    "kodeAnggaran": "II.6.1.04",
+    "mataAnggaran": "Kolekta HDA Perempuan"
+  },
+  {
+    "kodeAnggaran": "II.6.1.05",
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI"
+  },
+  {
+    "kodeAnggaran": "II.6.1.06",
+    "mataAnggaran": "Kolekta Kebaktian AMGPM"
+  },
+  {
+    "kodeAnggaran": "II.6.1.07",
+    "mataAnggaran": "Bantuan Bencana Alam, Non Alam dan Sosial."
+  },
+  {
+    "kodeAnggaran": "II.6.1.08",
+    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb"
+  },
+  {
+    "kodeAnggaran": "II.6.1.09",
+    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat (KK)untuk Pembangunan Kampus UKIM"
+  },
+  {
+    "kodeAnggaran": "II.6.1.10",
+    "mataAnggaran": "Pengeluaran pihak ketiga lainnya"
+  }
+]
