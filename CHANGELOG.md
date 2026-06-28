@@ -4,6 +4,19 @@ Semua perubahan penting aplikasi ini akan dicatat di file ini.
 
 Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) secara praktis, dan versi mengikuti [Semantic Versioning](https://semver.org/).
 
+## [1.4.2] - 2026-06-22
+
+### Fitur
+
+- Menambahkan kalkulator otomatis pada Keterangan Rincian Dianggarkan untuk pola seperti `32 minggu x 27 unit x Rp90.000`.
+- Menambahkan kalkulator ringan pada kolom Jumlah Dianggarkan untuk input seperti `3 x 17.000.000`, teks satuan, atau nominal rupiah biasa.
+- Menampilkan nominal jumlah secara otomatis dalam format rupiah agar input anggaran lebih mudah dicek.
+
+### Perbaikan
+
+- Mengizinkan Keterangan Rincian kosong saat pengguna hanya perlu mengisi jumlah.
+- Membuat pembacaan nominal lebih toleran terhadap format `Rp`, `Rp.`, titik ribuan, dan teks tambahan.
+
 ## [1.4.1] - 2026-06-19
 
 ### Fitur
@@ -30,7 +43,7 @@ Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ### Perbaikan
 
-- Memperbaiki parsing tanggal import Doorscrieft Excel agar mendukung format dd/mm/yyyy dan dd-mm-yyyy.
+- Memperbaiki parsing tanggal import Doorscrieft Excel agar mendukung format `dd/mm/yyyy` dan `dd-mm-yyyy`.
 - Menormalisasi kode anggaran import dengan trailing titik agar cocok dengan master kode.
 - Menambahkan validasi serta tes import Doorscrieft untuk memastikan stabilitas proses impor.
 
@@ -38,10 +51,9 @@ Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ### Fitur
 
-- Menetapkan versi rilis aktif aplikasi sebagai 1.3.12.
+- Menetapkan versi rilis aktif aplikasi sebagai `1.3.12`.
 - Menambahkan fondasi auto versioning berbasis Conventional Commits.
 
 ### Catatan
 
-- Changelog berikutnya dapat dibuat otomatis dengan 
-pm run version:bump.
+- Changelog berikutnya dapat dibuat otomatis dengan `npm run version:bump`.
