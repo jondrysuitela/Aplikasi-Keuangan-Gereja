@@ -2,1736 +2,1975 @@
   {
     "kode": "I.1.1",
     "nama": "Pos Sisa Lebih Perhitungan Angg Tahun Lalu",
-    "subSeksiKode": "I.1",
-    "subSeksiNama": "BAGIAN SISA LEBIH ANGG TAHUN LALU",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.1.1.01",
         "nama": "Sisa Lebih Perhitungan Anggaran Tahun Lalu",
-        "dianggarkan": 11582975,
-        "realisasi": 24986352
-      }
-    ]
-  },
-  {
-    "kode": "I.2.1",
-    "nama": "Pos Tanggungan Pelayanan Gereja",
-    "subSeksiKode": "I.2",
-    "subSeksiNama": "BAGIAN PENDAPATAN TETAP GEREJA",
-    "detailRows": [
-      {
-        "kode": "I.2.1.01",
-        "nama": "Tanggungan Pelayanan Warga Jemaat/Celengan",
+        "MataAnggaran": "Sisa Lebih Perhitungan Anggaran Tahun Lalu",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.2.1.01",
+    "nama": "Tanggungan Pelayanan Warga Jemaat/Celengan",
+    "subSeksiKode": "I.2.1",
+    "subSeksiNama": "Pos Tanggungan Pelayanan Gereja",
+    "detailRows": [
       {
         "kode": "I.2.1.01.01",
         "nama": "Iuran Jemaat (Per Anggota / Per. Keluarga)",
+        "MataAnggaran": "Iuran Jemaat (Per Anggota / Per. Keluarga)",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
-        "kode": "I.2.1.02",
+        "kode": "I.2.1.01.02",
         "nama": "Tunggakan Tanggungan Pelayanan Warga Jemaat",
+        "MataAnggaran": "Tunggakan Tanggungan Pelayanan Warga Jemaat",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
-    "kode": "I.2.2",
-    "nama": "Pos Pendapatan Kolekta-Kolekta",
-    "subSeksiKode": "I.2",
-    "subSeksiNama": "BAGIAN PENDAPATAN TETAP GEREJA",
+    "kode": "I.2.2.01",
+    "nama": "Kolekta Kebaktian Minggu",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
-      {
-        "kode": "I.2.2.01",
-        "nama": "Kolekta Kebaktian Minggu",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
       {
         "kode": "I.2.2.01.001",
         "nama": "Kolekta Kebaktian Minggu",
-        "dianggarkan": 328640000,
-        "realisasi": 100153000
+        "MataAnggaran": "Kolekta Kebaktian Minggu",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.01.002",
         "nama": "Kolekta Kebaktian Minggu Perjamuan Kudus",
-        "dianggarkan": 70500000,
-        "realisasi": 29034000
-      },
+        "MataAnggaran": "Kolekta Kebaktian Minggu Perjamuan Kudus",
+        "dianggarkan": 0,
+        "realisasi": 0
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.2.2.02",
+    "nama": "Kolekta Ibadah Non Minggu",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
+    "detailRows": [
       {
-        "kode": "I.2.2.02",
-        "nama": "Kolekta Ibadah Non Minggu",
+        "kode": "I.2.2.02.001",
+        "nama": "Kolekta Kebaktian Syukur HUT Kelahiran",
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT Kelahiran",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
-        "kode": "I.2.2.02.001",
-        "nama": "Kolekta Kebaktian Syukur HUT Kelahiran",
-        "dianggarkan": 90000000,
-        "realisasi": 22270000
-      },
-      {
         "kode": "I.2.2.02.002",
         "nama": "Kolekta Kebaktian Syukur HUT Perkawinan",
-        "dianggarkan": 5000000,
-        "realisasi": 6894000
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT Perkawinan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.003",
         "nama": "Kolekta Kebaktian Syukur Kesembuhan",
+        "MataAnggaran": "Kolekta Kebaktian Syukur Kesembuhan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.004",
         "nama": "Kolekta Kebaktian Syukur Duka",
-        "dianggarkan": 200000,
-        "realisasi": 4161000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Duka",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.005",
         "nama": "Kolekta Kebaktian Syukur Masuk Rumah",
-        "dianggarkan": 2000000,
-        "realisasi": 82000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Masuk Rumah",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.006",
         "nama": "Kolekta Kebaktian Syukur Kenaikan Pangkat/Jabatan",
-        "dianggarkan": 250000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur Kenaikan Pangkat/Jabatan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.007",
         "nama": "Kolekta Kebaktian Syukur Purna Bakti",
-        "dianggarkan": 200000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur Purna Bakti",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.008",
         "nama": "Kolekta Kebaktian Syukur Pengangkatan Pegawai.",
-        "dianggarkan": 500000,
-        "realisasi": 120000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Pengangkatan Pegawai.",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.009",
         "nama": "Kolekta Kebaktian Syukur Kelulusan dan Wisuda",
-        "dianggarkan": 2500000,
-        "realisasi": 124000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Kelulusan dan Wisuda",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.010",
         "nama": "Kolekta Syukur Buka Kebun",
+        "MataAnggaran": "Kolekta Syukur Buka Kebun",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.011",
         "nama": "Kolekta Kebaktian Syukur Panen",
+        "MataAnggaran": "Kolekta Kebaktian Syukur Panen",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.012",
         "nama": "Kolekta Syukur Mobil Baru",
+        "MataAnggaran": "Kolekta Syukur Mobil Baru",
         "dianggarkan": 0,
-        "realisasi": 50000
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.013",
         "nama": "Kolekta Syukur Bodi Motor/Perahu",
+        "MataAnggaran": "Kolekta Syukur Bodi Motor/Perahu",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.014",
         "nama": "Kolekta Syukur Jaring",
+        "MataAnggaran": "Kolekta Syukur Jaring",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.015",
         "nama": "Kolekta Syukur Rompon",
+        "MataAnggaran": "Kolekta Syukur Rompon",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.016",
         "nama": "Kolekta Syukur Buka Usaha Pondok/Kios/Toko",
+        "MataAnggaran": "Kolekta Syukur Buka Usaha Pondok/Kios/Toko",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.017",
         "nama": "Kolekta Syukur Buka Rumah Makan / Restoran",
+        "MataAnggaran": "Kolekta Syukur Buka Rumah Makan / Restoran",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.018",
         "nama": "Kolekta Kebaktian Perkunjungan Majelis Jemaat",
-        "dianggarkan": 52000000,
-        "realisasi": 14617000
+        "MataAnggaran": "Kolekta Kebaktian Perkunjungan Majelis Jemaat",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.019",
         "nama": "Kolekta Kebaktian Sektor",
-        "dianggarkan": 20000000,
-        "realisasi": 8182000
+        "MataAnggaran": "Kolekta Kebaktian Sektor",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.020",
         "nama": "Kolekta Kebaktian Unit",
-        "dianggarkan": 86400000,
-        "realisasi": 11101000
+        "MataAnggaran": "Kolekta Kebaktian Unit",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.021",
         "nama": "Kolekta Kebaktian Binakel/Gatris",
-        "dianggarkan": 2500000,
-        "realisasi": 10000
+        "MataAnggaran": "Kolekta Kebaktian Binakel/Gatris",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.022",
         "nama": "Kolekta Kebaktian Buka Usbu",
+        "MataAnggaran": "Kolekta Kebaktian Buka Usbu",
         "dianggarkan": 0,
-        "realisasi": 193000
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.023",
         "nama": "Kolekta Kebaktian Tutup Usbu",
+        "MataAnggaran": "Kolekta Kebaktian Tutup Usbu",
         "dianggarkan": 0,
-        "realisasi": 60000
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.024",
         "nama": "Kolekta Kebaktian Pasar",
-        "dianggarkan": 10000000,
-        "realisasi": 2758000
+        "MataAnggaran": "Kolekta Kebaktian Pasar",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.025",
         "nama": "Kolekta Kebaktian SMTPI",
-        "dianggarkan": 40000000,
-        "realisasi": 7727000
+        "MataAnggaran": "Kolekta Kebaktian SMTPI",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.026",
         "nama": "Kolekta Kebaktian Katekisasi",
-        "dianggarkan": 8000000,
-        "realisasi": 917000
+        "MataAnggaran": "Kolekta Kebaktian Katekisasi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.027",
         "nama": "Kolekta Kebaktian Pemuda",
-        "dianggarkan": 4000000,
-        "realisasi": 2417000
+        "MataAnggaran": "Kolekta Kebaktian Pemuda",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.028",
         "nama": "Kolekta Kebaktian Kemitraan",
-        "dianggarkan": 14000000,
+        "MataAnggaran": "Kolekta Kebaktian Kemitraan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.029",
         "nama": "Kolekta Kebaktian Pelayanan Perempuan",
-        "dianggarkan": 43000000,
-        "realisasi": 13191000
+        "MataAnggaran": "Kolekta Kebaktian Pelayanan Perempuan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.030",
         "nama": "Kolekta Kebaktian Pelayanan Laki-Laki",
-        "dianggarkan": 35000000,
-        "realisasi": 9212000
+        "MataAnggaran": "Kolekta Kebaktian Pelayanan Laki-Laki",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.031",
         "nama": "Kolekta Kebaktian Pengasuh SMTPI",
-        "dianggarkan": 4200000,
-        "realisasi": 1104000
+        "MataAnggaran": "Kolekta Kebaktian Pengasuh SMTPI",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.032",
         "nama": "Kolekta Kebaktian Majelis Jemaat/Tuagama",
-        "dianggarkan": 7000000,
+        "MataAnggaran": "Kolekta Kebaktian Majelis Jemaat/Tuagama",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.033",
         "nama": "Kolekta Kebaktian Tiga Batu Tungku",
-        "dianggarkan": 400000,
+        "MataAnggaran": "Kolekta Kebaktian Tiga Batu Tungku",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.034",
         "nama": "Kolekta Kebaktian Pengemudi Angkot /Ojek/ Becak",
-        "dianggarkan": 500000,
-        "realisasi": 325000
+        "MataAnggaran": "Kolekta Kebaktian Pengemudi Angkot /Ojek/ Becak",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.035",
         "nama": "Kolekta Kebaktian Lansia / Orang Sakit",
-        "dianggarkan": 16000000,
-        "realisasi": 3146000
+        "MataAnggaran": "Kolekta Kebaktian Lansia / Orang Sakit",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.036",
         "nama": "Kolekta Kebaktian Akhir Bulan",
-        "dianggarkan": 18000000,
+        "MataAnggaran": "Kolekta Kebaktian Akhir Bulan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.037",
         "nama": "Kolekta Kebaktian Penggembalaan Baptis",
-        "dianggarkan": 2500000,
-        "realisasi": 192000
+        "MataAnggaran": "Kolekta Kebaktian Penggembalaan Baptis",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.038",
         "nama": "Kolekta Kebaktian Syukur Baptis",
-        "dianggarkan": 6000000,
-        "realisasi": 773000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Baptis",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.039",
         "nama": "Kolekta Kebaktian Syukur Peneguhan Sidi",
+        "MataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Sidi",
         "dianggarkan": 0,
-        "realisasi": 100000
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.040",
         "nama": "Sampul Syukur Anggota Sidi Baru",
-        "dianggarkan": 1700000,
-        "realisasi": 1174000
+        "MataAnggaran": "Sampul Syukur Anggota Sidi Baru",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.041",
         "nama": "Kolekta Kebaktian Penggembalaan Nikah",
-        "dianggarkan": 2716000,
-        "realisasi": 1666000
+        "MataAnggaran": "Kolekta Kebaktian Penggembalaan Nikah",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.042",
         "nama": "Kolekta Kebaktian Syukur Peneguhan Nikah",
-        "dianggarkan": 11000000,
-        "realisasi": 4470000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Nikah",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.043",
         "nama": "Kolekta Kebaktian Perjamuan Kudus    (Jumat Agung)",
-        "dianggarkan": 30000000,
-        "realisasi": 25273000
+        "MataAnggaran": "Kolekta Kebaktian Perjamuan Kudus    (Jumat Agung)",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.044",
         "nama": "Kolekta Kebaktian Syukur Perjamuan Kudus (Jumat Agung)",
-        "dianggarkan": 10000000,
-        "realisasi": 7473000
+        "MataAnggaran": "Kolekta Kebaktian Syukur Perjamuan Kudus (Jumat Agung)",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.045",
         "nama": "Kolekta Kebaktian Syukur Paskah (Paskah II)",
-        "dianggarkan": 5000000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur Paskah (Paskah II)",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.046",
         "nama": "Kolekta Kebaktian Pentakosta II",
-        "dianggarkan": 5000000,
+        "MataAnggaran": "Kolekta Kebaktian Pentakosta II",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.047",
         "nama": "Kolekta Kebaktian Kenaikan Tuhan Yesus",
-        "dianggarkan": 5000000,
+        "MataAnggaran": "Kolekta Kebaktian Kenaikan Tuhan Yesus",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.048",
         "nama": "Kolekta Kebaktian Persiapan Natal",
-        "dianggarkan": 35000000,
+        "MataAnggaran": "Kolekta Kebaktian Persiapan Natal",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.049",
         "nama": "Kolekta Kebaktian Natal I",
-        "dianggarkan": 15000000,
+        "MataAnggaran": "Kolekta Kebaktian Natal I",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.050",
         "nama": "Kolekta Kebaktian Natal II",
-        "dianggarkan": 5000000,
+        "MataAnggaran": "Kolekta Kebaktian Natal II",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.051",
         "nama": "Kolekta Kebaktian Natal Wadah / Organisasi",
-        "dianggarkan": 8000000,
+        "MataAnggaran": "Kolekta Kebaktian Natal Wadah / Organisasi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.052",
         "nama": "Kolekta Kebaktian Natal Persekutuan / Keluarga",
-        "dianggarkan": 15000000,
+        "MataAnggaran": "Kolekta Kebaktian Natal Persekutuan / Keluarga",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.053",
         "nama": "Kolekta Kebaktian Tahun Baru",
-        "dianggarkan": 10000000,
+        "MataAnggaran": "Kolekta Kebaktian Tahun Baru",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.054",
         "nama": "Kolekta Kebaktian Akhir Tahun",
-        "dianggarkan": 35000000,
+        "MataAnggaran": "Kolekta Kebaktian Akhir Tahun",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.055",
         "nama": "Kolekta Kebaktian Malam Puji-Pujian",
+        "MataAnggaran": "Kolekta Kebaktian Malam Puji-Pujian",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.056",
         "nama": "Kolekta Kebaktian Syukur HUT GPM",
-        "dianggarkan": 5320000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT GPM",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.057",
         "nama": "Kolekta Kebaktian Syukur HUT Perempuan",
-        "dianggarkan": 1200000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT Perempuan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.058",
         "nama": "Kolekta Kebaktian Syukur HUT Laki-Laki",
-        "dianggarkan": 1500000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT Laki-Laki",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.059",
         "nama": "Kolekta Kebaktian Syukur HUT SMTPI",
-        "dianggarkan": 1500000,
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT SMTPI",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.060",
         "nama": "Kolekta Kebaktian Persiapan Ujian SD",
-        "dianggarkan": 900000,
+        "MataAnggaran": "Kolekta Kebaktian Persiapan Ujian SD",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.061",
         "nama": "Kolekta Kebaktian Persiapan Ujian SLTP",
-        "dianggarkan": 700000,
+        "MataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTP",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.062",
         "nama": "Kolekta Kebaktian Persiapan Ujian SLTA/SMK",
-        "dianggarkan": 800000,
+        "MataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTA/SMK",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.2.2.02.063",
         "nama": "Natzar Pergumulan Khusus",
-        "dianggarkan": 50000000,
-        "realisasi": 9651000
+        "MataAnggaran": "Natzar Pergumulan Khusus",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.2.02.064",
         "nama": "Kolekta Kebaktian Lainnya",
-        "dianggarkan": 132075781,
-        "realisasi": 17119000
+        "MataAnggaran": "Kolekta Kebaktian Lainnya",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.2.3",
     "nama": "Pos Pendapatan Persepuluhan / Uluhasil",
-    "subSeksiKode": "I.2",
-    "subSeksiNama": "BAGIAN PENDAPATAN TETAP GEREJA",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.2.3.01",
         "nama": "Persepuluhan",
-        "dianggarkan": 716450000,
-        "realisasi": 139440000
+        "MataAnggaran": "Persepuluhan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.3.02",
         "nama": "Huluhasil ( Hasil Pertama )",
+        "MataAnggaran": "Huluhasil ( Hasil Pertama )",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.2.4",
     "nama": "Pos Pendapatan Surat Gerejawi dan Barang Cetakan.",
-    "subSeksiKode": "I.2",
-    "subSeksiNama": "BAGIAN PENDAPATAN TETAP GEREJA",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.2.4.01",
         "nama": "Surat-Surat Gerejawi",
-        "dianggarkan": 22600000,
-        "realisasi": 13850000
+        "MataAnggaran": "Surat-Surat Gerejawi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.2.4.02",
         "nama": "Barang Cetakan GPM",
+        "MataAnggaran": "Barang Cetakan GPM",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
-    "kode": "I.3.1",
-    "nama": "Pos Pendapatan Seksi-Seksi Pelayanan",
-    "subSeksiKode": "I.3",
-    "subSeksiNama": "BAGIAN PENDAPATAN PELAYANAN GEREJA",
+    "kode": "I.3.1.1.01",
+    "nama": "Sub Seksi Pembinaan Warga Gereja",
+    "subSeksiKode": "I.3.1.1",
+    "subSeksiNama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
     "detailRows": [
-      {
-        "kode": "I.3.1.1",
-        "nama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.1.01",
-        "nama": "Sub Seksi Pembinaan Warga Gereja",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
       {
         "kode": "I.3.1.1.01.001",
         "nama": "Pembinaan Anak Remaja & Katekisasi",
+        "MataAnggaran": "Pembinaan Anak Remaja & Katekisasi",
         "dianggarkan": 0,
-        "realisasi": 452000
+        "realisasi": 0
       },
       {
         "kode": "I.3.1.1.01.002",
         "nama": "Pembinaan Pemuda",
+        "MataAnggaran": "Pembinaan Pemuda",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.1.01.003",
         "nama": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+        "MataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.1.01.004",
         "nama": "Pembinaan Warga Gereja Senior",
-        "dianggarkan": 2500000,
-        "realisasi": 633000
+        "MataAnggaran": "Pembinaan Warga Gereja Senior",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.3.1.1.01.005",
         "nama": "Pembinaan Keluarga",
+        "MataAnggaran": "Pembinaan Keluarga",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.1.01.006",
         "nama": "Pembinaan Warga Gereja Profesi",
+        "MataAnggaran": "Pembinaan Warga Gereja Profesi",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.1.02",
-        "nama": "Sub Seksi Perkebaktianan dan Pastoral",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.1.02",
+    "nama": "Sub Seksi Perkebaktianan dan Pastoral",
+    "subSeksiKode": "I.3.1.1",
+    "subSeksiNama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
+    "detailRows": [
       {
         "kode": "I.3.1.1.02.001",
         "nama": "Pembinaan Perkebaktianan dan Musik Gerejawi",
+        "MataAnggaran": "Pembinaan Perkebaktianan dan Musik Gerejawi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.1.02.002",
         "nama": "Gerejawi Pembinaan Pastoral Konseling",
+        "MataAnggaran": "Gerejawi Pembinaan Pastoral Konseling",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.2",
-        "nama": "Pemberitaan Injil dan Pelayanan Kasih",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.2.01",
-        "nama": "Sub Seksi Pemberitaan Injil",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.2.01",
+    "nama": "Sub Seksi Pemberitaan Injil",
+    "subSeksiKode": "I.3.1.2",
+    "subSeksiNama": "Pemberitaan Injil dan Pelayanan Kasih",
+    "detailRows": [
       {
         "kode": "I.3.1.2.01.001",
         "nama": "Pemberitaan Injil",
+        "MataAnggaran": "Pemberitaan Injil",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.2.02",
-        "nama": "Sub Seksi Pelayanan Kasih",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.2.02",
+    "nama": "Sub Seksi Pelayanan Kasih",
+    "subSeksiKode": "I.3.1.2",
+    "subSeksiNama": "Pemberitaan Injil dan Pelayanan Kasih",
+    "detailRows": [
       {
         "kode": "I.3.1.2.02.001",
         "nama": "Pelayanan Hukum dan Advokasi",
+        "MataAnggaran": "Pelayanan Hukum dan Advokasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.2.02.002",
         "nama": "Pelayanan Pendidikan",
+        "MataAnggaran": "Pelayanan Pendidikan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.2.02.003",
         "nama": "Pelayanan Kesehatan",
+        "MataAnggaran": "Pelayanan Kesehatan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.2.02.004",
         "nama": "Pemberdayaan Ekonomi Umat",
+        "MataAnggaran": "Pemberdayaan Ekonomi Umat",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.2.02.005",
         "nama": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+        "MataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.3",
-        "nama": "Pengembangan Oikumene Semesta",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.3.01",
-        "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.3.01",
+    "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "subSeksiKode": "I.3.1.3",
+    "subSeksiNama": "Pengembangan Oikumene Semesta",
+    "detailRows": [
       {
         "kode": "I.3.1.3.01.001",
-        "nama": "Pembinaan Kerjasama Lintas Denomisasi",
+        "nama": "Pembinaan Kerjasama Lintas Denominasi",
+        "MataAnggaran": "Pembinaan Kerjasama Lintas Denominasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.3.01.002",
         "nama": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
+        "MataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.3.02",
-        "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.3.02",
+    "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "subSeksiKode": "I.3.1.3",
+    "subSeksiNama": "Pengembangan Oikumene Semesta",
+    "detailRows": [
       {
         "kode": "I.3.1.3.02.001",
         "nama": "Lingkungan Hidup dan Keutuhan Ciptaan",
+        "MataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.3.02.002",
         "nama": "Bencana Alam dan Sosial",
+        "MataAnggaran": "Bencana Alam dan Sosial",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4",
-        "nama": "Penataan dan Pengembangan Kelembagaan",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.01",
-        "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.01",
+    "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.01.001",
         "nama": "Pembinaan Administrasi dan Manajemen",
+        "MataAnggaran": "Pembinaan Administrasi dan Manajemen",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.02",
-        "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.02",
+    "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.02.001",
         "nama": "Pembinaan Kepegawaian",
+        "MataAnggaran": "Pembinaan Kepegawaian",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.02.002",
         "nama": "Pengembangan Staf",
+        "MataAnggaran": "Pengembangan Staf",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.03",
-        "nama": "Sub Seksi Penataan dan Pengembangan Keuangan",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.03",
+    "nama": "Sub Seksi Penataan dan Pengembangan Keuangan",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.03.001",
         "nama": "Pembinaan Sistim dan Manajemen Keuangan",
+        "MataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.03.002",
         "nama": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+        "MataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.03.003",
         "nama": "Pembinaan Sumber-Sumber Keuangan Gereja",
-        "dianggarkan": 24000000,
-        "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.04",
-        "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+        "MataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.04",
+    "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.04.001",
         "nama": "Pengembangan Infrastruktur",
+        "MataAnggaran": "Pengembangan Infrastruktur",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.05",
-        "nama": "Sub Seksi Pengembangan KapasitasPelayan",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.05",
+    "nama": "Sub Seksi Pengembangan KapasitasPelayan",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.05.001",
         "nama": "Pembinaan Aparatur Pelayan",
+        "MataAnggaran": "Pembinaan Aparatur Pelayan",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.06",
-        "nama": "Sub Seksi Penelitian dan Pengembangan",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.06",
+    "nama": "Sub Seksi Penelitian dan Pengembangan",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.06.001",
         "nama": "Penelitian, Perencanaan dan Pengembangan",
+        "MataAnggaran": "Penelitian, Perencanaan dan Pengembangan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.06.002",
         "nama": "Pengendalian Program",
+        "MataAnggaran": "Pengendalian Program",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.06.003",
         "nama": "Pengelolaan Hubungan Kerjasama",
+        "MataAnggaran": "Pengelolaan Hubungan Kerjasama",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "I.3.1.4.07",
-        "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "I.3.1.4.07",
+    "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "subSeksiKode": "I.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "I.3.1.4.07.001",
         "nama": "Pengelolaan Informasi",
+        "MataAnggaran": "Pengelolaan Informasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.07.002",
         "nama": "Dokumentasi dan Publikasi",
+        "MataAnggaran": "Dokumentasi dan Publikasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.3.1.4.07.003",
         "nama": "Komunikasi Pelayan",
+        "MataAnggaran": "Komunikasi Pelayan",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.4.1",
     "nama": "Pos Pendapatan Unit Usaha",
-    "subSeksiKode": "I.4",
-    "subSeksiNama": "BAGIAN PENDAPATAN UNIT USAHA GEREJA",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.4.1.01",
         "nama": "Kebun Jemaat",
-        "dianggarkan": 200000,
-        "realisasi": 350000
+        "MataAnggaran": "Kebun Jemaat",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "I.4.1.02",
         "nama": "Unit Usaha",
+        "MataAnggaran": "Unit Usaha",
         "dianggarkan": 0,
-        "realisasi": 3500000
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.5.1",
     "nama": "Pos Bantuan-bantuan dan Sumbangan- sumbangan",
-    "subSeksiKode": "I.5",
-    "subSeksiNama": "BAGIAN PENDAPATAN LAIN-LAIN",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.5.1.01",
         "nama": "Hibah",
+        "MataAnggaran": "Hibah",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.5.1.02",
         "nama": "Warisan",
+        "MataAnggaran": "Warisan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.5.1.03",
         "nama": "Donasi",
+        "MataAnggaran": "Donasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.5.1.04",
         "nama": "Sumbangan-Sumbangan",
-        "dianggarkan": 35000000,
-        "realisasi": 18792300
+        "MataAnggaran": "Sumbangan-Sumbangan",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.5.2",
     "nama": "Pos Pendapatan Lain lain",
-    "subSeksiKode": "I.5",
-    "subSeksiNama": "BAGIAN PENDAPATAN LAIN-LAIN",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.5.2.01",
         "nama": "Bunga Bank",
+        "MataAnggaran": "Bunga Bank",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.5.2.02",
         "nama": "Pengembalian Kelebihan Belanja / Program.",
+        "MataAnggaran": "Pengembalian Kelebihan Belanja / Program.",
         "dianggarkan": 0,
-        "realisasi": 4951000
+        "realisasi": 0
       },
       {
         "kode": "I.5.2.03",
         "nama": "Pendapatan Lain-lain",
+        "MataAnggaran": "Pendapatan Lain-lain",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "I.6.1",
     "nama": "Pos Pendapatan UKP",
-    "subSeksiKode": "I.6",
-    "subSeksiNama": "BAGIAN PENDAPATAN UKP",
+    "subSeksiKode": "I",
+    "subSeksiNama": "Pendapatan",
     "detailRows": [
       {
         "kode": "I.6.1.01",
         "nama": "Kolekta HDS Anak",
+        "MataAnggaran": "Kolekta HDS Anak",
         "dianggarkan": 0,
-        "realisasi": 736000
+        "realisasi": 0
       },
       {
         "kode": "I.6.1.02",
         "nama": "Kolekta HDS Perempuan",
+        "MataAnggaran": "Kolekta HDS Perempuan",
         "dianggarkan": 0,
-        "realisasi": 1210000
+        "realisasi": 0
       },
       {
         "kode": "I.6.1.03",
         "nama": "Kolekta HDA Anak",
+        "MataAnggaran": "Kolekta HDA Anak",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.04",
         "nama": "Kolekta HDA Perempuan",
+        "MataAnggaran": "Kolekta HDA Perempuan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.05",
         "nama": "Kolekta Kebaktian Syukur HUT PGI",
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT PGI",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.06",
         "nama": "Kolekta Kebaktian AMGPM",
+        "MataAnggaran": "Kolekta Kebaktian AMGPM",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.07",
         "nama": "Bantuan Bencana Alam, Non Alam, Sosial.",
+        "MataAnggaran": "Bantuan Bencana Alam, Non Alam, Sosial.",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.08",
         "nama": "Sumbangan/Derma Kepada Panitia Pemb",
+        "MataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.09",
         "nama": "Sumbangan Pegawai Organik dan Jemaat Per KK untuk Pembangunan Kampus UKIM",
+        "MataAnggaran": "Sumbangan Pegawai Organik dan Jemaat Per KK untuk Pembangunan Kampus UKIM",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "I.6.1.10",
         "nama": "Penerimaan Pihak ketiga lainnya",
+        "MataAnggaran": "Penerimaan Pihak ketiga lainnya",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
-  },
-  {
-    "kode": "II.BAGIAN.BELANJA",
-    "nama": "",
-    "subSeksiKode": "I.6",
-    "subSeksiNama": "BAGIAN PENDAPATAN UKP",
-    "detailRows": []
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.1.1",
     "nama": "Pos Sisa Kurang Perhitungan Angg Thn Lalu",
-    "subSeksiKode": "II.1",
-    "subSeksiNama": "BAGIAN SISA KURANG ANGG THN LALU",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.1.1.01",
         "nama": "Sisa Kurang Perhitungan Anggaran Tahun Lalu",
+        "MataAnggaran": "Sisa Kurang Perhitungan Anggaran Tahun Lalu",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.1",
     "nama": "Pos Belanja Tetap Gereja",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.1.01",
         "nama": "Tanggungan Pengembangan Institusi (30%)",
-        "dianggarkan": 604236468,
-        "realisasi": 143456439
+        "MataAnggaran": "Tanggungan Pengembangan Institusi (30%)",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.1.02",
         "nama": "Tanggungan 1 % ke YPPK",
-        "dianggarkan": 20141220,
-        "realisasi": 4781520
+        "MataAnggaran": "Tanggungan 1 % ke YPPK",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.1.03",
         "nama": "Tanggungan 5% - 10% ke Klasis",
-        "dianggarkan": 97282068,
-        "realisasi": 23096486
+        "MataAnggaran": "Tanggungan 5% - 10% ke Klasis",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.1.04",
         "nama": "Tunggakan Tanggungan Pelayanan",
+        "MataAnggaran": "Tunggakan Tanggungan Pelayanan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.1.05",
         "nama": "Subsidi AMGPM / Panitia Sidang",
-        "dianggarkan": 3000000,
+        "MataAnggaran": "Subsidi AMGPM / Panitia Sidang",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.1.06",
         "nama": "Surat-Surat Gerejawi",
-        "dianggarkan": 6800000,
-        "realisasi": 2840000
+        "MataAnggaran": "Surat-Surat Gerejawi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.1.07",
         "nama": "Barang Cetakan GPM",
-        "dianggarkan": 5500000,
-        "realisasi": 1225000
+        "MataAnggaran": "Barang Cetakan GPM",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.2",
     "nama": "Pos Belanja Pegawai",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.2.01",
         "nama": "Honor",
-        "dianggarkan": 45000000,
-        "realisasi": 10700000
+        "MataAnggaran": "Honor",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.2.02",
         "nama": "Biaya Lembur",
-        "dianggarkan": 2000000,
-        "realisasi": 950000
+        "MataAnggaran": "Biaya Lembur",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.2.03",
         "nama": "Insentif PHMJ dan MJ",
-        "dianggarkan": 283400000,
-        "realisasi": 67500000
+        "MataAnggaran": "Insentif PHMJ dan MJ",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.2.04",
         "nama": "Insentif Pengelola Keuangan",
-        "dianggarkan": 5600000,
-        "realisasi": 800000
+        "MataAnggaran": "Insentif Pengelola Keuangan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.2.05",
         "nama": "Insentif Tuagama / Kostor",
-        "dianggarkan": 45600000,
-        "realisasi": 9900000
+        "MataAnggaran": "Insentif Tuagama / Kostor",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.2.06",
         "nama": "Biaya Perawatan",
+        "MataAnggaran": "Biaya Perawatan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.2.07",
         "nama": "Kontrak Rumah",
-        "dianggarkan": 24000000,
+        "MataAnggaran": "Kontrak Rumah",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.2.08",
         "nama": "THR / Open house",
-        "dianggarkan": 21550000,
+        "MataAnggaran": "THR / Open house",
+        "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.3",
     "nama": "Pos Belanja Barang dan Pajak-Pajak",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.3.01",
         "nama": "Belanja ATK",
-        "dianggarkan": 19793000,
-        "realisasi": 4470000
+        "MataAnggaran": "Belanja ATK",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.3.02",
         "nama": "Belanja Tamu Gereja",
-        "dianggarkan": 15000000,
-        "realisasi": 220000
+        "MataAnggaran": "Belanja Tamu Gereja",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.3.03",
         "nama": "Belanja Rekening Listrik",
-        "dianggarkan": 47000000,
-        "realisasi": 13790391
+        "MataAnggaran": "Belanja Rekening Listrik",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.3.04",
         "nama": "Belanja Rekening Tlp/Wifi",
-        "dianggarkan": 16287000,
-        "realisasi": 4172100
+        "MataAnggaran": "Belanja Rekening Tlp/Wifi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.3.05",
         "nama": "Belanja Rekening Air",
-        "dianggarkan": 750000,
-        "realisasi": 450000
+        "MataAnggaran": "Belanja Rekening Air",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.3.06",
         "nama": "Biaya surat",
+        "MataAnggaran": "Biaya surat",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.3.07",
         "nama": "Belanja Pajak-Pajak",
-        "dianggarkan": 1600000,
+        "MataAnggaran": "Belanja Pajak-Pajak",
+        "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.4",
     "nama": "Pos Belanja Inventaris",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.4.01",
         "nama": "Belanja Inventaris Kantor dan Gedung gereja dan Gedung lainnya",
-        "dianggarkan": 22950000,
-        "realisasi": 3600000
+        "MataAnggaran": "Belanja Inventaris Kantor dan Gedung gereja dan Gedung lainnya",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.4.02",
         "nama": "Belanja Inventaris Pastori",
-        "dianggarkan": 11700000,
-        "realisasi": 3150000
+        "MataAnggaran": "Belanja Inventaris Pastori",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.5",
     "nama": "Pos Belanja Pemeliharaan",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.5.01",
         "nama": "Belanja Pemeliharaan Kantor, Gedung Gereja & gedung lainnya",
-        "dianggarkan": 15500000,
-        "realisasi": 10835000
+        "MataAnggaran": "Belanja Pemeliharaan Kantor, Gedung Gereja & gedung lainnya",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.5.02",
         "nama": "Belanja Pemeliharaan Pastori",
-        "dianggarkan": 4500000,
+        "MataAnggaran": "Belanja Pemeliharaan Pastori",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.5.03",
         "nama": "Belanja Pemeliharaan Inventaris Gedung Gereja dan gedung lainnya",
-        "dianggarkan": 15200000,
-        "realisasi": 9925000
+        "MataAnggaran": "Belanja Pemeliharaan Inventaris Gedung Gereja dan gedung lainnya",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.5.04",
         "nama": "Belanja Pemeliharaan Inventaris pastori",
-        "dianggarkan": 1500000,
+        "MataAnggaran": "Belanja Pemeliharaan Inventaris pastori",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.5.05",
         "nama": "Belanja Pemeliharaan kendaraan",
-        "dianggarkan": 13400000,
-        "realisasi": 7765000
+        "MataAnggaran": "Belanja Pemeliharaan kendaraan",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.6",
     "nama": "Pos Belanja Rapat-Rapat / Sidang",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.6.01",
         "nama": "Belanja Rapat MJ / Rapat Koordinasi",
-        "dianggarkan": 5000000,
+        "MataAnggaran": "Belanja Rapat MJ / Rapat Koordinasi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.6.02",
         "nama": "Belanja Sidang Klasis",
-        "dianggarkan": 6000000,
-        "realisasi": 3600000
+        "MataAnggaran": "Belanja Sidang Klasis",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.6.03",
         "nama": "Belanja Rapat Konsultasi Tingkat Klasis",
-        "dianggarkan": 800000,
+        "MataAnggaran": "Belanja Rapat Konsultasi Tingkat Klasis",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.2.6.04",
         "nama": "Belanja Sidang Jemaat",
-        "dianggarkan": 7500000,
-        "realisasi": 7500000
+        "MataAnggaran": "Belanja Sidang Jemaat",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.7",
     "nama": "Pos Belanja Taktis Pimpinan",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.7.01",
         "nama": "Belanja Taktis Pimpinan",
-        "dianggarkan": 5000000,
-        "realisasi": 300000
+        "MataAnggaran": "Belanja Taktis Pimpinan",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.2.8",
     "nama": "Pos Belanja Perjalanan Dinas",
-    "subSeksiKode": "II.2",
-    "subSeksiNama": "BAGIAN BELANJA TETAP GEREJA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.2.8.01",
         "nama": "Transport Dinas Lokal",
-        "dianggarkan": 10000000,
-        "realisasi": 1300000
+        "MataAnggaran": "Transport Dinas Lokal",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.2.8.02",
         "nama": "Perjalanan Dinas diluar wilayah Jemaat",
+        "MataAnggaran": "Perjalanan Dinas diluar wilayah Jemaat",
         "dianggarkan": 0,
-        "realisasi": 2820000
+        "realisasi": 0
       },
       {
         "kode": "II.2.8.03",
         "nama": "Biaya Perjalanan Mutasi",
+        "MataAnggaran": "Biaya Perjalanan Mutasi",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
-    "kode": "II.3.1",
-    "nama": "Pos Belanja Seksi-Seksi Pelayanan",
-    "subSeksiKode": "II.3",
-    "subSeksiNama": "BAGIAN BELANJA PELAYANAN GEREJA",
+    "kode": "II.3.1.1.01",
+    "nama": "Sub Seksi Pembinaan Warga Gereja",
+    "subSeksiKode": "II.3.1.1",
+    "subSeksiNama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
     "detailRows": [
-      {
-        "kode": "II.3.1.1",
-        "nama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.1.01",
-        "nama": "Sub Seksi Pembinaan Warga Gereja",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
       {
         "kode": "II.3.1.1.01.001",
         "nama": "Pembinaan Anak Remaja & Katekisasi",
-        "dianggarkan": 43580000,
-        "realisasi": 400000
+        "MataAnggaran": "Pembinaan Anak Remaja & Katekisasi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.3.1.1.01.002",
         "nama": "Pembinaan Pemuda",
-        "dianggarkan": 15850000,
-        "realisasi": 3600000
+        "MataAnggaran": "Pembinaan Pemuda",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.3.1.1.01.003",
         "nama": "Pembinaan Kemitraan Laki-Laki & Perempuan",
-        "dianggarkan": 17400000,
+        "MataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.1.01.004",
         "nama": "Pembinaan Warga Gereja Senior",
-        "dianggarkan": 16800000,
+        "MataAnggaran": "Pembinaan Warga Gereja Senior",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.1.01.005",
         "nama": "Pembinaan Keluarga",
-        "dianggarkan": 23410000,
-        "realisasi": 2000000
-      },
-      {
-        "kode": "II.3.1.1.01.006",
-        "nama": "Pembinaan Warga Gereja Profesi",
-        "dianggarkan": 8640000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.1.02",
-        "nama": "Sub Seksi PerKebaktianan dan Pastoral",
+        "MataAnggaran": "Pembinaan Keluarga",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
+        "kode": "II.3.1.1.01.006",
+        "nama": "Pembinaan Warga Gereja Profesi",
+        "MataAnggaran": "Pembinaan Warga Gereja Profesi",
+        "dianggarkan": 0,
+        "realisasi": 0
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.1.02",
+    "nama": "Sub Seksi PerKebaktianan dan Pastoral",
+    "subSeksiKode": "II.3.1.1",
+    "subSeksiNama": "Pemberdayaan Teologi dan Pemberdayaan Umat",
+    "detailRows": [
+      {
         "kode": "II.3.1.1.02.001",
         "nama": "Pembinaan PerKebaktianan dan Musik Gerejawi",
-        "dianggarkan": 2740000,
+        "MataAnggaran": "Pembinaan PerKebaktianan dan Musik Gerejawi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.1.02.002",
         "nama": "Pembinaan Pastoral Konseling",
-        "dianggarkan": 14400000,
-        "realisasi": 1600000
-      },
-      {
-        "kode": "II.3.1.2",
-        "nama": "Pemberitaan Injil dan Pelayanan Kasih",
+        "MataAnggaran": "Pembinaan Pastoral Konseling",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.2.01",
-        "nama": "Sub Seksi Pemberitaan Injil",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.2.01",
+    "nama": "Sub Seksi Pemberitaan Injil",
+    "subSeksiKode": "II.3.1.2",
+    "subSeksiNama": "Pemberitaan Injil dan Pelayanan Kasih",
+    "detailRows": [
       {
         "kode": "II.3.1.2.01.001",
         "nama": "Pemberitaan Injil",
-        "dianggarkan": 11460000,
-        "realisasi": 500000
-      },
-      {
-        "kode": "II.3.1.2.02",
-        "nama": "Sub Seksi Pelayanan Kasih",
+        "MataAnggaran": "Pemberitaan Injil",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.2.02",
+    "nama": "Sub Seksi Pelayanan Kasih",
+    "subSeksiKode": "II.3.1.2",
+    "subSeksiNama": "Pemberitaan Injil dan Pelayanan Kasih",
+    "detailRows": [
       {
         "kode": "II.3.1.2.02.001",
         "nama": "Pelayanan Hukum dan Advokasi",
-        "dianggarkan": 680000,
+        "MataAnggaran": "Pelayanan Hukum dan Advokasi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.2.02.002",
         "nama": "Pelayanan Pendidikan",
+        "MataAnggaran": "Pelayanan Pendidikan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.2.02.003",
         "nama": "Pelayanan Kesehatan",
-        "dianggarkan": 2000000,
+        "MataAnggaran": "Pelayanan Kesehatan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.2.02.004",
         "nama": "Pemberdayaan Ekonomi Umat",
+        "MataAnggaran": "Pemberdayaan Ekonomi Umat",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.2.02.005",
         "nama": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+        "MataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.3",
-        "nama": "Pengembangan Oikumene Semesta",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.3.01",
-        "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.3.01",
+    "nama": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "subSeksiKode": "II.3.1.3",
+    "subSeksiNama": "Pengembangan Oikumene Semesta",
+    "detailRows": [
       {
         "kode": "II.3.1.3.01.001",
         "nama": "Pembinaan Kerjasama Lintas Denominasi",
+        "MataAnggaran": "Pembinaan Kerjasama Lintas Denominasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.3.01.002",
         "nama": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
-        "dianggarkan": 2475000,
-        "realisasi": 2300000
-      },
-      {
-        "kode": "II.3.1.3.02",
-        "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+        "MataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.3.02",
+    "nama": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "subSeksiKode": "II.3.1.3",
+    "subSeksiNama": "Pengembangan Oikumene Semesta",
+    "detailRows": [
       {
         "kode": "II.3.1.3.02.001",
         "nama": "Lingkungan Hidup dan Keutuhan Ciptaan",
-        "dianggarkan": 1250000,
-        "realisasi": 2345000
+        "MataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.3.1.3.02.002",
         "nama": "Bencana Alam dan Sosial",
-        "dianggarkan": 1370000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4",
-        "nama": "Penataan dan Pengembangan Kelembagaan",
+        "MataAnggaran": "Bencana Alam dan Sosial",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.01",
-        "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.01",
+    "nama": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.01.001",
         "nama": "Pembinaan Administrasi dan Manajemen",
-        "dianggarkan": 4700000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.02",
-        "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
+        "MataAnggaran": "Pembinaan Administrasi dan Manajemen",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.02",
+    "nama": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.02.001",
         "nama": "Pembinaan Kepegawaian",
+        "MataAnggaran": "Pembinaan Kepegawaian",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.02.002",
         "nama": "Pengembangan Staf",
+        "MataAnggaran": "Pengembangan Staf",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.03",
-        "nama": "Sub Seksi Penataan dan Pengembangan Keuangan",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.03",
+    "nama": "Sub Seksi Penataan dan PengembanganKeuangan",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.03.001",
         "nama": "Pembinaan Sistim dan Manajemen Keuangan",
+        "MataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.03.002",
         "nama": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
-        "dianggarkan": 1200000,
+        "MataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.03.003",
         "nama": "Pembinaan Sumber-Sumber Keuangan Gereja",
-        "dianggarkan": 15000000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.04",
-        "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+        "MataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.04",
+    "nama": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.04.001",
         "nama": "Pengembangan Infrastruktur",
-        "dianggarkan": 20500000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.05",
-        "nama": "Sub Seksi Pengembangan Kapasitas Pelayan",
+        "MataAnggaran": "Pengembangan Infrastruktur",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.05",
+    "nama": "Sub Seksi Pengembangan Kapasitas Pelayan",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.05.001",
         "nama": "Pembinaan Aparatur Pelayan",
-        "dianggarkan": 11610000,
-        "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.06",
-        "nama": "Sub Seksi Penelitian dan Pengembangan",
+        "MataAnggaran": "Pembinaan Aparatur Pelayan",
         "dianggarkan": 0,
         "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.06",
+    "nama": "Sub Seksi Penelitian dan Pengembangan",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.06.001",
         "nama": "Penelitian, Perencanaan dan Pengembangan",
-        "dianggarkan": 13000000,
+        "MataAnggaran": "Penelitian, Perencanaan dan Pengembangan",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.06.002",
         "nama": "Pengendalian Program",
-        "dianggarkan": 300000,
+        "MataAnggaran": "Pengendalian Program",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.06.003",
         "nama": "Pengelolaan Hubungan Kerjasama",
+        "MataAnggaran": "Pengelolaan Hubungan Kerjasama",
         "dianggarkan": 0,
         "realisasi": 0
-      },
-      {
-        "kode": "II.3.1.4.07",
-        "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
-        "dianggarkan": 0,
-        "realisasi": 0
-      },
+      }
+    ],
+    "batangTubuh": []
+  },
+  {
+    "kode": "II.3.1.4.07",
+    "nama": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "subSeksiKode": "II.3.1.4",
+    "subSeksiNama": "Penataan dan Pengembangan Kelembagaan",
+    "detailRows": [
       {
         "kode": "II.3.1.4.07.001",
         "nama": "Pengelolaan Informasi",
-        "dianggarkan": 1040000,
+        "MataAnggaran": "Pengelolaan Informasi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.07.002",
         "nama": "Dokumentasi dan Publikasi",
+        "MataAnggaran": "Dokumentasi dan Publikasi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.3.1.4.07.003",
         "nama": "Komunikasi Pelayan",
+        "MataAnggaran": "Komunikasi Pelayan",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.4.1",
     "nama": "Pos Belanja Unit Usaha",
-    "subSeksiKode": "II.4",
-    "subSeksiNama": "BAGIAN BELANJA UNIT USAHA",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.4.1.01",
         "nama": "Kebun Jemaat",
+        "MataAnggaran": "Kebun Jemaat",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.4.1.02",
         "nama": "Unit Usaha",
+        "MataAnggaran": "Unit Usaha",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.5.1",
     "nama": "Pos Belanja Lain-Lain",
-    "subSeksiKode": "II.5",
-    "subSeksiNama": "BAGIAN BELANJA LAIN-LAIN",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.5.1.01",
         "nama": "Bantuan-bantuan",
-        "dianggarkan": 75900000,
-        "realisasi": 39000000
+        "MataAnggaran": "Bantuan-bantuan",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.02",
         "nama": "Bantuan Biaya Studi",
+        "MataAnggaran": "Bantuan Biaya Studi",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.5.1.03",
         "nama": "Biaya Verifikasi",
-        "dianggarkan": 4200000,
-        "realisasi": 2770000
+        "MataAnggaran": "Biaya Verifikasi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.04",
         "nama": "Belanja Partisipasi",
-        "dianggarkan": 8400000,
+        "MataAnggaran": "Belanja Partisipasi",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.5.1.05",
         "nama": "Belanja HUT Nasional/Gerejawi",
-        "dianggarkan": 23000000,
-        "realisasi": 10000000
+        "MataAnggaran": "Belanja HUT Nasional/Gerejawi",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.06",
         "nama": "Sumbangan Duka",
-        "dianggarkan": 10000000,
-        "realisasi": 11200000
+        "MataAnggaran": "Sumbangan Duka",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.07",
         "nama": "Belanja Pelayanan Kebaktian Minggu dan NonMinggu Di Gedung Gereja",
-        "dianggarkan": 247840000,
-        "realisasi": 61075000
+        "MataAnggaran": "Belanja Pelayanan Kebaktian Minggu dan NonMinggu Di Gedung Gereja",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.08",
         "nama": "Belanja Bahan Perjamuan Kudus",
-        "dianggarkan": 10000000,
-        "realisasi": 200000
+        "MataAnggaran": "Belanja Bahan Perjamuan Kudus",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.09",
         "nama": "Belanja BPJS",
+        "MataAnggaran": "Belanja BPJS",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.5.1.10",
         "nama": "Belanja Barang Habis Pakai",
-        "dianggarkan": 20700000,
-        "realisasi": 6162000
+        "MataAnggaran": "Belanja Barang Habis Pakai",
+        "dianggarkan": 0,
+        "realisasi": 0
       },
       {
         "kode": "II.5.1.11",
         "nama": "Belanja Lain yang dianggap Sah",
-        "dianggarkan": 36000000,
-        "realisasi": 6536000
+        "MataAnggaran": "Belanja Lain yang dianggap Sah",
+        "dianggarkan": 0,
+        "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.5.2",
     "nama": "Pos Belanja Tak Terduga dan Bencana",
-    "subSeksiKode": "II.5",
-    "subSeksiNama": "BAGIAN BELANJA LAIN-LAIN",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.5.2.01",
         "nama": "Belanja Tak Terduga",
-        "dianggarkan": 10000000,
+        "MataAnggaran": "Belanja Tak Terduga",
+        "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.5.2.02",
         "nama": "Belanja Penanggulangan Bencana",
-        "dianggarkan": 10000000,
+        "MataAnggaran": "Belanja Penanggulangan Bencana",
+        "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   },
   {
     "kode": "II.6.1",
     "nama": "Pos Belanja UKP",
-    "subSeksiKode": "II.5",
-    "subSeksiNama": "BAGIAN BELANJA LAIN-LAIN",
+    "subSeksiKode": "II",
+    "subSeksiNama": "Pengeluaran",
     "detailRows": [
       {
         "kode": "II.6.1.01",
         "nama": "Kolekta HDS Anak",
+        "MataAnggaran": "Kolekta HDS Anak",
         "dianggarkan": 0,
-        "realisasi": 736000
+        "realisasi": 0
       },
       {
         "kode": "II.6.1.02",
         "nama": "Kolekta HDS Perempuan",
+        "MataAnggaran": "Kolekta HDS Perempuan",
         "dianggarkan": 0,
-        "realisasi": 1210000
+        "realisasi": 0
       },
       {
         "kode": "II.6.1.03",
         "nama": "Kolekta HDA Anak",
+        "MataAnggaran": "Kolekta HDA Anak",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.04",
         "nama": "Kolekta HDA Perempuan",
+        "MataAnggaran": "Kolekta HDA Perempuan",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.05",
         "nama": "Kolekta Kebaktian Syukur HUT PGI",
+        "MataAnggaran": "Kolekta Kebaktian Syukur HUT PGI",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.06",
         "nama": "Kolekta Kebaktian AMGPM",
+        "MataAnggaran": "Kolekta Kebaktian AMGPM",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.07",
         "nama": "Bantuan Bencana Alam, Non Alam dan Sosial.",
+        "MataAnggaran": "Bantuan Bencana Alam, Non Alam dan Sosial.",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.08",
         "nama": "Sumbangan/Derma Kepada Panitia Pemb",
+        "MataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.09",
         "nama": "Sumbangan Pegawai Organik dan Jemaat (KK)untuk Pembangunan Kampus UKIM",
+        "MataAnggaran": "Sumbangan Pegawai Organik dan Jemaat (KK)untuk Pembangunan Kampus UKIM",
         "dianggarkan": 0,
         "realisasi": 0
       },
       {
         "kode": "II.6.1.10",
         "nama": "Pengeluaran pihak ketiga lainnya",
+        "MataAnggaran": "Pengeluaran pihak ketiga lainnya",
         "dianggarkan": 0,
         "realisasi": 0
       }
-    ]
+    ],
+    "batangTubuh": []
   }
 ]

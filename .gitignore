@@ -14,3 +14,5 @@ coverage
 *.bak
 backup/
 exports/
+.electron-user-data/
+.electron-user-data-dev-*/

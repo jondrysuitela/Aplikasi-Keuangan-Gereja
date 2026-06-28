@@ -4,10 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { formatCurrency, formatDate, generateId } from '@/lib/utils';
-import { Plus, Search, Edit2, Trash2, ArrowUpCircle, FileDown } from 'lucide-react';
+import { formatCurrency, formatDate } from '@/lib/utils';
+import { Plus, Search, Edit2, Trash2, FileDown, ArrowUpCircle, CalendarDays, ListChecks, Landmark } from 'lucide-react';
 import type { Pemasukan } from '@/types';
-import ExcelJS from 'exceljs';
+import { can } from '@/lib/permissions';
+import { toast } from 'sonner';
+import { useConfirm } from '@/components/ui/confirm-dialog';
+import { YearLockedBanner } from '@/components/YearLockedBanner';
 
 const initialForm = {
   tanggal: new Date().toISOString().split('T')[0],
@@ -19,43 +22,88 @@ const initialForm = {
 };
 
 export function PemasukanPage() {
-  const { pemasukans, addPemasukan, updatePemasukan, deletePemasukan, kategoriPendapatans, tahunAktif } = useStore();
+  const { user, pemasukans, addPemasukan, updatePemasukan, deletePemasukan, kategoriPendapatans, tahunAktif, lockedYears } = useStore();
+  const canInput = can(user?.role, 'input');
+  const canDelete = can(user?.role, 'delete');
+  const isYearLocked = lockedYears.includes(tahunAktif);
+  const confirm = useConfirm();
   const [isOpen, setIsOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [form, setForm] = useState(initialForm);
 
-  const filteredData = useMemo(() => {
+  const tahunData = useMemo(() => {
     return pemasukans
       .filter((p) => new Date(p.tanggal).getFullYear() === tahunAktif)
-      .filter((p) =>
-        p.keterangan.toLowerCase().includes(search.toLowerCase()) ||
-        p.sumberDana.toLowerCase().includes(search.toLowerCase())
-      )
       .sort((a, b) => new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime());
-  }, [pemasukans, search, tahunAktif]);
+  }, [pemasukans, tahunAktif]);
+
+  const filteredData = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    if (!query) return tahunData;
+    return tahunData.filter((p) => {
+      const kategori = kategoriPendapatans.find((k) => k.id === p.kategoriId)?.nama || '';
+      return (
+        p.keterangan.toLowerCase().includes(query) ||
+        p.sumberDana.toLowerCase().includes(query) ||
+        kategori.toLowerCase().includes(query)
+      );
+    });
+  }, [tahunData, search, kategoriPendapatans]);
+
+  const stats = useMemo(() => {
+    const total = tahunData.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
+    const bulanIni = new Date().getFullYear() === tahunAktif ? new Date().getMonth() : null;
+    const bulanIniTotal = bulanIni === null ? 0 : tahunData
+      .filter((item) => new Date(item.tanggal).getMonth() === bulanIni)
+      .reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
+    const average = tahunData.length > 0 ? total / tahunData.length : 0;
+    const sumberDanaCount = new Set(tahunData.map((item) => item.sumberDana).filter(Boolean)).size;
+    return { total, bulanIniTotal, average, sumberDanaCount };
+  }, [tahunData, tahunAktif]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      updatePemasukan(editingId, {
-        tanggal: new Date(form.tanggal),
-        kategoriId: form.kategoriId,
-        subKategoriId: form.subKategoriId,
-        keterangan: form.keterangan,
-        jumlah: Number(form.jumlah),
-        sumberDana: form.sumberDana,
-      });
-    } else {
-      addPemasukan({
-        tanggal: new Date(form.tanggal),
-        kategoriId: form.kategoriId,
-        subKategoriId: form.subKategoriId,
-        keterangan: form.keterangan,
-        jumlah: Number(form.jumlah),
-        sumberDana: form.sumberDana,
-        createdBy: 'admin',
-      });
+    if (!canInput) {
+      toast.error('Role Anda tidak memiliki izin input data.');
+      return;
+    }
+    if (isYearLocked) {
+      toast.error(`Tahun ${tahunAktif} terkunci. Buka kunci di Pengaturan untuk mengubah data.`);
+      return;
+    }
+
+    if (Number(form.jumlah || 0) <= 0) {
+      toast.error('Jumlah pemasukan harus lebih dari 0.');
+      return;
+    }
+
+    try {
+      if (editingId) {
+        updatePemasukan(editingId, {
+          tanggal: new Date(form.tanggal),
+          kategoriId: form.kategoriId,
+          subKategoriId: form.subKategoriId,
+          keterangan: form.keterangan.trim(),
+          jumlah: Number(form.jumlah),
+          sumberDana: form.sumberDana.trim(),
+        });
+        toast.success('Data pemasukan diperbarui.');
+      } else {
+        addPemasukan({
+          tanggal: new Date(form.tanggal),
+          kategoriId: form.kategoriId,
+          subKategoriId: form.subKategoriId,
+          keterangan: form.keterangan.trim(),
+          jumlah: Number(form.jumlah),
+          sumberDana: form.sumberDana.trim(),
+          createdBy: user?.username || 'admin',
+        });
+        toast.success('Data pemasukan ditambahkan.');
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Gagal menyimpan pemasukan.');
+      return;
     }
     setIsOpen(false);
     setEditingId(null);
@@ -75,23 +123,44 @@ export function PemasukanPage() {
     setIsOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Yakin hapus data ini?')) {
-      deletePemasukan(id);
+  const handleDelete = async (id: string) => {
+    if (!canDelete) {
+      toast.error('Role Anda tidak memiliki izin menghapus data.');
+      return;
     }
+    if (isYearLocked) {
+      toast.error(`Tahun ${tahunAktif} terkunci. Buka kunci di Pengaturan untuk menghapus data.`);
+      return;
+    }
+    const lanjut = await confirm({
+      title: 'Hapus data pemasukan?',
+      description: 'Data yang dihapus tidak bisa dikembalikan dari daftar ini.',
+      confirmText: 'Hapus',
+      cancelText: 'Batal',
+      tone: 'danger',
+    });
+    if (!lanjut) return;
+    try {
+      deletePemasukan(id);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Gagal menghapus pemasukan.');
+      return;
+    }
+    toast.success('Data pemasukan dihapus.');
   };
 
   const exportToExcel = async () => {
+    const { default: ExcelJS } = await import('exceljs');
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Pemasukan');
-    
+
     worksheet.columns = [
       { header: 'No', key: 'no', width: 5 },
       { header: 'Tanggal', key: 'tanggal', width: 15 },
-      { header: 'Kategori', key: 'kategori', width: 20 },
-      { header: 'Keterangan', key: 'keterangan', width: 30 },
-      { header: 'Jumlah', key: 'jumlah', width: 15 },
-      { header: 'Sumber Dana', key: 'sumberDana', width: 15 },
+      { header: 'Kategori', key: 'kategori', width: 24 },
+      { header: 'Keterangan', key: 'keterangan', width: 36 },
+      { header: 'Jumlah', key: 'jumlah', width: 18 },
+      { header: 'Sumber Dana', key: 'sumberDana', width: 22 },
     ];
 
     filteredData.forEach((item, index) => {
@@ -115,81 +184,145 @@ export function PemasukanPage() {
     a.download = `Pemasukan_${tahunAktif}.xlsx`;
     a.click();
     URL.revokeObjectURL(url);
+    toast.success('Export pemasukan berhasil.', {
+      description: `${filteredData.length} baris diexport untuk tahun ${tahunAktif}.`,
+    });
   };
 
   const getKategoriName = (id: string) => {
     return kategoriPendapatans.find((k) => k.id === id)?.nama || '-';
   };
 
+  const emptyText = search.trim()
+    ? 'Tidak ada pemasukan yang cocok dengan pencarian.'
+    : `Belum ada data pemasukan untuk tahun ${tahunAktif}.`;
+
   return (
     <div className='space-y-6'>
-      <div className='flex items-center justify-between'>
+      <div className='flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between'>
         <div>
-          <h1 className='text-2xl font-bold text-slate-900'>Pemasukan</h1>
-          <p className='text-slate-500'>Kelola data pemasukan gereja</p>
+          <div className='flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-300'>
+            <ArrowUpCircle className='h-4 w-4' />
+            Modul Penerimaan Kas
+          </div>
+          <h1 className='mt-1 text-2xl font-bold text-slate-900 dark:text-white'>Pemasukan</h1>
+          <p className='text-slate-500 dark:text-slate-400'>Kelola penerimaan gereja Tahun {tahunAktif}</p>
         </div>
-        <div className='flex gap-2'>
-          <Button variant='outline' onClick={exportToExcel}>
+        <div className='flex flex-wrap gap-2'>
+          <Button variant='outline' onClick={exportToExcel} disabled={filteredData.length === 0}>
             <FileDown className='mr-2 h-4 w-4' /> Export Excel
           </Button>
-          <Button onClick={() => { setForm(initialForm); setEditingId(null); setIsOpen(true); }}>
+          <Button disabled={!canInput || isYearLocked} onClick={() => { setForm(initialForm); setEditingId(null); setIsOpen(true); }}>
             <Plus className='mr-2 h-4 w-4' /> Tambah
           </Button>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className='flex items-center gap-4'>
-            <div className='relative flex-1 max-w-md'>
-              <Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400' />
-              <Input
-                placeholder='Cari keterangan atau sumber dana...'
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className='pl-10'
-              />
+      {isYearLocked && <YearLockedBanner tahun={tahunAktif} />}
+
+      <div className='grid gap-3 md:grid-cols-2 xl:grid-cols-4'>
+        <Card>
+          <CardContent className='p-4'>
+            <div className='flex items-start justify-between gap-3'>
+              <div>
+                <p className='text-sm text-slate-500 dark:text-slate-400'>Total Pemasukan</p>
+                <p className='mt-2 text-xl font-bold text-emerald-700 dark:text-emerald-300'>{formatCurrency(stats.total)}</p>
+              </div>
+              <ArrowUpCircle className='h-5 w-5 text-emerald-600' />
             </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className='p-4'>
+            <div className='flex items-start justify-between gap-3'>
+              <div>
+                <p className='text-sm text-slate-500 dark:text-slate-400'>Bulan Berjalan</p>
+                <p className='mt-2 text-xl font-bold text-slate-900 dark:text-white'>{formatCurrency(stats.bulanIniTotal)}</p>
+              </div>
+              <CalendarDays className='h-5 w-5 text-slate-500' />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className='p-4'>
+            <div className='flex items-start justify-between gap-3'>
+              <div>
+                <p className='text-sm text-slate-500 dark:text-slate-400'>Rata-rata Transaksi</p>
+                <p className='mt-2 text-xl font-bold text-slate-900 dark:text-white'>{formatCurrency(stats.average)}</p>
+              </div>
+              <ListChecks className='h-5 w-5 text-slate-500' />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className='p-4'>
+            <div className='flex items-start justify-between gap-3'>
+              <div>
+                <p className='text-sm text-slate-500 dark:text-slate-400'>Sumber Dana</p>
+                <p className='mt-2 text-xl font-bold text-slate-900 dark:text-white'>{stats.sumberDanaCount}</p>
+              </div>
+              <Landmark className='h-5 w-5 text-slate-500' />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader className='gap-4 lg:flex-row lg:items-center lg:justify-between'>
+          <div>
+            <CardTitle className='text-base'>Daftar Pemasukan</CardTitle>
+            <p className='text-sm text-slate-500 dark:text-slate-400'>
+              Menampilkan {filteredData.length} dari {tahunData.length} transaksi.
+            </p>
+          </div>
+          <div className='relative w-full lg:max-w-md'>
+            <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400' />
+            <Input
+              placeholder='Cari keterangan, kategori, atau sumber dana...'
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className='pl-10'
+            />
           </div>
         </CardHeader>
         <CardContent>
-          <div className='overflow-x-auto'>
-            <table className='w-full'>
-              <thead>
-                <tr className='border-b text-left text-sm font-medium text-slate-500'>
-                  <th className='pb-3 pr-4'>No</th>
-                  <th className='pb-3 pr-4'>Tanggal</th>
-                  <th className='pb-3 pr-4'>Kategori</th>
-                  <th className='pb-3 pr-4'>Keterangan</th>
-                  <th className='pb-3 pr-4 text-right'>Jumlah</th>
-                  <th className='pb-3 pr-4'>Sumber Dana</th>
-                  <th className='pb-3 text-right'>Aksi</th>
+          <div className='overflow-x-auto rounded-md border border-slate-200 dark:border-slate-700'>
+            <table className='w-full min-w-[860px] text-sm'>
+              <thead className='bg-slate-50 text-left text-xs font-semibold uppercase text-slate-500 dark:bg-slate-900/40 dark:text-slate-400'>
+                <tr>
+                  <th className='px-4 py-3'>No</th>
+                  <th className='px-4 py-3'>Tanggal</th>
+                  <th className='px-4 py-3'>Kategori</th>
+                  <th className='px-4 py-3'>Keterangan</th>
+                  <th className='px-4 py-3 text-right'>Jumlah</th>
+                  <th className='px-4 py-3'>Sumber Dana</th>
+                  <th className='px-4 py-3 text-right'>Aksi</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='divide-y divide-slate-100 dark:divide-slate-700'>
                 {filteredData.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className='py-8 text-center text-slate-500'>
-                      Belum ada data pemasukan
+                    <td colSpan={7} className='px-4 py-12 text-center text-slate-500 dark:text-slate-400'>
+                      {emptyText}
                     </td>
                   </tr>
                 ) : (
                   filteredData.map((item, index) => (
-                    <tr key={item.id} className='border-b last:border-0'>
-                      <td className='py-3 pr-4'>{index + 1}</td>
-                      <td className='py-3 pr-4'>{formatDate(item.tanggal)}</td>
-                      <td className='py-3 pr-4'>{getKategoriName(item.kategoriId)}</td>
-                      <td className='py-3 pr-4'>{item.keterangan}</td>
-                      <td className='py-3 pr-4 text-right font-medium text-green-600'>
+                    <tr key={item.id} className='bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/50'>
+                      <td className='px-4 py-3 text-slate-500'>{index + 1}</td>
+                      <td className='px-4 py-3 font-medium text-slate-700 dark:text-slate-200'>{formatDate(item.tanggal)}</td>
+                      <td className='px-4 py-3 text-slate-700 dark:text-slate-200'>{getKategoriName(item.kategoriId)}</td>
+                      <td className='px-4 py-3 text-slate-700 dark:text-slate-200'>{item.keterangan}</td>
+                      <td className='px-4 py-3 text-right font-semibold text-emerald-700 dark:text-emerald-300'>
                         {formatCurrency(item.jumlah)}
                       </td>
-                      <td className='py-3 pr-4'>{item.sumberDana}</td>
-                      <td className='py-3 text-right'>
-                        <div className='flex justify-end gap-2'>
-                          <Button variant='ghost' size='icon' onClick={() => handleEdit(item)}>
+                      <td className='px-4 py-3 text-slate-600 dark:text-slate-300'>{item.sumberDana}</td>
+                      <td className='px-4 py-3 text-right'>
+                        <div className='flex justify-end gap-1'>
+                          <Button variant='ghost' size='icon' disabled={!canInput || isYearLocked} onClick={() => handleEdit(item)} title='Edit pemasukan'>
                             <Edit2 className='h-4 w-4' />
                           </Button>
-                          <Button variant='ghost' size='icon' onClick={() => handleDelete(item.id)}>
+                          <Button variant='ghost' size='icon' disabled={!canDelete || isYearLocked} onClick={() => handleDelete(item.id)} title='Hapus pemasukan'>
                             <Trash2 className='h-4 w-4 text-red-500' />
                           </Button>
                         </div>
@@ -219,7 +352,7 @@ export function PemasukanPage() {
               required
             />
             <div>
-              <label className='text-sm font-medium mb-2 block'>Kategori</label>
+              <label className='mb-2 block text-sm font-medium'>Kategori</label>
               <select
                 className='flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm'
                 value={form.kategoriId}
@@ -242,6 +375,7 @@ export function PemasukanPage() {
             <Input
               label='Jumlah'
               type='number'
+              min={1}
               value={form.jumlah}
               onChange={(e) => setForm({ ...form, jumlah: Number(e.target.value) })}
               placeholder='Masukkan jumlah'

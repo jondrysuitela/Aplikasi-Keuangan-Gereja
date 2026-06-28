@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { getElectronAPI } from '@/lib/electron';
 
 declare const __APP_VERSION__: string;
 
@@ -12,16 +13,10 @@ export function useAppVersion() {
   const [version, setVersion] = useState(buildVersion);
 
   useEffect(() => {
-    const anyWin = window as unknown as {
-      electronAPI?: {
-        getAppVersion?: () => Promise<string>;
-      };
-    };
+    const electronAPI = getElectronAPI();
+    if (!electronAPI?.getAppVersion) return;
 
-    if (!anyWin?.electronAPI?.getAppVersion) return;
-
-    anyWin.electronAPI
-      .getAppVersion()
+    electronAPI.getAppVersion()
       .then((value) => {
         if (value) setVersion(value);
       })

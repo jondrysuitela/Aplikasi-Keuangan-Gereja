@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'bendahara' | 'viewer';
+export type UserRole = 'admin' | 'bendahara' | 'guest';
 
 export interface User {
   id: string;
@@ -6,6 +6,17 @@ export interface User {
   name: string;
   role: UserRole;
   createdAt: Date;
+}
+
+export interface UserAccount {
+  id: string;
+  username: string;
+  name: string;
+  role: UserRole;
+  passwordHash: string;
+  mustChangePassword?: boolean;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface KategoriPendapatan {
@@ -52,19 +63,44 @@ export interface SubSeksi {
 }
 
 export interface BatangTubuh {
-  id: string;
-  subSeksiId: string;
+  id?: string;
+  subSeksiId?: string;
   nama: string;
   kode: string;
   detailRows?: { kode: string; nama: string; dianggarkan: number; realisasi: number }[];
 }
 
+export interface BatangTubuhDetailRow {
+  kode: string;
+  nama: string;
+  MataAnggaran?: string;
+  dianggarkan: number;
+  realisasi: number;
+}
+
+export interface BatangTubuhProgramRincian {
+  id: string;
+  keterangan: string;
+  jumlah: number;
+}
+
+export interface BatangTubuhProgram {
+  id: string;
+  namaProgram: string;
+  rincian: BatangTubuhProgramRincian[];
+}
+
 export interface BatangTubuhItem {
   kode: string;
   nama: string;
-  subSeksiKode: string;
-  subSeksiNama: string;
-  detailRows: { kode: string; nama: string; dianggarkan: number; realisasi: number }[];
+  subSeksiKode?: string;
+  subSeksiNama?: string;
+  detailRows?: BatangTubuhDetailRow[];
+  batangTubuh?: Array<{
+    kode: string;
+    nama: string;
+    detailRows: BatangTubuhDetailRow[];
+  }>;
 }
 
 // --- Transaksi (versi lama, belum diganti oleh user namun tetap dipertahankan agar kompatibel) ---
@@ -133,10 +169,23 @@ export interface AuditLog {
   createdAt: Date;
 }
 
+export interface TransactionAttachment {
+  id: string;
+  fileName: string;
+  storedPath: string;
+  mimeType?: string;
+  size?: number;
+  createdAt: Date;
+  createdBy?: string;
+}
+
 // --- Doorscrieft / Kode Anggaran (inti user request) ---
 export interface KodeAnggaranItem {
   kodeAnggaran: string;
   mataAnggaran: string;
+  jenisKode?: 'judul' | 'isi';
+  parentKode?: string;
+  aktifInput?: boolean;
 }
 
 export interface DoorscrieftRowInput {
@@ -163,6 +212,7 @@ export interface DoorscrieftRowInput {
   createdBy?: string;
   createdAt: Date;
   updatedAt?: Date;
+  attachments?: TransactionAttachment[];
 }
 
 export interface DashboardStats {

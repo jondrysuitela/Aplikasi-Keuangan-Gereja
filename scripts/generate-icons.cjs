@@ -1,77 +1,74 @@
+#!/usr/bin/env node
+/**
+ * Generate high-quality Windows icon from PNG source
+ * Creates ICO file with multiple resolutions (16, 32, 48, 64, 128, 256)
+ * for better appearance on taskbar, desktop, and installer
+ */
+
 const fs = require('fs');
 const path = require('path');
-const { app, BrowserWindow } = require('electron');
+const sharp = require('sharp');
 
 const rootDir = path.join(__dirname, '..');
 const publicDir = path.join(rootDir, 'frontend', 'public');
-const sourceSvg = path.join(publicDir, 'church-logo.svg');
-const pngPath = path.join(publicDir, 'church-logo-256.png');
-const icoPath = path.join(publicDir, 'church-logo.ico');
+const sourcePng = path.join(publicDir, 'android-chrome-512x512.png');
+const outputIco = path.join(publicDir, 'church-logo.ico');
 
-function pngToIco(pngBuffer) {
-  const header = Buffer.alloc(6);
-  header.writeUInt16LE(0, 0);
-  header.writeUInt16LE(1, 2);
-  header.writeUInt16LE(1, 4);
+async function generateIcons() {
+  const sizes = [16, 32, 48, 64, 128, 256];
 
-  const directory = Buffer.alloc(16);
-  directory[0] = 0;
-  directory[1] = 0;
-  directory[2] = 0;
-  directory[3] = 0;
-  directory.writeUInt16LE(1, 4);
-  directory.writeUInt16LE(32, 6);
-  directory.writeUInt32LE(pngBuffer.length, 8);
-  directory.writeUInt32LE(header.length + directory.length, 12);
+  try {
+    if (!fs.existsSync(sourcePng)) {
+      console.error(`❌ Source PNG not found: ${sourcePng}`);
+      process.exit(1);
+    }
 
-  return Buffer.concat([header, directory, pngBuffer]);
+    console.log('📦 Generating icon variants from source PNG...');
+
+    const images = [];
+    for (const size of sizes) {
+      console.log(`  ✓ Creating ${size}x${size}...`);
+      const buffer = await sharp(sourcePng)
+        .resize(size, size, {
+          fit: 'contain',
+          background: { r: 0, g: 0, b: 0, alpha: 0 }
+        })
+        .png()
+        .toBuffer();
+      images.push({ size, buffer });
+    }
+
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(0, 0); // reserved
+    header.writeUInt16LE(1, 2); // type ICO
+    header.writeUInt16LE(images.length, 4); // image count
+
+    const entries = [];
+    let offset = 6 + images.length * 16;
+
+    for (const image of images) {
+      const entry = Buffer.alloc(16);
+      entry.writeUInt8(image.size === 256 ? 0 : image.size, 0); // width
+      entry.writeUInt8(image.size === 256 ? 0 : image.size, 1); // height
+      entry.writeUInt8(0, 2); // color count
+      entry.writeUInt8(0, 3); // reserved
+      entry.writeUInt16LE(1, 4); // color planes
+      entry.writeUInt16LE(32, 6); // bit count
+      entry.writeUInt32LE(image.buffer.length, 8); // bytes in resource
+      entry.writeUInt32LE(offset, 12); // offset of image data
+      entries.push(entry);
+      offset += image.buffer.length;
+    }
+
+    const icoBuffer = Buffer.concat([header, ...entries, ...images.map((image) => image.buffer)]);
+    fs.writeFileSync(outputIco, icoBuffer);
+
+    console.log(`✅ Icon generated: ${outputIco}`);
+    console.log(`   Resolutions: ${sizes.join(', ')} px\n`);
+  } catch (error) {
+    console.error('❌ Error generating icon:', error.message);
+    process.exit(1);
+  }
 }
 
-app.whenReady().then(async () => {
-  const win = new BrowserWindow({
-    width: 256,
-    height: 256,
-    show: false,
-    webPreferences: {
-      offscreen: true,
-      sandbox: false,
-      nodeIntegration: false,
-      contextIsolation: true,
-    },
-  });
-
-  const svg = fs.readFileSync(sourceSvg, 'utf-8');
-  const html = `<!doctype html>
-    <html>
-      <head>
-        <style>
-          html, body {
-            margin: 0;
-            width: 256px;
-            height: 256px;
-            background: transparent;
-            overflow: hidden;
-          }
-
-          svg {
-            display: block;
-            width: 256px;
-            height: 256px;
-          }
-        </style>
-      </head>
-      <body>${svg}</body>
-    </html>`;
-
-  await win.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
-  await new Promise((resolve) => setTimeout(resolve, 250));
-  const image = await win.webContents.capturePage({ x: 0, y: 0, width: 256, height: 256 });
-  const pngBuffer = image.toPNG();
-  fs.writeFileSync(pngPath, pngBuffer);
-  fs.writeFileSync(icoPath, pngToIco(pngBuffer));
-
-  app.quit();
-}).catch((error) => {
-  console.error(error);
-  app.exit(1);
-});
+generateIcons();

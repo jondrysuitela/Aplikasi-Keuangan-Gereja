@@ -3,6 +3,8 @@ import { useStore } from '@/stores';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, CheckCircle, AlertCircle } from 'lucide-react';
 import { formatCurrency, getLatestFilledMonth, getMonthName } from '@/lib/utils';
+import { ReportPrintButton, ReportPrintDocument } from '@/components/print/ReportPrint';
+import { AppStateMessage } from '@/components/AppStateMessage';
 
 export function RekonsiliasiPage() {
   const { doorscrieftTransaksis, tahunAktif } = useStore();
@@ -23,10 +25,11 @@ export function RekonsiliasiPage() {
     if (filledMonth) setSelectedBulan(filledMonth);
   }, [doorscrieftTransaksis, tahunAktif]);
 
-  const data = (() => {
-    const filtered = doorscrieftTransaksis.filter(
-      (t) => new Date(t.tanggal).getFullYear() === tahunAktif && new Date(t.tanggal).getMonth() + 1 === selectedBulan
-    );
+  const cumulativeData = (() => {
+    const filtered = doorscrieftTransaksis.filter((t) => {
+      const tanggal = new Date(t.tanggal);
+      return tanggal.getFullYear() === tahunAktif && tanggal.getMonth() + 1 <= selectedBulan;
+    });
     const totalPemasukan = filtered
       .filter((t) => Number(t.penerimaan || 0) !== 0)
       .reduce((sum, t) => sum + Number(t.penerimaan || 0), 0);
@@ -36,11 +39,14 @@ export function RekonsiliasiPage() {
     return { totalPemasukan, totalPengeluaran };
   })();
 
-  const totalSaldo = data.totalPemasukan - data.totalPengeluaran;
+  const totalSaldo = cumulativeData.totalPemasukan - cumulativeData.totalPengeluaran;
 
   // Detail by kode anggaran
   const detailPemasukan = doorscrieftTransaksis
-    .filter((t) => new Date(t.tanggal).getFullYear() === tahunAktif && new Date(t.tanggal).getMonth() + 1 === selectedBulan && Number(t.penerimaan || 0) !== 0)
+    .filter((t) => {
+      const tanggal = new Date(t.tanggal);
+      return tanggal.getFullYear() === tahunAktif && tanggal.getMonth() + 1 <= selectedBulan && Number(t.penerimaan || 0) !== 0;
+    })
     .reduce((acc: { kode: string; nama: string; total: number }[], t) => {
       const key = t.kodeAnggaran;
       const existing = acc.find((a) => a.kode === key);
@@ -50,7 +56,10 @@ export function RekonsiliasiPage() {
     }, []).sort((a, b) => b.total - a.total);
 
   const detailPengeluaran = doorscrieftTransaksis
-    .filter((t) => new Date(t.tanggal).getFullYear() === tahunAktif && new Date(t.tanggal).getMonth() + 1 === selectedBulan && Number(t.pengeluaran || 0) !== 0)
+    .filter((t) => {
+      const tanggal = new Date(t.tanggal);
+      return tanggal.getFullYear() === tahunAktif && tanggal.getMonth() + 1 <= selectedBulan && Number(t.pengeluaran || 0) !== 0;
+    })
     .reduce((acc: { kode: string; nama: string; total: number }[], t) => {
       const key = t.kodeAnggaran;
       const existing = acc.find((a) => a.kode === key);
@@ -61,13 +70,97 @@ export function RekonsiliasiPage() {
 
   return (
     <div className='space-y-6'>
-      <div>
-        <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Rekonsiliasi</h1>
-        <p className='text-slate-500 dark:text-slate-400'>Cocokkan pemasukan dan pengeluaran berdasarkan Kode Anggaran</p>
+      <div className='flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between'>
+        <div>
+          <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Rekonsiliasi</h1>
+          <p className='text-slate-500 dark:text-slate-400'>Cocokkan pemasukan dan pengeluaran kumulatif berdasarkan Kode Anggaran</p>
+        </div>
+        <ReportPrintButton title={`Rekonsiliasi_Januari_sd_${getMonthName(selectedBulan)}_${tahunAktif}`} />
       </div>
+
+      <ReportPrintDocument
+        title='REKONSILIASI'
+        subtitle={`Januari - ${getMonthName(selectedBulan)} ${tahunAktif}`}
+        meta={[
+          { label: 'Cakupan', value: `Januari - ${getMonthName(selectedBulan)} ${tahunAktif}` },
+          { label: 'Total Pendapatan', value: formatCurrency(cumulativeData.totalPemasukan) },
+          { label: 'Total Pengeluaran', value: formatCurrency(cumulativeData.totalPengeluaran) },
+          { label: 'Saldo', value: formatCurrency(totalSaldo) },
+          { label: 'Status', value: totalSaldo >= 0 ? 'Saldo Positif' : 'Saldo Negatif' },
+        ]}
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>Keterangan</th>
+              <th className='text-right'>Pendapatan</th>
+              <th className='text-right'>Pengeluaran</th>
+              <th className='text-right'>Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className='font-bold'>
+              <td>Akumulasi Januari - {getMonthName(selectedBulan)} {tahunAktif}</td>
+              <td className='text-right'>{formatCurrency(cumulativeData.totalPemasukan)}</td>
+              <td className='text-right'>{formatCurrency(cumulativeData.totalPengeluaran)}</td>
+              <td className='text-right'>{formatCurrency(totalSaldo)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div className='mt-4 grid grid-cols-2 gap-4'>
+          <table>
+            <thead>
+              <tr>
+                <th colSpan={3}>Pendapatan per Kode Anggaran</th>
+              </tr>
+              <tr>
+                <th>Kode</th>
+                <th>Mata Anggaran</th>
+                <th className='text-right'>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {detailPemasukan.length === 0 ? (
+                <tr><td colSpan={3} className='text-center'>Tidak ada data pendapatan.</td></tr>
+              ) : detailPemasukan.map((item) => (
+                <tr key={item.kode}>
+                  <td>{item.kode}</td>
+                  <td>{item.nama}</td>
+                  <td className='text-right'>{formatCurrency(item.total)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th colSpan={3}>Pengeluaran per Kode Anggaran</th>
+              </tr>
+              <tr>
+                <th>Kode</th>
+                <th>Mata Anggaran</th>
+                <th className='text-right'>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {detailPengeluaran.length === 0 ? (
+                <tr><td colSpan={3} className='text-center'>Tidak ada data pengeluaran.</td></tr>
+              ) : detailPengeluaran.map((item) => (
+                <tr key={item.kode}>
+                  <td>{item.kode}</td>
+                  <td>{item.nama}</td>
+                  <td className='text-right'>{formatCurrency(item.total)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </ReportPrintDocument>
 
       <div className='flex items-center gap-4'>
         <Calendar className='text-slate-500 dark:text-slate-400' />
+        <span className='text-sm font-medium text-slate-600 dark:text-slate-300'>Akumulasi sampai</span>
         <select
           className='h-10 rounded-md border border-input bg-white dark:bg-slate-800 dark:text-white px-3 text-sm font-medium'
           value={selectedBulan}
@@ -89,7 +182,8 @@ export function RekonsiliasiPage() {
           <CardContent className='pt-6'>
             <div className='text-center'>
               <p className='text-sm text-slate-500'>Total Pemasukan</p>
-              <p className='text-2xl font-bold text-green-600 mt-2'>{formatCurrency(data.totalPemasukan)}</p>
+              <p className='text-2xl font-bold text-green-600 mt-2'>{formatCurrency(cumulativeData.totalPemasukan)}</p>
+              <p className='mt-1 text-xs text-slate-500'>Januari - {getMonthName(selectedBulan)} {tahunAktif}</p>
             </div>
           </CardContent>
         </Card>
@@ -98,7 +192,8 @@ export function RekonsiliasiPage() {
           <CardContent className='pt-6'>
             <div className='text-center'>
               <p className='text-sm text-slate-500'>Total Pengeluaran</p>
-              <p className='text-2xl font-bold text-red-600 mt-2'>{formatCurrency(data.totalPengeluaran)}</p>
+              <p className='text-2xl font-bold text-red-600 mt-2'>{formatCurrency(cumulativeData.totalPengeluaran)}</p>
+              <p className='mt-1 text-xs text-slate-500'>Januari - {getMonthName(selectedBulan)} {tahunAktif}</p>
             </div>
           </CardContent>
         </Card>
@@ -110,6 +205,7 @@ export function RekonsiliasiPage() {
               <p className={'text-2xl font-bold mt-2 ' + (totalSaldo >= 0 ? 'text-green-600' : 'text-red-600')}>
                 {formatCurrency(totalSaldo)}
               </p>
+              <p className='mt-1 text-xs text-slate-500'>Januari - {getMonthName(selectedBulan)} {tahunAktif}</p>
             </div>
           </CardContent>
         </Card>
@@ -130,12 +226,12 @@ export function RekonsiliasiPage() {
           {totalSaldo >= 0 ? (
             <div className='p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800'>
               <p className='text-green-800 dark:text-green-300 font-medium'>Saldo Positif</p>
-              <p className='text-green-600 dark:text-green-400 text-sm mt-1'>Pemasukan lebih besar dari pengeluaran. Keuangan sehat.</p>
+              <p className='text-green-600 dark:text-green-400 text-sm mt-1'>Akumulasi pemasukan Januari sampai {getMonthName(selectedBulan)} {tahunAktif} lebih besar dari pengeluaran.</p>
             </div>
           ) : (
             <div className='p-4 bg-red-50 dark:bg-red-900/30 rounded-lg border border-red-200 dark:border-red-800'>
               <p className='text-red-800 dark:text-red-300 font-medium'>Saldo Negatif</p>
-              <p className='text-red-600 dark:text-red-400 text-sm mt-1'>Pengeluaran lebih besar dari pemasukan. Perlu perhatian khusus.</p>
+              <p className='text-red-600 dark:text-red-400 text-sm mt-1'>Akumulasi pengeluaran Januari sampai {getMonthName(selectedBulan)} {tahunAktif} lebih besar dari pemasukan. Perlu perhatian khusus.</p>
             </div>
           )}
         </CardContent>
@@ -145,7 +241,7 @@ export function RekonsiliasiPage() {
       <div className='grid gap-6 md:grid-cols-2'>
         <Card>
           <CardHeader>
-            <CardTitle className='text-green-600'>Pemasukan per Kode Anggaran</CardTitle>
+            <CardTitle className='text-green-600'>Pemasukan per Kode Anggaran - s.d. {getMonthName(selectedBulan)}</CardTitle>
           </CardHeader>
           <CardContent>
             {detailPemasukan.length > 0 ? (
@@ -161,14 +257,14 @@ export function RekonsiliasiPage() {
                 ))}
               </div>
             ) : (
-              <p className='text-center text-slate-500 dark:text-slate-400 py-8'>Tidak ada data pemasukan bulan ini</p>
+              <AppStateMessage compact title='Belum ada data pemasukan' detail={`Tidak ada data pemasukan sampai ${getMonthName(selectedBulan)} ${tahunAktif}.`} />
             )}
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className='text-red-600'>Pengeluaran per Kode Anggaran</CardTitle>
+            <CardTitle className='text-red-600'>Pengeluaran per Kode Anggaran - s.d. {getMonthName(selectedBulan)}</CardTitle>
           </CardHeader>
           <CardContent>
             {detailPengeluaran.length > 0 ? (
@@ -184,7 +280,7 @@ export function RekonsiliasiPage() {
                 ))}
               </div>
             ) : (
-              <p className='text-center text-slate-500 dark:text-slate-400 py-8'>Tidak ada data pengeluaran bulan ini</p>
+              <AppStateMessage compact title='Belum ada data pengeluaran' detail={`Tidak ada data pengeluaran sampai ${getMonthName(selectedBulan)} ${tahunAktif}.`} />
             )}
           </CardContent>
         </Card>

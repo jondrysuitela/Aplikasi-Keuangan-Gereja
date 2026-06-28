@@ -6,6 +6,89 @@ body {
   font-family: Inter, system-ui, sans-serif;
 }
 
+.print-only {
+  display: none;
+}
+
+.print-preview-frame .print-only {
+  display: block;
+}
+
+.print-preview-frame .print-target {
+  position: static;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: auto;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  background: #fff !important;
+  color: #0f172a !important;
+  overflow: visible !important;
+}
+
+.print-preview-frame .print-hidden {
+  display: none !important;
+}
+
+.print-preview-frame .print-report-content {
+  width: 100%;
+  overflow: visible;
+}
+
+.print-preview-frame table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 11px;
+}
+
+.print-preview-frame th,
+.print-preview-frame td {
+  border: 1px solid #cbd5e1;
+  padding: 5px 6px;
+  vertical-align: top;
+  line-height: 1.25;
+}
+
+.print-preview-frame th {
+  background: #f1f5f9;
+  font-weight: 700;
+  text-align: left;
+}
+
+.print-preview-compact table {
+  font-size: 9.5px;
+}
+
+.print-preview-compact th,
+.print-preview-compact td {
+  padding: 3px 4px;
+  line-height: 1.15;
+}
+
+.print-preview-hide-signatures .print-signature {
+  display: none !important;
+}
+
+.print-preview-frame .overflow-x-auto,
+.print-preview-frame .overflow-auto {
+  overflow: visible !important;
+}
+
+.print-preview-frame .rounded-md,
+.print-preview-frame .rounded-lg,
+.print-preview-frame .rounded-xl {
+  border-radius: 0 !important;
+}
+
+.print-preview-frame .shadow,
+.print-preview-frame .shadow-sm,
+.print-preview-frame .shadow-md,
+.print-preview-frame .shadow-lg {
+  box-shadow: none !important;
+}
+
 html.dark body {
   background-color: #0f172a;
   color: #e2e8f0;
@@ -58,7 +141,6 @@ html.dark body {
 @media print {
   @page {
     margin: 10mm;
-    size: A4 portrait;
   }
 
   body * {
@@ -77,8 +159,43 @@ html.dark body {
     width: 100%;
   }
 
+  .print-only {
+    display: block !important;
+  }
+
   .print-hidden {
     display: none !important;
+  }
+
+  .print-report-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .print-report-content th,
+  .print-report-content td {
+    border: 1px solid #cbd5e1;
+    padding: 5px 6px;
+    vertical-align: top;
+  }
+
+  .print-report-content th {
+    background: #f1f5f9 !important;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .print-report-content .text-right {
+    text-align: right;
+  }
+
+  .print-report-content .text-center {
+    text-align: center;
+  }
+
+  .print-report-content .font-bold {
+    font-weight: 700;
   }
 
   /* Remove background colors in print for cleaner output */

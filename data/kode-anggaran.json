@@ -1,882 +1,1910 @@
 [
   {
+    "kodeAnggaran": "I.1.1",
+    "mataAnggaran": "Pos Sisa Lebih Perhitungan Angg Tahun Lalu",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
     "kodeAnggaran": "I.1.1.01",
-    "mataAnggaran": "Sisa Lebih Perhitungan Anggaran Tahun Lalu"
+    "mataAnggaran": "Sisa Lebih Perhitungan Anggaran Tahun Lalu",
+    "jenisKode": "isi",
+    "parentKode": "I.1.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.2.1",
+    "mataAnggaran": "Pos Tanggungan Pelayanan Gereja",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.1.01",
-    "mataAnggaran": "Tanggungan Pelayanan Warga Jemaat/Celengan"
+    "mataAnggaran": "Tanggungan Pelayanan Warga Jemaat/Celengan",
+    "jenisKode": "judul",
+    "parentKode": "I.2.1",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.1.01.01",
-    "mataAnggaran": "Iuran Jemaat (Per Anggota / Per. Keluarga)"
+    "mataAnggaran": "Iuran Jemaat (Per Anggota / Per. Keluarga)",
+    "jenisKode": "isi",
+    "parentKode": "I.2.1.01",
+    "aktifInput": true
   },
   {
-    "kodeAnggaran": "I.2.1.02",
-    "mataAnggaran": "Tunggakan Tanggungan Pelayanan Warga Jemaat"
+    "kodeAnggaran": "I.2.1.01.02",
+    "mataAnggaran": "Tunggakan Tanggungan Pelayanan Warga Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "I.2.1.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.2.2.01",
+    "mataAnggaran": "Kolekta Kebaktian Minggu",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.2.01.001",
-    "mataAnggaran": "Kolekta Kebaktian Minggu Gereja Baitrafa dan SK"
+    "mataAnggaran": "Kolekta Kebaktian Minggu",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.01.002",
-    "mataAnggaran": "Kolekta Kebaktian Minggu Perjamuan Kudus"
+    "mataAnggaran": "Kolekta Kebaktian Minggu Perjamuan Kudus",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.2.2.02",
+    "mataAnggaran": "Kolekta Ibadah Non Minggu",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.2.02.001",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Kelahiran"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Kelahiran",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.002",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perkawinan"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perkawinan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.003",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Kesembuhan"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kesembuhan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.004",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Duka"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Duka",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.005",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Masuk Rumah"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Masuk Rumah",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.006",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Kenaikan Pangkat/Jabatan"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kenaikan Pangkat/Jabatan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.007",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Purna Bakti"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Purna Bakti",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.008",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Pengangkatan Pegawai."
+    "mataAnggaran": "Kolekta Kebaktian Syukur Pengangkatan Pegawai.",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.009",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Kelulusan dan Wisuda"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Kelulusan dan Wisuda",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.010",
-    "mataAnggaran": "Kolekta Syukur Buka Kebun"
+    "mataAnggaran": "Kolekta Syukur Buka Kebun",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.011",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Panen"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Panen",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.012",
-    "mataAnggaran": "Kolekta Syukur Mobil Baru"
+    "mataAnggaran": "Kolekta Syukur Mobil Baru",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.013",
-    "mataAnggaran": "Kolekta Syukur Bodi Motor/Perahu"
+    "mataAnggaran": "Kolekta Syukur Bodi Motor/Perahu",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.014",
-    "mataAnggaran": "Kolekta Syukur Jaring"
+    "mataAnggaran": "Kolekta Syukur Jaring",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.015",
-    "mataAnggaran": "Kolekta Syukur Rompon"
+    "mataAnggaran": "Kolekta Syukur Rompon",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.016",
-    "mataAnggaran": "Kolekta Syukur Buka Usaha Pondok/Kios/Toko"
+    "mataAnggaran": "Kolekta Syukur Buka Usaha Pondok/Kios/Toko",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.017",
-    "mataAnggaran": "Kolekta Syukur Buka Rumah Makan / Restoran"
+    "mataAnggaran": "Kolekta Syukur Buka Rumah Makan / Restoran",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.018",
-    "mataAnggaran": "Kolekta Kebaktian Perkunjungan Majelis Jemaat"
+    "mataAnggaran": "Kolekta Kebaktian Perkunjungan Majelis Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.019",
-    "mataAnggaran": "Kolekta Kebaktian Sektor"
+    "mataAnggaran": "Kolekta Kebaktian Sektor",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.020",
-    "mataAnggaran": "Kolekta Kebaktian Unit"
+    "mataAnggaran": "Kolekta Kebaktian Unit",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.021",
-    "mataAnggaran": "Kolekta Kebaktian Binakel/Gatris"
+    "mataAnggaran": "Kolekta Kebaktian Binakel/Gatris",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.022",
-    "mataAnggaran": "Kolekta Kebaktian Buka Usbu"
+    "mataAnggaran": "Kolekta Kebaktian Buka Usbu",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.023",
-    "mataAnggaran": "Kolekta Kebaktian Tutup Usbu"
+    "mataAnggaran": "Kolekta Kebaktian Tutup Usbu",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.024",
-    "mataAnggaran": "Kolekta Kebaktian Pantai/Papalele"
+    "mataAnggaran": "Kolekta Kebaktian Pasar",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.025",
-    "mataAnggaran": "Kolekta Kebaktian SMTPI"
+    "mataAnggaran": "Kolekta Kebaktian SMTPI",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.026",
-    "mataAnggaran": "Kolekta Kebaktian Katekisasi"
+    "mataAnggaran": "Kolekta Kebaktian Katekisasi",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.027",
-    "mataAnggaran": "Kolekta Kebaktian Pemuda"
+    "mataAnggaran": "Kolekta Kebaktian Pemuda",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.028",
-    "mataAnggaran": "Kolekta Kebaktian Kemitraan"
+    "mataAnggaran": "Kolekta Kebaktian Kemitraan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.029",
-    "mataAnggaran": "Kolekta Kebaktian Pelayanan Perempuan"
+    "mataAnggaran": "Kolekta Kebaktian Pelayanan Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.030",
-    "mataAnggaran": "Kolekta Kebaktian Pelayanan Laki-Laki"
+    "mataAnggaran": "Kolekta Kebaktian Pelayanan Laki-Laki",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.031",
-    "mataAnggaran": "Kolekta Kebaktian Pengasuh SMTPI"
+    "mataAnggaran": "Kolekta Kebaktian Pengasuh SMTPI",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.032",
-    "mataAnggaran": "Kolekta Kebaktian Majelis Jemaat/Tuagama"
+    "mataAnggaran": "Kolekta Kebaktian Majelis Jemaat/Tuagama",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.033",
-    "mataAnggaran": "Kolekta Kebaktian Tiga Batu Tungku"
+    "mataAnggaran": "Kolekta Kebaktian Tiga Batu Tungku",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.034",
-    "mataAnggaran": "Kolekta Kebaktian Pengemudi Angkot /Ojek/ Becak"
+    "mataAnggaran": "Kolekta Kebaktian Pengemudi Angkot /Ojek/ Becak",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.035",
-    "mataAnggaran": "Kolekta Kebaktian pelayanan rumah / Orang Sakit"
+    "mataAnggaran": "Kolekta Kebaktian Lansia / Orang Sakit",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.036",
-    "mataAnggaran": "Kolekta Kebaktian Akhir Bulan"
+    "mataAnggaran": "Kolekta Kebaktian Akhir Bulan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.037",
-    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Baptis"
+    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Baptis",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.038",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Baptis"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Baptis",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.039",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Sidi"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Sidi",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.040",
-    "mataAnggaran": "Sampul Syukur Anggota Sidi Baru"
+    "mataAnggaran": "Sampul Syukur Anggota Sidi Baru",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.041",
-    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Nikah"
+    "mataAnggaran": "Kolekta Kebaktian Penggembalaan Nikah",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.042",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Nikah"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Peneguhan Nikah",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.043",
-    "mataAnggaran": "Kolekta Kebaktian Perjamuan Kudus    (Jumat Agung)"
+    "mataAnggaran": "Kolekta Kebaktian Perjamuan Kudus    (Jumat Agung)",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.044",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Perjamuan Kudus (Jumat Agung)"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Perjamuan Kudus (Jumat Agung)",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.045",
-    "mataAnggaran": "Kolekta Kebaktian Syukur Paskah (Paskah II)"
+    "mataAnggaran": "Kolekta Kebaktian Syukur Paskah (Paskah II)",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.046",
-    "mataAnggaran": "Kolekta Kebaktian Pentakosta II"
+    "mataAnggaran": "Kolekta Kebaktian Pentakosta II",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.047",
-    "mataAnggaran": "Kolekta Kebaktian Kenaikan Tuhan Yesus"
+    "mataAnggaran": "Kolekta Kebaktian Kenaikan Tuhan Yesus",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.048",
-    "mataAnggaran": "Kolekta Kebaktian Persiapan Natal"
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Natal",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.049",
-    "mataAnggaran": "Kolekta Kebaktian Natal I"
+    "mataAnggaran": "Kolekta Kebaktian Natal I",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.050",
-    "mataAnggaran": "Kolekta Kebaktian Natal II"
+    "mataAnggaran": "Kolekta Kebaktian Natal II",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.051",
-    "mataAnggaran": "Kolekta Kebaktian Natal Wadah / Organisasi"
+    "mataAnggaran": "Kolekta Kebaktian Natal Wadah / Organisasi",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.052",
-    "mataAnggaran": "Kolekta Kebaktian Natal Persekutuan / Keluarga"
+    "mataAnggaran": "Kolekta Kebaktian Natal Persekutuan / Keluarga",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.053",
-    "mataAnggaran": "Kolekta Kebaktian Tahun Baru"
+    "mataAnggaran": "Kolekta Kebaktian Tahun Baru",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.054",
-    "mataAnggaran": "Kolekta Kebaktian Akhir Tahun"
+    "mataAnggaran": "Kolekta Kebaktian Akhir Tahun",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.055",
-    "mataAnggaran": "Kolekta Kebaktian Malam Puji-Pujian"
+    "mataAnggaran": "Kolekta Kebaktian Malam Puji-Pujian",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.056",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT GPM"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT GPM",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.057",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perempuan"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.058",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Laki-Laki"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT Laki-Laki",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.059",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT SMTPI"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT SMTPI",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.060",
-    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SD"
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SD",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.061",
-    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTP"
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTP",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.062",
-    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTA/SMK"
+    "mataAnggaran": "Kolekta Kebaktian Persiapan Ujian SLTA/SMK",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.063",
-    "mataAnggaran": "Natzar Pergumulan Khusus"
+    "mataAnggaran": "Natzar Pergumulan Khusus",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.2.02.064",
-    "mataAnggaran": "Kolekta Kebaktian Lainnya"
+    "mataAnggaran": "Kolekta Kebaktian Lainnya",
+    "jenisKode": "isi",
+    "parentKode": "I.2.2.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.2.3",
+    "mataAnggaran": "Pos Pendapatan Persepuluhan / Uluhasil",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.3.01",
-    "mataAnggaran": "Persepuluhan Gereja Baitrafa dan SK"
+    "mataAnggaran": "Persepuluhan",
+    "jenisKode": "isi",
+    "parentKode": "I.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.3.02",
-    "mataAnggaran": "Huluhasil ( Hasil Pertama )"
+    "mataAnggaran": "Huluhasil ( Hasil Pertama )",
+    "jenisKode": "isi",
+    "parentKode": "I.2.3",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.2.4",
+    "mataAnggaran": "Pos Pendapatan Surat Gerejawi dan Barang Cetakan.",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.2.4.01",
-    "mataAnggaran": "Surat-Surat Gerejawi"
+    "mataAnggaran": "Surat-Surat Gerejawi",
+    "jenisKode": "isi",
+    "parentKode": "I.2.4",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.2.4.02",
-    "mataAnggaran": "Barang Cetakan GPM"
+    "mataAnggaran": "Barang Cetakan GPM",
+    "jenisKode": "isi",
+    "parentKode": "I.2.4",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.1",
+    "mataAnggaran": "Pemberdayaan Teologi dan Pemberdayaan Umat",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.01",
+    "mataAnggaran": "Sub Seksi Pembinaan Warga Gereja",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.1",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.1.01.001",
-    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi"
+    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.01.002",
-    "mataAnggaran": "Pembinaan Pemuda"
+    "mataAnggaran": "Pembinaan Pemuda",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.01.003",
-    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan"
+    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.01.004",
-    "mataAnggaran": "Pembinaan Warga Gereja Senior"
+    "mataAnggaran": "Pembinaan Warga Gereja Senior",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.01.005",
-    "mataAnggaran": "Pembinaan Keluarga"
+    "mataAnggaran": "Pembinaan Keluarga",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.01.006",
-    "mataAnggaran": "Pembinaan Warga Gereja Profesi"
+    "mataAnggaran": "Pembinaan Warga Gereja Profesi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.1.02",
+    "mataAnggaran": "Sub Seksi Perkebaktianan dan Pastoral",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.1",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.1.02.001",
-    "mataAnggaran": "Pembinaan Perkebaktianan dan Musik Gerejawi"
+    "mataAnggaran": "Pembinaan Perkebaktianan dan Musik Gerejawi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.1.02.002",
-    "mataAnggaran": "Gerejawi Pembinaan Pastoral Konseling"
+    "mataAnggaran": "Gerejawi Pembinaan Pastoral Konseling",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.1.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.2",
+    "mataAnggaran": "Pemberitaan Injil dan Pelayanan Kasih",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.01",
+    "mataAnggaran": "Sub Seksi Pemberitaan Injil",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.2",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.2.01.001",
-    "mataAnggaran": "Pemberitaan Injil"
+    "mataAnggaran": "Pemberitaan Injil",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.2.02",
+    "mataAnggaran": "Sub Seksi Pelayanan Kasih",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.2",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.2.02.001",
-    "mataAnggaran": "Pelayanan Hukum dan Advokasi"
+    "mataAnggaran": "Pelayanan Hukum dan Advokasi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.2.02.002",
-    "mataAnggaran": "Pelayanan Pendidikan"
+    "mataAnggaran": "Pelayanan Pendidikan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.2.02.003",
-    "mataAnggaran": "Pelayanan Kesehatan"
+    "mataAnggaran": "Pelayanan Kesehatan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.2.02.004",
-    "mataAnggaran": "Pemberdayaan Ekonomi Umat"
+    "mataAnggaran": "Pemberdayaan Ekonomi Umat",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.2.02.005",
-    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya"
+    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.2.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.3",
+    "mataAnggaran": "Pengembangan Oikumene Semesta",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.01",
+    "mataAnggaran": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.3",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.3.01.001",
-    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi"
+    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.3.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.3.01.002",
-    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan"
+    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.3.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.3.02",
+    "mataAnggaran": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.3",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.3.02.001",
-    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan"
+    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.3.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.3.02.002",
-    "mataAnggaran": "Bencana Alam dan Sosial"
+    "mataAnggaran": "Bencana Alam dan Sosial",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.3.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4",
+    "mataAnggaran": "Penataan dan Pengembangan Kelembagaan",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.01",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.01.001",
-    "mataAnggaran": "Pembinaan Administrasi dan Manajemen"
+    "mataAnggaran": "Pembinaan Administrasi dan Manajemen",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.02",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.02.001",
-    "mataAnggaran": "Pembinaan Kepegawaian"
+    "mataAnggaran": "Pembinaan Kepegawaian",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.02.002",
-    "mataAnggaran": "Pengembangan Staf"
+    "mataAnggaran": "Pengembangan Staf",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.03",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Keuangan",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.03.001",
-    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan"
+    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.03",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.03.002",
-    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja"
+    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.03",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.03.003",
-    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja"
+    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.03",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.04",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.04.001",
-    "mataAnggaran": "Pengembangan Infrastruktur"
+    "mataAnggaran": "Pengembangan Infrastruktur",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.04",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.05",
+    "mataAnggaran": "Sub Seksi Pengembangan KapasitasPelayan",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.05.001",
-    "mataAnggaran": "Pembinaan Aparatur Pelayan"
+    "mataAnggaran": "Pembinaan Aparatur Pelayan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.05",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.06",
+    "mataAnggaran": "Sub Seksi Penelitian dan Pengembangan",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.06.001",
-    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan"
+    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.06",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.06.002",
-    "mataAnggaran": "Pengendalian Program"
+    "mataAnggaran": "Pengendalian Program",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.06",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.06.003",
-    "mataAnggaran": "Pengelolaan Hubungan Kerjasama"
+    "mataAnggaran": "Pengelolaan Hubungan Kerjasama",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.06",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.3.1.4.07",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "jenisKode": "judul",
+    "parentKode": "I.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.3.1.4.07.001",
-    "mataAnggaran": "Pengelolaan Informasi"
+    "mataAnggaran": "Pengelolaan Informasi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.07",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.07.002",
-    "mataAnggaran": "Dokumentasi dan Publikasi"
+    "mataAnggaran": "Dokumentasi dan Publikasi",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.07",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.3.1.4.07.003",
-    "mataAnggaran": "Komunikasi Pelayan"
+    "mataAnggaran": "Komunikasi Pelayan",
+    "jenisKode": "isi",
+    "parentKode": "I.3.1.4.07",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.4.1",
+    "mataAnggaran": "Pos Pendapatan Unit Usaha",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.4.1.01",
-    "mataAnggaran": "Kebun Jemaat"
+    "mataAnggaran": "Kebun Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "I.4.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.4.1.02",
-    "mataAnggaran": "Unit Usaha"
+    "mataAnggaran": "Unit Usaha",
+    "jenisKode": "isi",
+    "parentKode": "I.4.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.5.1",
+    "mataAnggaran": "Pos Bantuan-bantuan dan Sumbangan- sumbangan",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.5.1.01",
-    "mataAnggaran": "Hibah"
+    "mataAnggaran": "Hibah",
+    "jenisKode": "isi",
+    "parentKode": "I.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.5.1.02",
-    "mataAnggaran": "Warisan"
+    "mataAnggaran": "Warisan",
+    "jenisKode": "isi",
+    "parentKode": "I.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.5.1.03",
-    "mataAnggaran": "Donasi"
+    "mataAnggaran": "Donasi",
+    "jenisKode": "isi",
+    "parentKode": "I.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.5.1.04",
-    "mataAnggaran": "Sumbangan-Sumbangan"
+    "mataAnggaran": "Sumbangan-Sumbangan",
+    "jenisKode": "isi",
+    "parentKode": "I.5.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.5.2",
+    "mataAnggaran": "Pos Pendapatan Lain lain",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.5.2.01",
-    "mataAnggaran": "Bunga Bank"
+    "mataAnggaran": "Bunga Bank",
+    "jenisKode": "isi",
+    "parentKode": "I.5.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.5.2.02",
-    "mataAnggaran": "Pengembalian Kelebihan Belanja / Program."
+    "mataAnggaran": "Pengembalian Kelebihan Belanja / Program.",
+    "jenisKode": "isi",
+    "parentKode": "I.5.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.5.2.03",
-    "mataAnggaran": "Pendapatan Lain-lain"
+    "mataAnggaran": "Pendapatan Lain-lain",
+    "jenisKode": "isi",
+    "parentKode": "I.5.2",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "I.6.1",
+    "mataAnggaran": "Pos Pendapatan UKP",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "I.6.1.01",
-    "mataAnggaran": "Kolekta HDS Anak"
+    "mataAnggaran": "Kolekta HDS Anak",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.02",
-    "mataAnggaran": "Kolekta HDS Perempuan"
+    "mataAnggaran": "Kolekta HDS Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.03",
-    "mataAnggaran": "Kolekta HDA Anak"
+    "mataAnggaran": "Kolekta HDA Anak",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.04",
-    "mataAnggaran": "Kolekta HDA Perempuan"
+    "mataAnggaran": "Kolekta HDA Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.05",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.06",
-    "mataAnggaran": "Kolekta Kebaktian AMGPM"
+    "mataAnggaran": "Kolekta Kebaktian AMGPM",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.07",
-    "mataAnggaran": "Bantuan Bencana Alam, Non Alam, Sosial."
+    "mataAnggaran": "Bantuan Bencana Alam, Non Alam, Sosial.",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.08",
-    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb"
+    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.09",
-    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat Per KK untuk Pembangunan Kampus UKIM"
+    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat Per KK untuk Pembangunan Kampus UKIM",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "I.6.1.10",
-    "mataAnggaran": "Penerimaan Pihak ketiga lainnya"
+    "mataAnggaran": "Penerimaan Pihak ketiga lainnya",
+    "jenisKode": "isi",
+    "parentKode": "I.6.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.1.1",
+    "mataAnggaran": "Pos Sisa Kurang Perhitungan Angg Thn Lalu",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.1.1.01",
-    "mataAnggaran": "Sisa Kurang Perhitungan Anggaran Tahun Lalu"
+    "mataAnggaran": "Sisa Kurang Perhitungan Anggaran Tahun Lalu",
+    "jenisKode": "isi",
+    "parentKode": "II.1.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.1",
+    "mataAnggaran": "Pos Belanja Tetap Gereja",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.1.01",
-    "mataAnggaran": "Tanggungan Pengembangan Institusi (30%)"
+    "mataAnggaran": "Tanggungan Pengembangan Institusi (30%)",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.02",
-    "mataAnggaran": "Tanggungan 1 % ke YPPK"
+    "mataAnggaran": "Tanggungan 1 % ke YPPK",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.03",
-    "mataAnggaran": "Tanggungan 5% - 10% ke Klasis"
+    "mataAnggaran": "Tanggungan 5% - 10% ke Klasis",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.04",
-    "mataAnggaran": "Tunggakan Tanggungan Pelayanan"
+    "mataAnggaran": "Tunggakan Tanggungan Pelayanan",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.05",
-    "mataAnggaran": "Subsidi AMGPM / Panitia Sidang"
+    "mataAnggaran": "Subsidi AMGPM / Panitia Sidang",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.06",
-    "mataAnggaran": "Surat-Surat Gerejawi"
+    "mataAnggaran": "Surat-Surat Gerejawi",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.1.07",
-    "mataAnggaran": "Barang Cetakan GPM"
+    "mataAnggaran": "Barang Cetakan GPM",
+    "jenisKode": "isi",
+    "parentKode": "II.2.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.2",
+    "mataAnggaran": "Pos Belanja Pegawai",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.2.01",
-    "mataAnggaran": "Honor Sopir dan Tenaga Sekretariat"
+    "mataAnggaran": "Honor",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.02",
-    "mataAnggaran": "Biaya Lembur"
+    "mataAnggaran": "Biaya Lembur",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.03",
-    "mataAnggaran": "Bayar Insentif PHMJ dan MJ"
+    "mataAnggaran": "Insentif PHMJ dan MJ",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.04",
-    "mataAnggaran": "Bayar Insentif Pengelola Keuangan"
+    "mataAnggaran": "Insentif Pengelola Keuangan",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.05",
-    "mataAnggaran": "Bayar Insentif Tuagama"
+    "mataAnggaran": "Insentif Tuagama / Kostor",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.06",
-    "mataAnggaran": "Biaya Perawatan"
+    "mataAnggaran": "Biaya Perawatan",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.07",
-    "mataAnggaran": "Kontrak Rumah"
+    "mataAnggaran": "Kontrak Rumah",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.2.08",
-    "mataAnggaran": "THR / Open house"
+    "mataAnggaran": "THR / Open house",
+    "jenisKode": "isi",
+    "parentKode": "II.2.2",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.3",
+    "mataAnggaran": "Pos Belanja Barang dan Pajak-Pajak",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.3.01",
-    "mataAnggaran": "Belanja ATK"
+    "mataAnggaran": "Belanja ATK",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.02",
-    "mataAnggaran": "Biaya Tamu Gereja"
+    "mataAnggaran": "Belanja Tamu Gereja",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.03",
-    "mataAnggaran": "Bayar Rekening Listrik Gereja dan Pastori"
+    "mataAnggaran": "Belanja Rekening Listrik",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.04",
-    "mataAnggaran": "Bayar Wifi Gereja Baitrafa dan SK"
+    "mataAnggaran": "Belanja Rekening Tlp/Wifi",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.05",
-    "mataAnggaran": "Beli Air Gereja Sumber Kasih"
+    "mataAnggaran": "Belanja Rekening Air",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.06",
-    "mataAnggaran": "Biaya surat"
+    "mataAnggaran": "Biaya surat",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.3.07",
-    "mataAnggaran": "Belanja Pajak-Pajak"
+    "mataAnggaran": "Belanja Pajak-Pajak",
+    "jenisKode": "isi",
+    "parentKode": "II.2.3",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.4",
+    "mataAnggaran": "Pos Belanja Inventaris",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.4.01",
-    "mataAnggaran": "Belanja Inventaris Kantor dan Gedung gereja dan Gedung lainnya"
+    "mataAnggaran": "Belanja Inventaris Kantor dan Gedung gereja dan Gedung lainnya",
+    "jenisKode": "isi",
+    "parentKode": "II.2.4",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.4.02",
-    "mataAnggaran": "Belanja Inventaris Pastori"
+    "mataAnggaran": "Belanja Inventaris Pastori",
+    "jenisKode": "isi",
+    "parentKode": "II.2.4",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.5",
+    "mataAnggaran": "Pos Belanja Pemeliharaan",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.5.01",
-    "mataAnggaran": "Belanja Pemeliharaan Kantor, Gedung Gereja & gedung lainnya"
+    "mataAnggaran": "Belanja Pemeliharaan Kantor, Gedung Gereja & gedung lainnya",
+    "jenisKode": "isi",
+    "parentKode": "II.2.5",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.5.02",
-    "mataAnggaran": "Belanja Pemeliharaan Pastori"
+    "mataAnggaran": "Belanja Pemeliharaan Pastori",
+    "jenisKode": "isi",
+    "parentKode": "II.2.5",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.5.03",
-    "mataAnggaran": "Belanja Pemeliharaan Inventaris Gedung Gereja dan gedung lainnya"
+    "mataAnggaran": "Belanja Pemeliharaan Inventaris Gedung Gereja dan gedung lainnya",
+    "jenisKode": "isi",
+    "parentKode": "II.2.5",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.5.04",
-    "mataAnggaran": "Belanja Pemeliharaan Inventaris pastori"
+    "mataAnggaran": "Belanja Pemeliharaan Inventaris pastori",
+    "jenisKode": "isi",
+    "parentKode": "II.2.5",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.5.05",
-    "mataAnggaran": "Belanja Pemeliharaan kendaraan"
+    "mataAnggaran": "Belanja Pemeliharaan kendaraan",
+    "jenisKode": "isi",
+    "parentKode": "II.2.5",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.6",
+    "mataAnggaran": "Pos Belanja Rapat-Rapat / Sidang",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.6.01",
-    "mataAnggaran": "Belanja Rapat MJ / Rapat Koordinasi"
+    "mataAnggaran": "Belanja Rapat MJ / Rapat Koordinasi",
+    "jenisKode": "isi",
+    "parentKode": "II.2.6",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.6.02",
-    "mataAnggaran": "Belanja Sidang Klasis"
+    "mataAnggaran": "Belanja Sidang Klasis",
+    "jenisKode": "isi",
+    "parentKode": "II.2.6",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.6.03",
-    "mataAnggaran": "Belanja Rapat Konsultasi Tingkat Klasis"
+    "mataAnggaran": "Belanja Rapat Konsultasi Tingkat Klasis",
+    "jenisKode": "isi",
+    "parentKode": "II.2.6",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.6.04",
-    "mataAnggaran": "Belanja Sidang Jemaat"
+    "mataAnggaran": "Belanja Sidang Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "II.2.6",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.7",
+    "mataAnggaran": "Pos Belanja Taktis Pimpinan",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.7.01",
-    "mataAnggaran": "Belanja Taktis Pimpinan"
+    "mataAnggaran": "Belanja Taktis Pimpinan",
+    "jenisKode": "isi",
+    "parentKode": "II.2.7",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.2.8",
+    "mataAnggaran": "Pos Belanja Perjalanan Dinas",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.2.8.01",
-    "mataAnggaran": "Transport Dinas Lokal"
+    "mataAnggaran": "Transport Dinas Lokal",
+    "jenisKode": "isi",
+    "parentKode": "II.2.8",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.8.02",
-    "mataAnggaran": "Perjalanan Dinas diluar wilayah Jemaat"
+    "mataAnggaran": "Perjalanan Dinas diluar wilayah Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "II.2.8",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.2.8.03",
-    "mataAnggaran": "Biaya Perjalanan Mutasi"
+    "mataAnggaran": "Biaya Perjalanan Mutasi",
+    "jenisKode": "isi",
+    "parentKode": "II.2.8",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.1",
+    "mataAnggaran": "Pemberdayaan Teologi dan Pemberdayaan Umat",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.01",
+    "mataAnggaran": "Sub Seksi Pembinaan Warga Gereja",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.1",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.1.01.001",
-    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi"
+    "mataAnggaran": "Pembinaan Anak Remaja & Katekisasi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.01.002",
-    "mataAnggaran": "Pembinaan Pemuda"
+    "mataAnggaran": "Pembinaan Pemuda",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.01.003",
-    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan"
+    "mataAnggaran": "Pembinaan Kemitraan Laki-Laki & Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.01.004",
-    "mataAnggaran": "Pembinaan Warga Gereja Senior"
+    "mataAnggaran": "Pembinaan Warga Gereja Senior",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.01.005",
-    "mataAnggaran": "Pembinaan Keluarga"
+    "mataAnggaran": "Pembinaan Keluarga",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.01.006",
-    "mataAnggaran": "Pembinaan Warga Gereja Profesi"
+    "mataAnggaran": "Pembinaan Warga Gereja Profesi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.1.02",
+    "mataAnggaran": "Sub Seksi PerKebaktianan dan Pastoral",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.1",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.1.02.001",
-    "mataAnggaran": "Pembinaan PerKebaktianan dan Musik Gerejawi"
+    "mataAnggaran": "Pembinaan PerKebaktianan dan Musik Gerejawi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.1.02.002",
-    "mataAnggaran": "Sumbangan Pelayanan Lapas"
+    "mataAnggaran": "Pembinaan Pastoral Konseling",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.1.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.2",
+    "mataAnggaran": "Pemberitaan Injil dan Pelayanan Kasih",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.01",
+    "mataAnggaran": "Sub Seksi Pemberitaan Injil",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.2",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.2.01.001",
-    "mataAnggaran": "Pemberitaan Injil"
+    "mataAnggaran": "Pemberitaan Injil",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.2.02",
+    "mataAnggaran": "Sub Seksi Pelayanan Kasih",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.2",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.2.02.001",
-    "mataAnggaran": "Pelayanan Hukum dan Advokasi"
+    "mataAnggaran": "Pelayanan Hukum dan Advokasi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.2.02.002",
-    "mataAnggaran": "Pelayanan Pendidikan"
+    "mataAnggaran": "Pelayanan Pendidikan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.2.02.003",
-    "mataAnggaran": "Pelayanan Kesehatan"
+    "mataAnggaran": "Pelayanan Kesehatan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.2.02.004",
-    "mataAnggaran": "Pemberdayaan Ekonomi Umat"
+    "mataAnggaran": "Pemberdayaan Ekonomi Umat",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.2.02.005",
-    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya"
+    "mataAnggaran": "Pemberdayaan Dibidang Sosial-Politik-Budaya",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.2.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.3",
+    "mataAnggaran": "Pengembangan Oikumene Semesta",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.01",
+    "mataAnggaran": "Sub Seksi Pengembangan Kerjasama Antar Agama dan Denominasi Gereja",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.3",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.3.01.001",
-    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi"
+    "mataAnggaran": "Pembinaan Kerjasama Lintas Denominasi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.3.01",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.3.01.002",
-    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan"
+    "mataAnggaran": "Pembinaan Kerjasama Antar Agama dan Aliran Kepercayaan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.3.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.3.02",
+    "mataAnggaran": "Sub Seksi Penanganan Permasalahan Lingkungan Hidup, Bencana Alam dan Sosial",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.3",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.3.02.001",
-    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan"
+    "mataAnggaran": "Lingkungan Hidup dan Keutuhan Ciptaan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.3.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.3.02.002",
-    "mataAnggaran": "Bencana Alam dan Sosial"
+    "mataAnggaran": "Bencana Alam dan Sosial",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.3.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4",
+    "mataAnggaran": "Penataan dan Pengembangan Kelembagaan",
+    "jenisKode": "judul",
+    "aktifInput": false
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.01",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Daya Dukung Organisasi",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.01.001",
-    "mataAnggaran": "Pembinaan Administrasi dan Manajemen"
+    "mataAnggaran": "Pembinaan Administrasi dan Manajemen",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.01",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.02",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Personalia",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.02.001",
-    "mataAnggaran": "Pembinaan Kepegawaian"
+    "mataAnggaran": "Pembinaan Kepegawaian",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.02",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.02.002",
-    "mataAnggaran": "Pengembangan Staf"
+    "mataAnggaran": "Pengembangan Staf",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.02",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.03",
+    "mataAnggaran": "Sub Seksi Penataan dan PengembanganKeuangan",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.03.001",
-    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan"
+    "mataAnggaran": "Pembinaan Sistim dan Manajemen Keuangan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.03",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.03.002",
-    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja"
+    "mataAnggaran": "Pembinaan Penggunaan dan Pengendalian Keuangan Gereja",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.03",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.03.003",
-    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja"
+    "mataAnggaran": "Pembinaan Sumber-Sumber Keuangan Gereja",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.03",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.04",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Infrastruktur",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.04.001",
-    "mataAnggaran": "Pengembangan Infrastruktur"
+    "mataAnggaran": "Pengembangan Infrastruktur",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.04",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.05",
+    "mataAnggaran": "Sub Seksi Pengembangan Kapasitas Pelayan",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.05.001",
-    "mataAnggaran": "Pembinaan Aparatur Pelayan"
+    "mataAnggaran": "Pembinaan Aparatur Pelayan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.05",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.06",
+    "mataAnggaran": "Sub Seksi Penelitian dan Pengembangan",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.06.001",
-    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan"
+    "mataAnggaran": "Penelitian, Perencanaan dan Pengembangan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.06",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.06.002",
-    "mataAnggaran": "Pengendalian Program"
+    "mataAnggaran": "Pengendalian Program",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.06",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.06.003",
-    "mataAnggaran": "Pengelolaan Hubungan Kerjasama"
+    "mataAnggaran": "Pengelolaan Hubungan Kerjasama",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.06",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.3.1.4.07",
+    "mataAnggaran": "Sub Seksi Penataan dan Pengembangan Informasi, Dokumentasi dan Komunikasi",
+    "jenisKode": "judul",
+    "parentKode": "II.3.1.4",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.3.1.4.07.001",
-    "mataAnggaran": "Pengelolaan Informasi"
+    "mataAnggaran": "Pengelolaan Informasi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.07",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.07.002",
-    "mataAnggaran": "Dokumentasi dan Publikasi"
+    "mataAnggaran": "Dokumentasi dan Publikasi",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.07",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.3.1.4.07.003",
-    "mataAnggaran": "Komunikasi Pelayan"
+    "mataAnggaran": "Komunikasi Pelayan",
+    "jenisKode": "isi",
+    "parentKode": "II.3.1.4.07",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.4.1",
+    "mataAnggaran": "Pos Belanja Unit Usaha",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.4.1.01",
-    "mataAnggaran": "Kebun Jemaat"
+    "mataAnggaran": "Kebun Jemaat",
+    "jenisKode": "isi",
+    "parentKode": "II.4.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.4.1.02",
-    "mataAnggaran": "Unit Usaha"
+    "mataAnggaran": "Unit Usaha",
+    "jenisKode": "isi",
+    "parentKode": "II.4.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.5.1",
+    "mataAnggaran": "Pos Belanja Lain-Lain",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.5.1.01",
-    "mataAnggaran": "Sumbangan Pelayanan sakit"
+    "mataAnggaran": "Bantuan-bantuan",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.02",
-    "mataAnggaran": "Bantuan Biaya Studi"
+    "mataAnggaran": "Bantuan Biaya Studi",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.03",
-    "mataAnggaran": "Biaya Verifikasi"
+    "mataAnggaran": "Biaya Verifikasi",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.04",
-    "mataAnggaran": "Belanja Partisipasi"
+    "mataAnggaran": "Belanja Partisipasi",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.05",
-    "mataAnggaran": "Belanja HUT Nasional/Gerejawi"
+    "mataAnggaran": "Belanja HUT Nasional/Gerejawi",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.06",
-    "mataAnggaran": "Sumbangan Duka"
+    "mataAnggaran": "Sumbangan Duka",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.07",
-    "mataAnggaran": "Belanja Kebaktian Minggu"
+    "mataAnggaran": "Belanja Pelayanan Kebaktian Minggu dan NonMinggu Di Gedung Gereja",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.08",
-    "mataAnggaran": "Belanja Bahan Perjamuan Kudus"
+    "mataAnggaran": "Belanja Bahan Perjamuan Kudus",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.09",
-    "mataAnggaran": "Belanja BPJS"
+    "mataAnggaran": "Belanja BPJS",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.10",
-    "mataAnggaran": "Belanja Barang Habis Pakai"
+    "mataAnggaran": "Belanja Barang Habis Pakai",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.1.11",
-    "mataAnggaran": "Belanja Lain yang dianggap Sah"
+    "mataAnggaran": "Belanja Lain yang dianggap Sah",
+    "jenisKode": "isi",
+    "parentKode": "II.5.1",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.5.2",
+    "mataAnggaran": "Pos Belanja Tak Terduga dan Bencana",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.5.2.01",
-    "mataAnggaran": "Belanja Tak Terduga"
+    "mataAnggaran": "Belanja Tak Terduga",
+    "jenisKode": "isi",
+    "parentKode": "II.5.2",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.5.2.02",
-    "mataAnggaran": "Belanja Penanggulangan Bencana"
+    "mataAnggaran": "Belanja Penanggulangan Bencana",
+    "jenisKode": "isi",
+    "parentKode": "II.5.2",
+    "aktifInput": true
+  },
+  {
+    "kodeAnggaran": "II.6.1",
+    "mataAnggaran": "Pos Belanja UKP",
+    "jenisKode": "judul",
+    "aktifInput": false
   },
   {
     "kodeAnggaran": "II.6.1.01",
-    "mataAnggaran": "Kolekta HDS Anak"
+    "mataAnggaran": "Kolekta HDS Anak",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.02",
-    "mataAnggaran": "Kolekta HDS Perempuan"
+    "mataAnggaran": "Kolekta HDS Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.03",
-    "mataAnggaran": "Kolekta HDA Anak"
+    "mataAnggaran": "Kolekta HDA Anak",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.04",
-    "mataAnggaran": "Kolekta HDA Perempuan"
+    "mataAnggaran": "Kolekta HDA Perempuan",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.05",
-    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI"
+    "mataAnggaran": "Kolekta Kebaktian Syukur HUT PGI",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.06",
-    "mataAnggaran": "Kolekta Kebaktian AMGPM"
+    "mataAnggaran": "Kolekta Kebaktian AMGPM",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.07",
-    "mataAnggaran": "Bantuan Bencana Alam, Non Alam dan Sosial."
+    "mataAnggaran": "Bantuan Bencana Alam, Non Alam dan Sosial.",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.08",
-    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb"
+    "mataAnggaran": "Sumbangan/Derma Kepada Panitia Pemb",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.09",
-    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat (KK)untuk Pembangunan Kampus UKIM"
+    "mataAnggaran": "Sumbangan Pegawai Organik dan Jemaat (KK)untuk Pembangunan Kampus UKIM",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   },
   {
     "kodeAnggaran": "II.6.1.10",
-    "mataAnggaran": "Pengeluaran pihak ketiga lainnya"
+    "mataAnggaran": "Pengeluaran pihak ketiga lainnya",
+    "jenisKode": "isi",
+    "parentKode": "II.6.1",
+    "aktifInput": true
   }
 ]
