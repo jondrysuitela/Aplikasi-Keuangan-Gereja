@@ -31,6 +31,7 @@ const ProjectHomePage = lazy(() => import('@/pages/ProjectHomePage').then((m) =>
 const RealisasiPage = lazy(() => import('@/pages/RealisasiPage').then((m) => ({ default: m.RealisasiPage })));
 const RekonsiliasiPage = lazy(() => import('@/pages/RekonsiliasiPage').then((m) => ({ default: m.RekonsiliasiPage })));
 const SubSeksiPage = lazy(() => import('@/pages/SubSeksiPage').then((m) => ({ default: m.SubSeksiPage })));
+const LaporanSemesterPage = lazy(() => import('@/pages/LaporanSemesterPage').then((m) => ({ default: m.LaporanSemesterPage })));
 
 class ErrorBoundary extends Component<{ children: React.ReactNode }, { hasError: boolean; error?: Error }> {
   constructor(props: { children: React.ReactNode }) {
@@ -126,6 +127,7 @@ function ProtectedApp() {
           <Route path="/batang-tubuh" element={<BatangTubuhPage />} />
           <Route path="/rekonsiliasi" element={<RekonsiliasiPage />} />
           <Route path="/sub-seksi" element={<SubSeksiPage />} />
+          <Route path="/laporan-semester" element={<LaporanSemesterPage />} />
           <Route path="/doorscrieft" element={<DoorscrieftInputPage />} />
           <Route path="/bukti-transaksi" element={can(user.role, 'attachment') ? <BuktiTransaksiPage /> : <Navigate to="/" replace />} />
           <Route path="/cek-data" element={<CekDataPage />} />
@@ -148,3 +150,4 @@ function PageLoading() {
     </div>
   );
 }
+

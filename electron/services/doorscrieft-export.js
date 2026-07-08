@@ -25,6 +25,15 @@ function clone(value) {
   return value ? JSON.parse(JSON.stringify(value)) : value;
 }
 
+function pick(obj, keys) {
+  if (!obj) return {};
+  const result = {};
+  for (const key of keys) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) result[key] = obj[key];
+  }
+  return result;
+}
+
 function toNumber(value) {
   const n = Number(value || 0);
   return Number.isFinite(n) ? n : 0;
@@ -83,11 +92,31 @@ class DoorscrieftExportService {
   _setupWorksheet(worksheet, templateSheet) {
     worksheet.properties.defaultRowHeight = templateSheet.properties.defaultRowHeight;
     worksheet.views = [{ state: 'frozen', ySplit: 1, topLeftCell: 'A2', showGridLines: false }];
+    // Only inherit layout-relevant props from template; explicitly exclude
+    // fitToWidth/fitToHeight (always single-page fit) and printArea (set per-block later).
+    const templatePage = pick(templateSheet.pageSetup, [
+      'paperSize',
+      'orientation',
+      'scale',
+      'horizontalDpi',
+      'verticalDpi',
+      'pageOrder',
+      'blackAndWhite',
+      'draft',
+      'cellComments',
+      'errors',
+      'showPageNumbers',
+      'pageStart',
+    ]);
     worksheet.pageSetup = {
-      ...clone(templateSheet.pageSetup),
+      ...templatePage,
       orientation: 'landscape',
       scale: 70,
       fitToPage: false,
+      fitToWidth: undefined,
+      fitToHeight: undefined,
+      pageOrder: undefined,
+      printArea: undefined,
       margins: {
         left: 0.236,
         right: 0.236,
@@ -97,6 +126,11 @@ class DoorscrieftExportService {
         footer: 0.315,
       },
     };
+
+    // Ensure template-inherited fit properties don't leak through ExcelJS internals
+    delete worksheet.pageSetup.fitToWidth;
+    delete worksheet.pageSetup.fitToHeight;
+    delete worksheet.pageSetup.pageOrder;
 
     SOURCE_COLUMNS.forEach((sourceColumn, index) => {
       const source = templateSheet.getColumn(sourceColumn);
@@ -226,3 +260,5 @@ class DoorscrieftExportService {
 }
 
 module.exports = { DoorscrieftExportService, TEMPLATE_SHEET_NAME };
+
+

@@ -9,7 +9,7 @@ interface DialogProps {
   children: React.ReactNode;
 }
 
-const Dialog: React.FC<DialogProps> = ({ open, draggable = false, placement = 'center', contentClassName = '', onOpenChange, children }) => {
+const Dialog: React.FC<DialogProps> = ({ open, draggable = false, placement = 'center', contentClassName = 'w-full', onOpenChange, children }) => {
   const [position, setPosition] = React.useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = React.useState(false);
   const dragOffsetRef = React.useRef<{ x: number; y: number } | null>(null);
@@ -82,7 +82,7 @@ const Dialog: React.FC<DialogProps> = ({ open, draggable = false, placement = 'c
       onMouseDown={handleDialogMouseDown}
     >
       <div
-        className={`fixed w-full max-w-lg rounded-lg border border-gray-200 bg-white shadow-xl dark:bg-slate-800 dark:border-slate-700 ${contentClassName}`}
+        className={`fixed rounded-lg border border-gray-200 bg-white shadow-xl dark:bg-slate-800 dark:border-slate-700 ${contentClassName}`}
         style={{
           top: position ? position.y : placement === 'top' ? '1.5rem' : '50%',
           left: position ? position.x : '50%',
@@ -124,3 +124,8 @@ const DialogDescription: React.FC<{ children: React.ReactNode }> = ({ children }
 );
 
 export { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription };
+
+
+
+
+

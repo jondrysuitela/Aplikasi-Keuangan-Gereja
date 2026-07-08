@@ -1,6 +1,6 @@
 {
   "name": "keuangan-gereja",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Sistem Keuangan Gereja Desktop Application",
   "main": "electron/main.js",
   "scripts": {

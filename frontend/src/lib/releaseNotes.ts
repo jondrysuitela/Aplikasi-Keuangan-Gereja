@@ -86,3 +86,4 @@ export const releaseNotes: ReleaseNote[] = [
 export function getReleaseNote(version: string) {
   return releaseNotes.find((release) => release.version === version) || releaseNotes[0];
 }
+

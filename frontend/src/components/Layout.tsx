@@ -61,6 +61,7 @@ const navigation: NavigationItem[] = [
   { name: 'Doorscrieft', href: '/doorscrieft', icon: FileText },
   { name: 'Bukti Transaksi', href: '/bukti-transaksi', icon: Paperclip, permission: 'attachment' },
   { name: 'Cek Data', href: '/cek-data', icon: ShieldCheck },
+  { name: 'Laporan Semester', href: '/laporan-semester', icon: Calendar },
   { name: 'Bantuan', href: '/bantuan', icon: HelpCircle },
   { name: 'Riwayat Aktivitas', href: '/audit-log', icon: History, adminOnly: true },
 

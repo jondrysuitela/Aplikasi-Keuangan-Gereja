@@ -48,6 +48,13 @@ function formatAttachmentSize(size?: number) {
   return `${(size / 1024 / 1024).toFixed(1)} MB`;
 }
 
+function formatNumberInput(val: string) {
+  if (!val) return '';
+  const digits = val.replace(/\D/g, '');
+  if (!digits) return '';
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 function useDebouncedValue<T>(value: T, delayMs: number) {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => {
@@ -1910,7 +1917,7 @@ export function DoorscrieftInputPage() {
       {/* Input Panel */}
       {isOpen && (
         <div
-          className='fixed inset-0 z-[9999] flex items-start justify-center overflow-hidden bg-black/35 p-4 sm:p-6'
+          className='fixed inset-0 z-[9999] flex items-start justify-center overflow-hidden bg-black/5 p-4 sm:p-6'
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
               event.preventDefault();
@@ -2003,9 +2010,13 @@ export function DoorscrieftInputPage() {
                   setUraianHistoryHighlightIdx((prev) => Math.max(prev - 1, 0));
                   return;
                 }
-                if (showUraianHistorySuggestions && (e.key === 'Enter' || e.key === 'Tab')) {
+                if (showUraianHistorySuggestions && e.key === 'Enter') {
                   e.preventDefault();
                   handleUraianHistorySelect();
+                  return;
+                }
+                if (e.key === 'Tab') {
+                  setHiddenSuggestionForUraian(form.uraian);
                   return;
                 }
                 if (e.key === 'Escape') {
@@ -2023,7 +2034,7 @@ export function DoorscrieftInputPage() {
                     Riwayat uraian
                   </p>
                   <span className='text-[11px] text-slate-400'>
-                    Enter/Tab untuk pakai
+                    Enter untuk pakai
                   </span>
                 </div>
                 <div className='space-y-1.5'>
@@ -2149,14 +2160,14 @@ export function DoorscrieftInputPage() {
                 label='Penerimaan'
                 ref={penerimaanInputRef}
                 type='text'
-                value={form.penerimaan}
+                value={form.penerimaan ? formatNumberInput(form.penerimaan) : ""}
                 disabled={form.kodeAnggaran.startsWith('II.')}
                 onChange={(e) => {
-                  const raw = e.target.value.replace(/[^\d,.-]/g, '');
+                  const raw = e.target.value.replace(/\D/g, '');
                   setForm({ ...form, penerimaan: raw });
                 }}
                 onBlur={(e) => {
-                  const cleaned = e.target.value.replace(/[.\s]/g, '').replace(/,/g, '');
+                  const cleaned = e.target.value.replace(/\D/g, '');
                   if (cleaned) {
                     setForm({ ...form, penerimaan: cleaned });
                   }
@@ -2167,14 +2178,14 @@ export function DoorscrieftInputPage() {
                 label='Pengeluaran'
                 ref={pengeluaranInputRef}
                 type='text'
-                value={form.pengeluaran}
+                value={form.pengeluaran ? formatNumberInput(form.pengeluaran) : ""}
                 disabled={form.kodeAnggaran.startsWith('I.')}
                 onChange={(e) => {
-                  const raw = e.target.value.replace(/[^\d,.-]/g, '');
+                  const raw = e.target.value.replace(/\D/g, '');
                   setForm({ ...form, pengeluaran: raw });
                 }}
                 onBlur={(e) => {
-                  const cleaned = e.target.value.replace(/[.\s]/g, '').replace(/,/g, '');
+                  const cleaned = e.target.value.replace(/\D/g, '');
                   if (cleaned) {
                     setForm({ ...form, pengeluaran: cleaned });
                   }

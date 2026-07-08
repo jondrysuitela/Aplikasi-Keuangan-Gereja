@@ -4,6 +4,16 @@ Semua perubahan penting aplikasi ini akan dicatat di file ini.
 
 Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) secara praktis, dan versi mengikuti [Semantic Versioning](https://semver.org/).
 
+
+## [1.5.0] - 2026-07-08
+
+### Fitur
+
+- Menambahkan halaman Laporan Semester dengan ringkasan Pendapatan, Pengeluaran, dan Saldo per Semester 1 (Jan-Jun) dan Semester 2 (Jul-Des).
+- Laporan per Sub Seksi hanya menampilkan transaksi dengan kode anggaran I.3 (pendapatan sub-seksi) dan II.3 (pengeluaran sub-seksi).
+- Setiap program pada sub-seksi dapat di-expand untuk melihat detail transaksi (tanggal, keterangan, nominal).
+- Panel ringkasan (header, toggle semester, dan kartu saldo) dibuat sticky agar tetap terlihat saat scroll.
+- Navigasi Laporan Semester tersedia di sidebar.
 ## [1.4.2] - 2026-06-22
 
 ### Fitur
@@ -57,3 +67,4 @@ Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.
 ### Catatan
 
 - Changelog berikutnya dapat dibuat otomatis dengan `npm run version:bump`.
+

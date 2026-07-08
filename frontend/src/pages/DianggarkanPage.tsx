@@ -353,7 +353,7 @@ export function DianggarkanPage() {
   };
 
   const renderProgramBudgetDialog = () => (
-    <Dialog open={Boolean(programDialogRow)} onOpenChange={(open) => { if (!open) closeProgramDialog(); }} contentClassName="max-w-5xl" draggable placement="top">
+    <Dialog open={Boolean(programDialogRow)} onOpenChange={(open) => { if (!open) closeProgramDialog(); }} contentClassName="w-max min-w-[550px] max-w-5xl" draggable placement="top">
       <DialogHeader draggable>
         <DialogTitle>Susun Dianggarkan</DialogTitle>
       </DialogHeader>
@@ -387,12 +387,18 @@ export function DianggarkanPage() {
                 return (
                   <div key={program.id} className="rounded-md border border-slate-200 p-3 dark:border-slate-700">
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
-                      <Input
-                        label={`Program ${programIndex + 1}`}
-                        value={program.namaProgram}
-                        onChange={(e) => updateProgramName(program.id, e.target.value)}
-                        placeholder="Nama program"
-                      />
+                      <div className="min-w-[250px] flex-1 space-y-2">
+                        <label className="text-sm font-medium leading-none text-gray-700 dark:text-slate-200">{`Program ${programIndex + 1}`}</label>
+                        <textarea
+                          value={program.namaProgram}
+                          onChange={(e) => updateProgramName(program.id, e.target.value)}
+                          placeholder="Nama program"
+                          className="flex min-h-10 resize-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:placeholder:text-slate-400 dark:focus-visible:ring-offset-slate-800"
+                          style={{ fieldSizing: "content", maxWidth: "100%" }}
+                          rows={1}
+                          onInput={(e) => { e.currentTarget.style.height = "auto"; e.currentTarget.style.height = `${Math.max(40, e.currentTarget.scrollHeight)}px` }}
+                        />
+                      </div>
                       <div className="flex items-center justify-between gap-2 sm:w-56">
                         <div>
                           <p className="text-xs text-slate-500">Total</p>
@@ -710,3 +716,4 @@ export function DianggarkanPage() {
     </>
   );
 }
+
