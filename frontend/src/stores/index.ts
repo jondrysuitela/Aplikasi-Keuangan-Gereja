@@ -19,7 +19,21 @@ function readStringField(row: Record<string, unknown>, keys: string[]) {
 function parseBudgetValue(value: unknown) {
   if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
   if (typeof value !== 'string') return 0;
-  return Number(value.replace(/[^0-9.-]/g, '')) || 0;
+  // Dukung format angka Indonesia: "1.500.000" → 1500000, "1.000" → 1000
+  const cleaned = value.replace(/\.(?=\d{3}(?:\.|$))/g, '').replace(/[^0-9.,-]/g, '');
+  const hasDot = cleaned.includes('.');
+  const hasComma = cleaned.includes(',');
+  let normalized = cleaned;
+  if (hasDot && hasComma) normalized = cleaned.replace(/\./g, '').replace(/,/g, '.');
+  else if (hasComma && !hasDot) normalized = cleaned.replace(/,/g, '.');
+  else if (hasDot && !hasComma && (cleaned.match(/\./g) || []).length > 1) normalized = cleaned.replace(/\./g, '');
+  const n = Number(normalized);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function coerceAmount(value: unknown) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+  return parseBudgetValue(value);
 }
 
 function normalizeRuntimeRole(role: unknown): User['role'] {
@@ -253,7 +267,7 @@ export function applyBatangTubuhAnggaranForYear(
   const applyDetailRows = (rows: BatangTubuhDetailRow[] = []) => rows.map((dr) => {
     const programs = programValues[dr.kode] || [];
     const programTotal = programs.reduce(
-      (programSum, program) => programSum + (program.rincian || []).reduce((sum, rincian) => sum + Number(rincian.jumlah || 0), 0),
+      (programSum, program) => programSum + (program.rincian || []).reduce((sum, rincian) => sum + coerceAmount(rincian.jumlah), 0),
       0,
     );
     const hasProgramBudget = programs.some((program) => (program.rincian || []).length > 0);
@@ -286,7 +300,7 @@ function normalizeBatangTubuhPrograms(programs: BatangTubuhProgram[] = []) {
         .map((rincian) => ({
           id: String(rincian.id || generateId()),
           keterangan: String(rincian.keterangan || '').trim(),
-          jumlah: Number(rincian.jumlah || 0),
+          jumlah: coerceAmount(rincian.jumlah),
         }))
         .filter((rincian) => rincian.keterangan || rincian.jumlah > 0),
     }))
@@ -744,7 +758,7 @@ export const useStore = create<AppState>()(
           const cleanKode = String(kode || '').trim();
           const normalizedPrograms = normalizeBatangTubuhPrograms(programs);
           const total = normalizedPrograms.reduce(
-            (programSum, program) => programSum + (program.rincian || []).reduce((sum, rincian) => sum + Number(rincian.jumlah || 0), 0),
+(programSum, program) => programSum + (program.rincian || []).reduce((sum, rincian) => sum + coerceAmount(rincian.jumlah), 0),
             0,
           );
           return {
@@ -976,6 +990,14 @@ export const useStore = create<AppState>()(
 // --- Auto-save: persist relevant state to localStorage on every change ---
 const STORAGE_KEY = 'keuangan-gereja-autosave';
 
+// Rehidrasi tanggal dari snapshot/localStorage; nilai kosong/rusak tidak boleh
+// menjadi Invalid Date yang memicu "Tanggal tidak valid" di seluruh aplikasi.
+function safeRestoredDate(value: unknown) {
+  if (!value || value === '') return undefined;
+  const date = new Date(String(value));
+  return Number.isNaN(date.getTime()) ? undefined : date;
+}
+
 // Restore from localStorage on module load
 const loadFromStorage = (): Partial<AppState> => {
   try {
@@ -991,9 +1013,9 @@ const loadFromStorage = (): Partial<AppState> => {
         if (typeof t !== 'object' || t === null) return t;
         const r = t as { tanggal?: unknown; createdAt?: unknown; updatedAt?: unknown } & Record<string, unknown>;
         return {
-          ...r,
-          tanggal: r.tanggal ? new Date(String(r.tanggal)) : new Date(''),
-          createdAt: r.createdAt ? new Date(String(r.createdAt)) : new Date(''),
+...r,
+          tanggal: safeRestoredDate(r.tanggal),
+          createdAt: safeRestoredDate(r.createdAt),
           updatedAt: r.updatedAt ? new Date(String(r.updatedAt)) : undefined,
           attachments: Array.isArray(r.attachments)
             ? r.attachments.map((attachment: Record<string, unknown>) => ({

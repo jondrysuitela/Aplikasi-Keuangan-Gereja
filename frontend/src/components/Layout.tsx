@@ -10,7 +10,7 @@ import { addRecentProject } from '@/lib/recentProjects';
 import { getReleaseNote } from '@/lib/releaseNotes';
 import { useConfirm } from '@/components/ui/confirm-dialog';
 import { applyBatangTubuhAnggaranForYear, useStore } from '@/stores';
-import { useEffect, useMemo, useState, type ComponentType, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type ComponentType, type FormEvent } from 'react';
 import { toast } from 'sonner';
 import {
   LayoutDashboard,
@@ -146,6 +146,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const canSettings = can(userRole, 'settings');
   const projectFileName = getProjectFileName(activeProjectPath);
   const saveStatusText = hasUnsavedChanges ? 'Ada perubahan belum disimpan' : formatSavedAt(lastSavedAt);
+  // Handler menu Electron selalu diperbarui tiap render agar tidak membaca
+  // data lama (stale closure) saat user menekan aksi File > Export/Simpan.
+  const menuActionRef = useRef<(action: string) => void>(() => {});
 
   useEffect(() => {
     if (!appVersion || appVersion === 'dev') return;
@@ -273,68 +276,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
     console.log('[MENU] Setting up onMenuAction listener');
 
-    const handler = (action: string) => {
-      console.log('[MENU ACTION] received:', action);
-      if (action === 'about') setShowAbout(true);
-      if (action === 'save-project') {
-        if (!canInput) {
-          toast.error('Role Anda tidak memiliki izin menyimpan project.');
-          return;
-        }
-        console.log('[MENU ACTION] calling handleSaveProject');
-        handleSaveProject();
-      }
-      if (action === 'open-project') {
-        if (!canRestore) {
-          toast.error('Role Anda tidak memiliki izin membuka/restore project.');
-          return;
-        }
-        console.log('[MENU ACTION] calling handleOpenProject');
-        handleOpenProject();
-      }
-      if (action === 'save-project-as') {
-        if (!canInput) {
-          toast.error('Role Anda tidak memiliki izin menyimpan project.');
-          return;
-        }
-        console.log('[MENU ACTION] calling handleSaveProject(asNew)');
-        handleSaveProject(true);
-      }
-      if (action === 'new-project') {
-        if (!canInput) {
-          toast.error('Role Anda tidak memiliki izin membuat project baru.');
-          return;
-        }
-        openNewProjectDialog();
-      }
-      if (action === 'export-data') {
-        if (!canExport) {
-          toast.error('Role Anda tidak memiliki izin export.');
-          return;
-        }
-        handleExportData();
-      }
-      if (action === 'backup-project') {
-        if (!canBackup) {
-          toast.error('Role Anda tidak memiliki izin backup.');
-          return;
-        }
-        handleBackupProject();
-      }
-      if (action === 'print-report') {
-        const printButton = document.querySelector<HTMLButtonElement>('[data-report-print-button="true"]:not(:disabled)');
-        if (printButton) {
-          printButton.click();
-          return;
-        }
-        toast.info('Halaman ini belum memiliki format print laporan.');
-      }
-    };
-
+    const handler = (action: string) => menuActionRef.current(action);
     const cleanup = electronAPI.onMenuAction(handler);
     return () => cleanup?.();
-    // Menu action listener is registered once for Electron's app menu bridge.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveProjectAction = async (asNew?: boolean, showResult = true) => {
@@ -544,6 +488,67 @@ export function Layout({ children }: { children: React.ReactNode }) {
       toast.error(`Gagal membuat backup: ${'error' in result ? result.error || 'Unknown error' : 'Fitur hanya tersedia di mode Electron.'}`);
     }
   };
+
+  // Perbarui ref handler menu dengan versi terbaru (data terkini) setiap render.
+  useEffect(() => {
+    menuActionRef.current = (action) => {
+      console.log('[MENU ACTION] received:', action);
+      if (action === 'about') setShowAbout(true);
+      if (action === 'save-project') {
+        if (!canInput) {
+          toast.error('Role Anda tidak memiliki izin menyimpan project.');
+          return;
+        }
+        console.log('[MENU ACTION] calling handleSaveProject');
+        handleSaveProject();
+      }
+      if (action === 'open-project') {
+        if (!canRestore) {
+          toast.error('Role Anda tidak memiliki izin membuka/restore project.');
+          return;
+        }
+        console.log('[MENU ACTION] calling handleOpenProject');
+        handleOpenProject();
+      }
+      if (action === 'save-project-as') {
+        if (!canInput) {
+          toast.error('Role Anda tidak memiliki izin menyimpan project.');
+          return;
+        }
+        console.log('[MENU ACTION] calling handleSaveProject(asNew)');
+        handleSaveProject(true);
+      }
+      if (action === 'new-project') {
+        if (!canInput) {
+          toast.error('Role Anda tidak memiliki izin membuat project baru.');
+          return;
+        }
+        openNewProjectDialog();
+      }
+      if (action === 'export-data') {
+        if (!canExport) {
+          toast.error('Role Anda tidak memiliki izin export.');
+          return;
+        }
+        handleExportData();
+      }
+      if (action === 'backup-project') {
+        if (!canBackup) {
+          toast.error('Role Anda tidak memiliki izin backup.');
+          return;
+        }
+        handleBackupProject();
+      }
+      if (action === 'print-report') {
+        const printButton = document.querySelector<HTMLButtonElement>('[data-report-print-button="true"]:not(:disabled)');
+        if (printButton) {
+          printButton.click();
+          return;
+        }
+        toast.info('Halaman ini belum memiliki format print laporan.');
+      }
+    };
+  });
 
   const forceCloseApp = async () => {
     const electronAPI = getElectronAPI();

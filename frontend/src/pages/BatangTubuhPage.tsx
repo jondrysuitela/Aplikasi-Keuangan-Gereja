@@ -65,6 +65,20 @@ function isPengeluaranKode(kode: string) {
   return kode === 'II' || kode.startsWith('II.');
 }
 
+function parseAmountValue(value: unknown) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+  if (value === null || value === undefined) return 0;
+  const cleaned = String(value).trim().replace(/\.(?=\d{3}(?:\.|$))/g, '').replace(/[^0-9.,-]/g, '');
+  const hasDot = cleaned.includes('.');
+  const hasComma = cleaned.includes(',');
+  let normalized = cleaned;
+  if (hasDot && hasComma) normalized = cleaned.replace(/\./g, '').replace(/,/g, '.');
+  else if (hasComma && !hasDot) normalized = cleaned.replace(/,/g, '.');
+  else if (hasDot && !hasComma && (cleaned.match(/\./g) || []).length > 1) normalized = cleaned.replace(/\./g, '');
+  const n = Number(normalized);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function formatTargetVariance(value: number) {
   if (value > 0) return `+${formatCurrency(value)}`;
   return formatCurrency(value);
@@ -180,6 +194,9 @@ export function BatangTubuhPage() {
     tahunAktif,
     lockedYears,
     user,
+    kopGereja,
+    kopKlas,
+    namaJemaat,
   } = useStore();
   const canInput = can(user?.role, 'input');
   const isYearLocked = lockedYears.includes(tahunAktif);
@@ -489,9 +506,9 @@ export function BatangTubuhPage() {
       return;
     }
     const result = await electronAPI.exportBatangTubuh({
-      namaGereja: 'GEREJA PROTESTAN MALUKU',
-      klas: 'KLASIS PULAU AMBON TIMUR',
-      jemaat: 'JEMAAT SULI',
+      namaGereja: kopGereja || 'GEREJA PROTESTAN MALUKU',
+      klas: kopKlas || 'KLASIS',
+      jemaat: namaJemaat || 'JEMAAT',
       tahun: String(tahunAktif),
       batangTubuhs: activeBatangTubuhs,
       doorscrieftTransaksis,
@@ -752,7 +769,7 @@ export function BatangTubuhPage() {
                   missingProgramCodes.add(importedKode || '(kosong)');
                   return;
                 }
-                const amount = Number(it.jumlah ?? it.dianggarkan ?? 0);
+                const amount = parseAmountValue(it.jumlah ?? it.dianggarkan ?? 0);
                 const programName = String(it.program || 'Program Umum').trim() || 'Program Umum';
                 const rincianText = String(it.keterangan || 'Anggaran awal').trim() || 'Anggaran awal';
                 if (!grouped[detail.kode]) grouped[detail.kode] = [];

@@ -112,6 +112,9 @@ export function DianggarkanPage() {
     batangTubuhProgramByYear,
     doorscrieftTransaksis,
     setBatangTubuhProgramsForKode,
+    kopGereja,
+    kopKlas,
+    namaJemaat,
   } = useStore();
   const canInput = can(user?.role, 'input');
   const isYearLocked = lockedYears.includes(tahunAktif);
@@ -330,9 +333,9 @@ export function DianggarkanPage() {
 
     try {
       const result = await electronAPI.exportDianggarkan({
-        namaGereja: 'GEREJA PROTESTAN MALUKU',
-        klas: 'KLASIS PULAU AMBON TIMUR',
-        jemaat: 'JEMAAT SULI',
+        namaGereja: kopGereja || 'GEREJA PROTESTAN MALUKU',
+        klas: kopKlas || 'KLASIS',
+        jemaat: namaJemaat || 'JEMAAT',
         tahun: String(tahunAktif),
         batangTubuhs: activeBatangTubuhs,
         doorscrieftTransaksis,

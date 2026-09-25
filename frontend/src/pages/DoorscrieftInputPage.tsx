@@ -292,8 +292,11 @@ export function DoorscrieftInputPage() {
   // Lembar aktif (index unique lembarId groups)
   const [activeLembar, setActiveLembar] = useState(0);
   const [jumpLembarValue, setJumpLembarValue] = useState('1');
-  // Per-lembar labels (editable)
+// Per-lembar labels (editable)
   const [lembarLabels, setLembarLabels] = useState<Record<string, string>>({});
+  // Lembar kosong yang dibuat lewat tombol "+ Lembar" (belum berisi baris transaksi).
+  // Langsung dimunculkan di navigasi agar penambahan lembar terlihat jelas.
+  const [createdEmptyLembars, setCreatedEmptyLembars] = useState<string[]>([]);
   // Track lembarId targeted by the currently open input dialog.
   const inputLembarIdRef = useRef<string | null>(null);
   const insertBeforeRef = useRef<string | null>(null);
@@ -308,7 +311,9 @@ export function DoorscrieftInputPage() {
       .filter((r: DoorscrieftRowInput) => new Date(r.tanggal).getFullYear() === tahunAktif);
   }, [doorscrieftTransaksis, tahunAktif]);
 
-  // Group by lembarId instead of date — each lembar is independent
+// Group by lembarId instead of date — each lembar is independent.
+  // Lembar yang baru dibuat via "+ Lembar" (belum punya baris) ditambahkan di
+  // akhir agar langsung terlihat di navigasi/pagination tanpa menunggu input.
   const dateGroups = useMemo(() => {
     // Preserve creation order: first seen lembarId = first group
     const groups: Record<string, DoorscrieftRowInput[]> = {};
@@ -321,8 +326,13 @@ export function DoorscrieftInputPage() {
       }
       groups[key].push(r);
     });
-    return order.map((key) => [key, groups[key]] as [string, DoorscrieftRowInput[]]);
-  }, [allRows]);
+    const filled = order.map((key) => [key, groups[key]] as [string, DoorscrieftRowInput[]]);
+    const filledIds = new Set(order);
+    const empty = createdEmptyLembars
+      .filter((id) => !filledIds.has(id))
+      .map((id) => [id, []] as [string, DoorscrieftRowInput[]]);
+    return [...filled, ...empty];
+  }, [allRows, createdEmptyLembars]);
 
   const activeLembarId = dateGroups[activeLembar]?.[0] ?? '';
 
@@ -871,10 +881,11 @@ export function DoorscrieftInputPage() {
       showLockedYearMessage();
       return;
     }
-    let targetLembarId = activeLembarId;
+let targetLembarId = activeLembarId;
     if (!targetLembarId) {
       targetLembarId = generateId();
       setLembarLabels((prev) => ({ ...prev, [targetLembarId]: 'Lembar 1' }));
+      setCreatedEmptyLembars((prev) => [...prev, targetLembarId]);
       pendingNewLembarIdRef.current = targetLembarId;
     } else {
       pendingNewLembarIdRef.current = null;
@@ -909,9 +920,14 @@ export function DoorscrieftInputPage() {
       confirmText: 'Hapus Baris',
       tone: 'danger',
     });
-    if (!lanjut) return;
+if (!lanjut) return;
     pushUndoSnapshot();
-    deleteDoorscrieftTransaksi(id);
+    try {
+      deleteDoorscrieftTransaksi(id);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Baris Doorscrieft gagal dihapus.');
+      return;
+    }
     addAuditLog('Hapus Baris Doorscrieft', 'Doorscrieft', id, id);
     toast.success('Baris Doorscrieft dihapus.');
   };
@@ -1308,10 +1324,24 @@ export function DoorscrieftInputPage() {
       confirmText: 'Hapus Lembar',
       tone: 'danger',
     });
-    if (!lanjut) return;
-    pushUndoSnapshot();
-    const idsToDelete = dateGroups[idx][1].map((r: DoorscrieftRowInput) => r.id);
-    idsToDelete.forEach((id: string) => deleteDoorscrieftTransaksi(id));
+if (!lanjut) return;
+    const rowsToDelete = dateGroups[idx][1];
+    if (rowsToDelete.length > 0) {
+      pushUndoSnapshot();
+      try {
+        rowsToDelete.forEach((r: DoorscrieftRowInput) => deleteDoorscrieftTransaksi(r.id));
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'Lembar gagal dihapus.');
+        return;
+      }
+    }
+    // Hapus lembar kosong (yang dibuat via "+ Lembar") beserta labelnya
+    setCreatedEmptyLembars((prev) => prev.filter((id) => id !== lembarId));
+    setLembarLabels((prev) => {
+      const next = { ...prev };
+      delete next[lembarId];
+      return next;
+    });
     // Navigate to previous lembar if current is deleted
     if (activeLembar >= dateGroups.length - 1) {
       setActiveLembar(Math.max(0, dateGroups.length - 2));
@@ -1336,9 +1366,10 @@ export function DoorscrieftInputPage() {
       tone: 'danger',
     });
     if (!lanjut) return;
-    await createAutoBackup('sebelum-hapus-semua-doorscrieft');
+await createAutoBackup('sebelum-hapus-semua-doorscrieft');
     pushUndoSnapshot();
     setDoorscrieftTransaksis([]);
+    setCreatedEmptyLembars([]);
     addAuditLog('Hapus Semua Doorscrieft', 'Doorscrieft', `Tahun ${tahunAktif}`, String(tahunAktif));
     toast.success('Semua data Doorscrieft dihapus.');
   };
@@ -1387,10 +1418,17 @@ export function DoorscrieftInputPage() {
     }, 0);
     const newNo = String(currentMax + 1);
 
-    // Pre-set label and store lembarId ref for form submission
+// Pre-set label and store lembarId ref for form submission
     setLembarLabels((prev) => ({ ...prev, [newLembarId]: newLabel }));
+    setCreatedEmptyLembars((prev) => [...prev, newLembarId]);
     inputLembarIdRef.current = newLembarId;
     pendingNewLembarIdRef.current = newLembarId;
+
+    // Tampilkan lembar baru di navigasi & beri notice bahwa lembar ditambahkan.
+    setActiveLembar(dateGroups.length);
+    toast.success(`Lembar baru ditambahkan: ${newLabel}.`, {
+      description: 'Lembar kosong ini siap diisi, atau bisa dihapus lewat klik kanan.',
+    });
 
     // Open input panel using the active lembar month, not the system month.
     setEditingId(null);

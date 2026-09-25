@@ -1115,6 +1115,9 @@ const subSeksiDbPath = path.join(dataDir, 'sub-seksi-db.json');
 const subSeksiDbFlatPath = path.join(dataDir, 'sub-seksi-db-flat.json');
 const templateDataDir = app.isPackaged ? bundledDataDir : path.join(__dirname, '..', 'data');
 const templateWorkbookPath = path.join(templateDataDir, 'APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx');
+// Salinan workbook yang writable di userData — dipakai untuk sinkronisasi
+// Master Kode Anggaran agar tidak menulis ke folder instalasi (Program Files).
+const writableTemplateWorkbookPath = path.join(dataDir, 'APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx');
 const mappingWorkbookPath = path.join(templateDataDir, 'MAPPING.xlsx');
 const subSeksiExportDbPath = path.join(templateDataDir, 'sub-seksi-export-db.json');
 const logoImagePath = app.isPackaged
@@ -1126,12 +1129,17 @@ function ensureWritableDataFiles() {
 
   try {
     fs.mkdirSync(dataDir, { recursive: true });
-    for (const fileName of ['batang-tubuh.json', 'batang-tubuh-flat.json', 'sub-seksi-db.json', 'sub-seksi-db-flat.json']) {
+    for (const fileName of ['batang-tubuh.json', 'batang-tubuh-flat.json', 'sub-seksi-db.json', 'sub-seksi-db-flat.json', 'kode-anggaran.json']) {
       const targetPath = path.join(dataDir, fileName);
       const seedPath = path.join(bundledDataDir, fileName);
       if (!fs.existsSync(targetPath) && fs.existsSync(seedPath)) {
         fs.copyFileSync(seedPath, targetPath);
       }
+    }
+    // Salin workbook template ke userData agar sinkronisasi kode anggaran bisa menulis.
+    if (!fs.existsSync(writableTemplateWorkbookPath) && fs.existsSync(templateWorkbookPath)) {
+      fs.copyFileSync(templateWorkbookPath, writableTemplateWorkbookPath);
+      writeLog('Template workbook copied to userData: ' + writableTemplateWorkbookPath);
     }
     writeLog('Data directory ready: ' + dataDir);
   } catch (e) {
@@ -1223,8 +1231,9 @@ function normalizeKodeAnggaranItems(items = []) {
 function loadKodeAnggaranFromWorkbook() {
   try {
     loadXLSX();
-    if (!fs.existsSync(templateWorkbookPath)) return [];
-    const workbook = XLSX.readFile(templateWorkbookPath);
+    const workbookPath = fs.existsSync(writableTemplateWorkbookPath) ? writableTemplateWorkbookPath : templateWorkbookPath;
+    if (!fs.existsSync(workbookPath)) return [];
+    const workbook = XLSX.readFile(workbookPath);
     const dbSheet = workbook.Sheets['DATA BASE2'];
     if (!dbSheet) return [];
     const dbRows = XLSX.utils.sheet_to_json(dbSheet, { defval: '' });
@@ -1243,8 +1252,11 @@ function loadKodeAnggaranMaster() {
 function syncKodeAnggaranWorkbook(items = []) {
   try {
     loadXLSX();
-    if (!fs.existsSync(templateWorkbookPath)) return { success: true, skipped: true };
-    const workbook = XLSX.readFile(templateWorkbookPath, { cellStyles: true });
+    // Sinkronisasi menulis ke salinan writable di userData (kalau ada), bukan
+    // ke folder instalasi yang read-only saat aplikasi terpasang.
+    const workbookPath = fs.existsSync(writableTemplateWorkbookPath) ? writableTemplateWorkbookPath : templateWorkbookPath;
+    if (!fs.existsSync(workbookPath)) return { success: true, skipped: true };
+    const workbook = XLSX.readFile(workbookPath, { cellStyles: true });
     const rows = [['KODE ANGGARAN', 'MATA ANGGARAN', 'JENIS', 'PARENT KODE', 'AKTIF INPUT']];
     normalizeKodeAnggaranItems(items).forEach((item) => {
       rows.push([item.kodeAnggaran, item.mataAnggaran, item.jenisKode === 'judul' ? 'Judul' : 'Isi', item.parentKode || '', item.aktifInput ? 'Ya' : 'Tidak']);
@@ -1262,7 +1274,7 @@ function syncKodeAnggaranWorkbook(items = []) {
       workbook.SheetNames.push('DATA BASE2');
     }
     workbook.Sheets['DATA BASE2'] = nextSheet;
-    XLSX.writeFile(workbook, templateWorkbookPath);
+    XLSX.writeFile(workbook, workbookPath);
     return { success: true };
   } catch (e) {
     console.error('syncKodeAnggaranWorkbook failed:', e);
@@ -1389,7 +1401,7 @@ ipcMain.handle('backup:read', async (_event, filePath) => {
 
     const resolvedBackupsDir = path.resolve(getBackupsDir());
     const resolvedFilePath = path.resolve(filePath);
-    if (!resolvedFilePath.startsWith(resolvedBackupsDir) || path.extname(resolvedFilePath).toLowerCase() !== '.gpm') {
+    if (!isInsideDir(resolvedBackupsDir, resolvedFilePath) || path.extname(resolvedFilePath).toLowerCase() !== '.gpm') {
       return { success: false, error: 'File backup berada di luar folder backup aplikasi.' };
     }
 
@@ -1983,6 +1995,7 @@ ipcMain.handle('workbook:exportFull', async (_event, config = {}) => {
     const { FullWorkbookExportService } = require('./services/full-workbook-export');
     const exporter = new FullWorkbookExportService({
       templatePaths: [
+        templateWorkbookPath,
         path.join(process.env.USERPROFILE || '', 'APLIKASI KEUANGAN TAHUN 2025 FINAL.xlsx'),
       ],
     });

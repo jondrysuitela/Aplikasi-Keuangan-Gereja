@@ -137,7 +137,12 @@ export function ProjectHomePage() {
     }
     const result = await electronAPI.openProject();
     if (result.success && result.data) {
-      restoreSnapshotData(result.data);
+      try {
+        restoreSnapshotData(result.data);
+      } catch {
+        toast.error('File project tidak valid.');
+        return;
+      }
       setActiveProjectPath(result.path || null);
       setLastSavedAt(new Date());
       setHasUnsavedChanges(false);
@@ -171,7 +176,14 @@ export function ProjectHomePage() {
     }
     const result = await electronAPI.openRecentProject(project.path);
     if (result.success && result.data) {
-      restoreSnapshotData(result.data);
+      try {
+        restoreSnapshotData(result.data);
+      } catch {
+        toast.error('Recent project tidak valid.', {
+          description: 'File mungkin korup atau sudah diubah.',
+        });
+        return;
+      }
       setActiveProjectPath(result.path || project.path);
       setLastSavedAt(new Date());
       setHasUnsavedChanges(false);

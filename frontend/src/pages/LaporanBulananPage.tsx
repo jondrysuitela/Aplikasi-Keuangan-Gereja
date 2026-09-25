@@ -34,9 +34,9 @@ export function LaporanBulananPage() {
   const canExport = can(user?.role, 'export');
   const confirm = useConfirm();
   const [editKop, setEditKop] = useState(false);
-  const [kopGereja, setKopGereja] = useState('Gereja Protestan Maluku');
+  const [kopGereja, setKopGereja] = useState(storedKopGereja || 'Gereja Protestan Maluku');
   const [kopSub, setKopSub] = useState('(ANGGOTA PGI)');
-  const [kopKlas, setKopKlas] = useState('KLASIS PULAU AMBON TIMUR');
+  const [kopKlas, setKopKlas] = useState(storedKopKlas || 'KLASIS');
   const [bulanAwal, setBulanAwal] = useState(1);
   const [bulanAkhir, setBulanAkhir] = useState(12);
 

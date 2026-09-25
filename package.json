@@ -85,6 +85,10 @@
         "to": "data/batang-tubuh-flat.json"
       },
       {
+        "from": "data/kode-anggaran.json",
+        "to": "data/kode-anggaran.json"
+      },
+      {
         "from": "data/sub-seksi-db.json",
         "to": "data/sub-seksi-db.json"
       },
