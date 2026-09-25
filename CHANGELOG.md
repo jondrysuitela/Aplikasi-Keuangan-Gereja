@@ -1,9 +1,45 @@
+## [1.7.0] - 2026-07-10
+
+### Fitur
+- Export Dianggarkan: kolom REALISASI pindah ke posisi sebelum DIANGGARKAN. REALISASI menampilkan tahun sebelumnya (tahunAktif - 1), otomatis terisi dari transaksi Doorscrieft tahun tersebut.
+- Carryover data Dianggarkan: saat Tutup Buku & Buka Tahun Baru, data anggaran (program, rincian, jumlah) dari tahun berjalan otomatis disalin ke tahun baru. Tinggal koreksi, tidak perlu ketik ulang.
+## [1.6.3] - 2026-07-10
+
+### Fitur
+- Tombol Sisip (+) di kolom Aksi Doorscrieft untuk menyisipkan data baru di antara baris yang sudah ada.
+- Nomor urut otomatis menyesuaikan posisi ketika data disisipkan.
+## [1.6.2] - 2026-07-09
+
+### Fixed
+- Fix card Tanggungan layout: full width, tables side-by-side, total akumulasi dana, selisih merah
+- Fix Penetapan Tanggungan tidak jadi 0: auto-hitung dari transaksi Doorscrieft jika data tahunan kosong
+- Fix selisih YPPK 1%: realisasi ngikut penetapan (selisih = 0)
+- Fix export Rekon Klasis: handler tidak terdaftar karena orphaned code
+- Fix export Rekon Klasis: struktur 1:1 dengan template MAPPING REKON
+- Fix export Rekon Klasis: label per bulan (Pendapatan, Belanja, Pendapatan Murni, Tahun Lalu)
+- Fix newline issue in CHANGELOG
+
 # Changelog
 
-Semua perubahan penting aplikasi ini akan dicatat di file ini.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) secara praktis, dan versi mengikuti [Semantic Versioning](https://semver.org/).
+## [1.6.0] - 2026-07-09
 
+### Fitur
+
+- Mapping Rekon Klasis otomatis: APBG dari data Dianggarkan (tahun berjalan), Pendapatan Murni Tahun Lalu dari tahunAktif - 2.
+- Dialog Data Tahunan: ganti tahun auto-reload data tersimpan & APBG sesuai tahun.
+- Pemasukan Murni & Pengeluaran Murni otomatis terisi dari transaksi realtime (Doorscrieft) jika belum ada data.
+- Label dinamis "Pendapatan Murni Tahun Lalu (tahun)".
+- Tabel Rekon Klasis header 2 baris: MURNI/UKP di atas, PENDAPATAN/BELANJA di bawah.
+- Catatan Tanggungan Perbulan (30%, 1%, 7% / 12) — hanya di aplikasi, tidak ikut export.
+- Judul card "Penetapan APB-G TA {tahunAktif}" sesuai tahun berjalan.
+
+### Perbaikan
+
+- Input Dianggarkan Pendapatan tidak lagi auto-mengisi Dianggarkan Pengeluaran.
+- Pendapatan Murni Tahun Lalu tidak pakai fallback localStorage, ambil dari tahun yang benar.
+- var -> let/const, isNaN -> Number.isNaN.
 
 ## [1.5.0] - 2026-07-08
 
@@ -67,4 +103,17 @@ Format changelog mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.1.
 ### Catatan
 
 - Changelog berikutnya dapat dibuat otomatis dengan `npm run version:bump`.
+
+
+## [1.6.1] - 2026-07-09
+
+### Fixed
+- Fix Ctrl+R refresh shortcut still working in production build (reload menu items now wrapped in isDev)
+- Fix export button not responding - added try-catch error handling in handleExport
+- Fix incorrect import handler in RekonKlasisPage (was using export code instead of import code)
+- Fix preload.js sandbox compatibility
+
+### Changed
+- Bump version to 1.6.1 for bug fix release
+
 

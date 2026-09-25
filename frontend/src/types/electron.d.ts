@@ -76,6 +76,7 @@ export interface ElectronAPI {
   downloadBatangTubuhTemplate: (opts?: { format?: 'csv' | 'xlsx' | 'txt' | 'json'; tahun?: number; batangTubuhProgramByYear?: Record<string, unknown> }) => Promise<ElectronResult<{ path?: string }>>;
   exportFullWorkbook: (config: Record<string, unknown>) => Promise<ElectronResult<{ path?: string }>>;
   exportRealisasiPerbulan: (config: Record<string, unknown>) => Promise<ElectronResult<{ path?: string }>>;
+  exportRekonKlasis: (config: Record<string, unknown>) => Promise<ElectronResult<{ path?: string }>>;
 
   loadDoorscrieft: () => Promise<unknown[]>;
   exportDoorscrieftToExcel: (data: unknown) => Promise<ElectronResult<{ path?: string }>>;

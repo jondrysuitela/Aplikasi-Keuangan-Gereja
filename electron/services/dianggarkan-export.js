@@ -36,15 +36,23 @@ class DianggarkanExportService extends BatangTubuhExportService {
     if (!worksheet) throw new Error('Sheet BATANG TUBUH tidak ditemukan');
 
     worksheet.getCell('A5').value = `RANCANGAN ANGGARAN PENDAPATAN DAN BELANJA TAHUN ${year}`;
-    worksheet.getCell('C7').value = `DIANGGARKAN ${year}`;
-    worksheet.getCell('D7').value = `REALISASI ${year}`;
+    worksheet.getCell('C7').value = `REALISASI ${year - 1}`;
+    worksheet.getCell('D7').value = `DIANGGARKAN ${year}`;
     worksheet.getCell('E7').value = 'KETERANGAN';
-    worksheet.getCell('C8').value = `DIANGGARKAN ${year}`;
-    worksheet.getCell('D8').value = `REALISASI ${year}`;
+    worksheet.getCell('C8').value = `REALISASI ${year - 1}`;
+    worksheet.getCell('D8').value = `DIANGGARKAN ${year}`;
     worksheet.getCell('E8').value = 'KETERANGAN';
-    worksheet.getCell('C9').value = 3;
-    worksheet.getCell('D9').value = 4;
+    worksheet.getCell('C9').value = 4;
+    worksheet.getCell('D9').value = 3;
     worksheet.getCell('E9').value = 5;
+
+    // Swap columns C and D: C=REALISASI(year-1), D=DIANGGARKAN(year)
+    for (let rowNumber = 10; rowNumber <= worksheet.rowCount; rowNumber += 1) {
+      const cVal = worksheet.getCell(`C${rowNumber}`).value;
+      const dVal = worksheet.getCell(`D${rowNumber}`).value;
+      worksheet.getCell(`C${rowNumber}`).value = dVal;
+      worksheet.getCell(`D${rowNumber}`).value = cVal;
+    }
 
     const detailMap = this._buildProgramDetailMap(config.batangTubuhProgramByYear || {}, year);
     const insertQueue = [];
@@ -154,6 +162,12 @@ class DianggarkanExportService extends BatangTubuhExportService {
       minimumFractionDigits: 0,
     }).format(toNumber(value));
   }
+
+  _buildRealisasiMap(transaksis, year) {
+    return super._buildRealisasiMap(transaksis, year - 1);
+  }
 }
+
+
 
 module.exports = { DianggarkanExportService };

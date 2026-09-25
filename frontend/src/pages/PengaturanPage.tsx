@@ -84,7 +84,7 @@ const compressLoginBackground = (file: File): Promise<string> => new Promise((re
 });
 
 export function PengaturanPage() {
-  const { user, namaJemaat, setNamaJemaat, kopGereja, setKopGereja, kopKlas, setKopKlas, penandatanganKiriJabatan, setPenandatanganKiriJabatan, penandatanganKiriNama, setPenandatanganKiriNama, penandatanganKananJabatan, setPenandatanganKananJabatan, penandatanganKananNama, setPenandatanganKananNama, appName, setAppName, appSubtitle, setAppSubtitle, loginBackgroundImage, setLoginBackgroundImage, resetLoginBackgroundImage, guestLoginEnabled, setGuestLoginEnabled, tahunAktif, setTahunAktif, lockedYears, lockYear, unlockYear, auditLogs, addAuditLog, clearAuditLogs, activeProjectPath, setActiveProjectPath, lastSavedAt, setLastSavedAt, hasUnsavedChanges, setHasUnsavedChanges, doorscrieftTransaksis, kodeAnggarans } = useStore();
+  const { user, namaJemaat, setNamaJemaat, kopGereja, setKopGereja, kopKlas, setKopKlas, penandatanganKiriJabatan, setPenandatanganKiriJabatan, penandatanganKiriNama, setPenandatanganKiriNama, penandatanganKananJabatan, setPenandatanganKananJabatan, penandatanganKananNama, setPenandatanganKananNama, appName, setAppName, appSubtitle, setAppSubtitle, loginBackgroundImage, setLoginBackgroundImage, resetLoginBackgroundImage, guestLoginEnabled, setGuestLoginEnabled, tahunAktif, setTahunAktif, lockedYears, lockYear, unlockYear, auditLogs, addAuditLog, clearAuditLogs, activeProjectPath, setActiveProjectPath, lastSavedAt, setLastSavedAt, hasUnsavedChanges, setHasUnsavedChanges, doorscrieftTransaksis, kodeAnggarans, batangTubuhAnggaranByYear, batangTubuhProgramByYear, setBatangTubuhAnggaranByYear, setBatangTubuhProgramByYear } = useStore();
   const [darkMode, setDarkMode] = useState(false);
   const [uploadingBackground, setUploadingBackground] = useState(false);
   const confirm = useConfirm();
@@ -377,7 +377,32 @@ export function PengaturanPage() {
 
     await createAutoBackup(`tutup-buku-${tahunAktif}`);
     lockYear(tahunAktif);
-    if (openNextYear) setTahunAktif(nextYear);
+
+    // Carryover data dianggarkan ke tahun baru
+    if (openNextYear) {
+      const currentYearKey = String(tahunAktif);
+      const nextYearKey = String(nextYear);
+      const hasNextYearData = batangTubuhAnggaranByYear[nextYearKey] && Object.keys(batangTubuhAnggaranByYear[nextYearKey]).length > 0;
+      const hasNextYearPrograms = batangTubuhProgramByYear[nextYearKey] && Object.keys(batangTubuhProgramByYear[nextYearKey]).length > 0;
+      if (!hasNextYearData && !hasNextYearPrograms) {
+        // Copy data anggaran dari tahun berjalan ke tahun baru
+        const currentYearAnggaran = batangTubuhAnggaranByYear[currentYearKey];
+        const currentYearPrograms = batangTubuhProgramByYear[currentYearKey];
+        if (currentYearAnggaran) {
+          setBatangTubuhAnggaranByYear({
+            ...batangTubuhAnggaranByYear,
+            [nextYearKey]: { ...currentYearAnggaran },
+          });
+        }
+        if (currentYearPrograms) {
+          setBatangTubuhProgramByYear({
+            ...batangTubuhProgramByYear,
+            [nextYearKey]: JSON.parse(JSON.stringify(currentYearPrograms)),
+          });
+        }
+      }
+      setTahunAktif(nextYear);
+    }
     addAuditLog(
       openNextYear ? 'Tutup Buku dan Buka Tahun Baru' : 'Tutup Buku',
       'Tahun',
@@ -1836,3 +1861,4 @@ function TambahKodeAnggaran() {
     </div>
   );
 }
+

@@ -10,6 +10,41 @@ export type ReleaseNote = {
 
 export const releaseNotes: ReleaseNote[] = [
   {
+    version: '1.7.0',
+    date: '2026-07-10',
+    label: 'Kolom Realisasi & Carryover Anggaran',
+    stability: 'stable',
+    summary: 'Perombakan posisi kolom REALISASI pada export Dianggarkan dan carryover otomatis data anggaran ke tahun baru.',
+    highlights: [
+      'Export Dianggarkan: kolom REALISASI tahun sebelumnya pindah ke sisi kiri DIANGGARKAN.',
+      'REALISASI otomatis menampilkan data transaksi Doorscrieft dari tahun sebelumnya (tahunAktif - 1).',
+      'Saat Tutup Buku & Buka Tahun Baru, data anggaran (program, rincian, jumlah) dari tahun berjalan otomatis disalin ke tahun baru.',
+      'Tahun baru tinggal koreksi — tidak perlu input ulang nama program dan rincian anggaran.',
+    ],
+    checks: [
+      'Lint frontend hijau.',
+      'Build frontend hijau.',
+      'Test export Dianggarkan hijau sebelum installer dibuat.',
+    ],
+  },
+  {
+    version: '1.6.3',
+    date: '2026-07-10',
+    label: 'Sisip Baris Doorscrieft',
+    stability: 'patch',
+    summary: 'Menambahkan tombol Sisip pada kolom Aksi Doorscrieft untuk menyisipkan data baru di antara baris yang sudah ada.',
+    highlights: [
+      'Tombol Sisip (+) di tiap baris tabel Doorscrieft untuk menyisipkan data baru sebelum baris tersebut.',
+      'Nomor urut otomatis menyesuaikan saat data disisipkan di antara baris yang sudah ada.',
+      'Data lain dalam lembar yang sama tidak terpengaruh — hanya posisi baris baru yang diatur.',
+    ],
+    checks: [
+      'Lint frontend hijau.',
+      'Build frontend hijau.',
+      'Test export/import hijau sebelum installer dibuat.',
+    ],
+  },
+  {
     version: '1.4.2',
     date: '2026-06-22',
     label: 'Patch Kalkulator Anggaran',
@@ -86,4 +121,6 @@ export const releaseNotes: ReleaseNote[] = [
 export function getReleaseNote(version: string) {
   return releaseNotes.find((release) => release.version === version) || releaseNotes[0];
 }
+
+
 

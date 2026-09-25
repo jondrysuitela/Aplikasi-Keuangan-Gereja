@@ -64,6 +64,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   exportDoorscrieftToExcel: (data) => ipcRenderer.invoke('excel:exportDoorscrieft', data),
   previewDoorscrieftImport: (options) => ipcRenderer.invoke('excel:previewDoorscrieftImport', options),
   importDoorscrieftFromExcel: (options) => ipcRenderer.invoke('excel:importDoorscrieft', options),
+  // Rekon Klasis
+  exportRekonKlasis: (config) => ipcRenderer.invoke("excel:exportRekonKlasis", config),
   // Project
   saveProject: (data, defaultName, asNew) => ipcRenderer.invoke('project:save', data, defaultName, !!asNew),
   openProject: () => ipcRenderer.invoke('project:open'),

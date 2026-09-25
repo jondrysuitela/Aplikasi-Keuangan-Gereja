@@ -78,15 +78,16 @@ describe('DianggarkanExportService', () => {
     assert(worksheet, 'BATANG TUBUH output sheet should exist');
 
     assert.strictEqual(getCellText(worksheet.getCell('A5')), 'RANCANGAN ANGGARAN PENDAPATAN DAN BELANJA TAHUN 2026');
-    assert.strictEqual(getCellText(worksheet.getCell('D7')), 'REALISASI 2026');
+    assert.strictEqual(getCellText(worksheet.getCell('C7')), 'REALISASI 2025');
+    assert.strictEqual(getCellText(worksheet.getCell('D7')), 'DIANGGARKAN 2026');
     assert.strictEqual(getCellText(worksheet.getCell('E7')), 'KETERANGAN');
     assert.strictEqual(worksheet.getColumn(5).hidden, false);
     assert.strictEqual(worksheet.getColumn(6).hidden, true);
 
     const outputRowNumber = findRowByCode(worksheet, 'A', leaf.code);
     assert(outputRowNumber > 0, `Expected code ${leaf.code} to appear in output worksheet`);
-    assert.strictEqual(getCellText(worksheet.getCell(`C${outputRowNumber}`)), '500000');
-    assert.strictEqual(getCellText(worksheet.getCell(`D${outputRowNumber}`)), '125000');
+    assert.strictEqual(getCellText(worksheet.getCell(`C${outputRowNumber}`)), '');
+    assert.strictEqual(getCellText(worksheet.getCell(`D${outputRowNumber}`)), '500000');
     const keterangan = getCellText(worksheet.getCell(`E${outputRowNumber}`));
     assert(keterangan.includes('Pelayanan Mingguan'));
     assert(!keterangan.includes('Program:'));
@@ -111,3 +112,4 @@ describe('DianggarkanExportService', () => {
     assert.strictEqual(getCellText(worksheet.getCell(`F${outputRowNumber}`)), '');
   });
 });
+

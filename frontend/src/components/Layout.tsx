@@ -57,6 +57,7 @@ const navigation: NavigationItem[] = [
   { name: 'Komponen Pengeluaran', href: '/komp-belanja', icon: BarChart3 },
   { name: 'Batang Tubuh', href: '/batang-tubuh', icon: ArrowUpCircle },
   { name: 'Rekonsiliasi', href: '/rekonsiliasi', icon: Calendar },
+  { name: 'Rekon Klasis', href: '/rekon-klasis', icon: FileText },
   { name: 'Sub Seksi', href: '/sub-seksi', icon: Users },
   { name: 'Doorscrieft', href: '/doorscrieft', icon: FileText },
   { name: 'Bukti Transaksi', href: '/bukti-transaksi', icon: Paperclip, permission: 'attachment' },

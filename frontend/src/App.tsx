@@ -30,6 +30,7 @@ const PengeluaranPerbulanPage = lazy(() => import('@/pages/PengeluaranPerbulanPa
 const ProjectHomePage = lazy(() => import('@/pages/ProjectHomePage').then((m) => ({ default: m.ProjectHomePage })));
 const RealisasiPage = lazy(() => import('@/pages/RealisasiPage').then((m) => ({ default: m.RealisasiPage })));
 const RekonsiliasiPage = lazy(() => import('@/pages/RekonsiliasiPage').then((m) => ({ default: m.RekonsiliasiPage })));
+const RekonKlasisPage = lazy(() => import('@/pages/RekonKlasisPage').then((m) => ({ default: m.RekonKlasisPage })));
 const SubSeksiPage = lazy(() => import('@/pages/SubSeksiPage').then((m) => ({ default: m.SubSeksiPage })));
 const LaporanSemesterPage = lazy(() => import('@/pages/LaporanSemesterPage').then((m) => ({ default: m.LaporanSemesterPage })));
 
@@ -128,6 +129,7 @@ function ProtectedApp() {
           <Route path="/rekonsiliasi" element={<RekonsiliasiPage />} />
           <Route path="/sub-seksi" element={<SubSeksiPage />} />
           <Route path="/laporan-semester" element={<LaporanSemesterPage />} />
+          <Route path="/rekon-klasis" element={<RekonKlasisPage />} />
           <Route path="/doorscrieft" element={<DoorscrieftInputPage />} />
           <Route path="/bukti-transaksi" element={can(user.role, 'attachment') ? <BuktiTransaksiPage /> : <Navigate to="/" replace />} />
           <Route path="/cek-data" element={<CekDataPage />} />
@@ -150,4 +152,3 @@ function PageLoading() {
     </div>
   );
 }
-

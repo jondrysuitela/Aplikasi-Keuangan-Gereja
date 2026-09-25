@@ -296,6 +296,7 @@ export function DoorscrieftInputPage() {
   const [lembarLabels, setLembarLabels] = useState<Record<string, string>>({});
   // Track lembarId targeted by the currently open input dialog.
   const inputLembarIdRef = useRef<string | null>(null);
+  const insertBeforeRef = useRef<string | null>(null);
   // Backward-compatible alias for pending new lembar state used by close/reset logic.
   const pendingNewLembarIdRef = useRef<string | null>(null);
   const defaultedYearRef = useRef<number | null>(null);
@@ -718,7 +719,9 @@ export function DoorscrieftInputPage() {
       const newNo = String(lastNo + 1);
 
       pushUndoSnapshot();
-      addDoorscrieftTransaksi(payload);
+      const beforeId = insertBeforeRef.current;
+      insertBeforeRef.current = null;
+      addDoorscrieftTransaksi(payload, beforeId ? { insertBeforeId: beforeId } : undefined);
 
       setEditingId(null);
       setKodeSearch('');
@@ -794,6 +797,7 @@ export function DoorscrieftInputPage() {
       showLockedYearMessage();
       return;
     }
+    insertBeforeRef.current = null;
     setEditingId(item.id);
     inputLembarIdRef.current = item.lembarId || null;
     pendingNewLembarIdRef.current = null;
@@ -814,6 +818,37 @@ export function DoorscrieftInputPage() {
     });
   };
 
+  const handleInsertBefore = (item: DoorscrieftRowInput) => {
+    if (!canInput) {
+      toast.error('Role Anda tidak memiliki izin input data.');
+      return;
+    }
+    if (isYearLocked) {
+      showLockedYearMessage();
+      return;
+    }
+    insertBeforeRef.current = item.id;
+    inputLembarIdRef.current = item.lembarId || activeLembarId || null;
+    setEditingId(null);
+    setForm({
+      tanggal: toDateInputValue(item.tanggal),
+      no: String(Number(item.no || 0) + 1),
+      uraian: '',
+      kodeAnggaran: '',
+      mataAnggaran: '',
+      penerimaan: '',
+      pengeluaran: '',
+    });
+    setKodeSearch('');
+    setKodeDropdownOpen(false);
+    setKodeHighlightIdx(-1);
+    setIsOpen(true);
+    window.requestAnimationFrame(() => {
+      noInputRef.current?.focus();
+      noInputRef.current?.select();
+    });
+  };
+
   const closeInputPanel = () => {
     setIsOpen(false);
     setEditingId(null);
@@ -824,6 +859,7 @@ export function DoorscrieftInputPage() {
     setKodeHighlightIdx(-1);
     inputLembarIdRef.current = null;
     pendingNewLembarIdRef.current = null;
+    insertBeforeRef.current = null;
   };
 
   const handleStartInputCurrentLembar = () => {
@@ -844,6 +880,7 @@ export function DoorscrieftInputPage() {
       pendingNewLembarIdRef.current = null;
     }
 
+    insertBeforeRef.current = null;
     inputLembarIdRef.current = targetLembarId;
     setEditingId(null);
     setForm({ ...initialForm, tanggal: activeLembarInputDate, no: nextNomor });
@@ -1837,6 +1874,9 @@ export function DoorscrieftInputPage() {
                         </td>
                         <td className='px-3 py-2 text-right w-20 print-hidden'>
                           <div className='flex justify-end gap-1'>
+                            <Button variant='ghost' size='icon' className='h-6 w-6' disabled={!canInput || isYearLocked} onClick={() => handleInsertBefore(r)} title='Sisip data sebelum baris ini'>
+                              <Plus className='h-3.5 w-3.5' />
+                            </Button>
                             <Button variant='ghost' size='icon' className='h-6 w-6' disabled={!canInput} onClick={() => handleEdit(r)}>
                               <Edit2 className='h-3.5 w-3.5' />
                             </Button>
@@ -2206,3 +2246,11 @@ export function DoorscrieftInputPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+

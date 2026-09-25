@@ -514,6 +514,7 @@ function createApplicationMenu() {
         { type: 'separator' },
         { role: 'togglefullscreen', label: 'Layar Penuh' },
         { type: 'separator' },
+        ...(isDev ? [
         {
           label: 'Muat Ulang Aplikasi',
           accelerator: 'CmdOrCtrl+R',
@@ -529,6 +530,7 @@ function createApplicationMenu() {
           },
         },
         { type: 'separator' },
+        ] : []),
         ...(isDev ? [
           {
             label: 'Buka Developer Tools',
@@ -888,6 +890,16 @@ function createWindow() {
       allowRunningInsecureContent: false,
       experimentalFeatures: false,
     },
+  });
+
+  // Disable refresh shortcuts di aplikasi build
+  mainWindow.webContents.on('before-input-event', (event, input) => {
+    if ((input.control || input.meta) && input.key.toLowerCase() === 'r') {
+      event.preventDefault();
+    }
+    if (input.key === 'F5') {
+      event.preventDefault();
+    }
   });
 
   // Log page load errors
@@ -2008,27 +2020,38 @@ ipcMain.handle('excel:exportRealisasiPerbulan', async (_event, config = {}) => {
     const { RealisasiPerbulanExportService } = require('./services/realisasi-perbulan-export');
     const tahun = Number(config.tahun) || new Date().getFullYear();
     const exporter = new RealisasiPerbulanExportService();
-    const buffer = await exporter.export({
-      ...config,
-      tahun,
-    });
-
+    const buffer = await exporter.export({ ...config, tahun });
     const safeJemaat = String(config.namaJemaat || 'Jemaat').trim().replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, '_');
     const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow() || mainWindow, {
       title: 'Export Realisasi Perbulan',
       defaultPath: `Realisasi_Perbulan_${safeJemaat}_${tahun}.xlsx`,
       filters: [{ name: 'Excel Workbook', extensions: ['xlsx'] }],
     });
-
-    if (result.canceled || !result.filePath) {
-      return { success: false, canceled: true };
-    }
-
+    if (result.canceled || !result.filePath) return { success: false, canceled: true };
     fs.writeFileSync(result.filePath, buffer);
     return { success: true, path: result.filePath };
   } catch (e) {
     console.error('excel:exportRealisasiPerbulan failed:', e);
     return { success: false, error: e.message };
+  }
+});
+
+ipcMain.handle("excel:exportRekonKlasis", async (_event, config = {}) => {
+  try {
+    const result = await dialog.showSaveDialog(mainWindow, {
+      title: "Export Rekon Klasis",
+      defaultPath: path.join(app.getPath("documents"), `Rekon_Klasis_${config.tahun || ""}.xlsx`),
+      filters: [{ name: "Excel Workbook", extensions: ["xlsx"] }],
+    });
+    if (result.canceled || !result.filePath) return { success: false, canceled: true };
+    const { RekonKlasisExportService } = require("./services/rekon-klasis-export");
+    const exporter = new RekonKlasisExportService();
+    const wb = await exporter.export(config);
+    await wb.xlsx.writeFile(result.filePath);
+    return { success: true, path: result.filePath };
+  } catch (error) {
+    writeLog("[Export RekonKlasis] " + (error instanceof Error ? error.message : String(error)));
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 });
 

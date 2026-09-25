@@ -171,7 +171,7 @@ interface AppState {
   // Transaksi doorscrieft (DOORSCRIEFT2)
   doorscrieftTransaksis: DoorscrieftRowInput[];
   setDoorscrieftTransaksis: (transaksis: DoorscrieftRowInput[]) => void;
-  addDoorscrieftTransaksi: (transaksi: Omit<DoorscrieftRowInput, 'id' | 'createdAt'>) => void;
+  addDoorscrieftTransaksi: (transaksi: Omit<DoorscrieftRowInput, 'id' | 'createdAt'>, options?: { insertBeforeId?: string }) => void;
   updateDoorscrieftTransaksi: (id: string, data: Partial<DoorscrieftRowInput>) => void;
   deleteDoorscrieftTransaksi: (id: string) => void;
 
@@ -793,7 +793,7 @@ export const useStore = create<AppState>()(
         return { doorscrieftTransaksis: transaksis };
       }),
 
-      addDoorscrieftTransaksi: (transaksi) =>
+      addDoorscrieftTransaksi: (transaksi, options) =>
         set((state) => {
           const year = new Date(transaksi.tanggal).getFullYear();
           if (state.lockedYears.includes(year)) {
@@ -812,18 +812,26 @@ export const useStore = create<AppState>()(
           const nextId = (transaksi as { id?: string }).id || generateId();
 
           return {
-            doorscrieftTransaksis: [
-              ...state.doorscrieftTransaksis,
-              {
+            doorscrieftTransaksis: (() => {
+              const newItem = {
                 ...transaksi,
                 id: nextId,
                 createdAt: new Date(),
                 lembarId,
-
                 // mataAnggaran dipaksa mengikuti master
                 mataAnggaran: hit.mataAnggaran,
-              },
-            ],
+              };
+              const insertBeforeId = options?.insertBeforeId;
+              if (insertBeforeId) {
+                const idx = state.doorscrieftTransaksis.findIndex((t) => t.id === insertBeforeId);
+                if (idx >= 0) {
+                  const copy = [...state.doorscrieftTransaksis];
+                  copy.splice(idx, 0, newItem);
+                  return copy;
+                }
+              }
+              return [...state.doorscrieftTransaksis, newItem];
+            })(),
           };
         }),
 
@@ -1213,3 +1221,5 @@ useStore.subscribe((state) => {
     useStore.setState({ hasUnsavedChanges: true });
   }
 });
+
+
