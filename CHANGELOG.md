@@ -1,3 +1,26 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.8.0](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/compare/v1.5.0...v1.8.0) (2026-09-25)
+
+
+### Maintenance
+
+* add v1.5.0 build artifacts ([7122ba4](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/7122ba47575f49c75f0046527d192222e1021c69))
+* ignore large excel file ([52765f9](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/52765f90d73ba39bd4b34a885faf9c729183c8c5))
+* remove large file from tracking ([acb5a2d](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/acb5a2dd9e97672ba7e9cfa530ec87b7f713c26d))
+
+
+### Fitur
+
+* RekonKlasis export, REALISASI Dianggarkan, carryover anggaran; bersihkan file sampah ([1e47a3e](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/1e47a3e786e62cdf2b83f763ece0a76995cdcb3a))
+
+
+### Perbaikan
+
+* lembar kosong +Lembar, identitas pengaturan di export, crash project korup, sync kode anggaran writable ([564af83](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/564af834fc49b3feedfdf54c3326fb32de24a6b0))
+
 ## [1.7.0] - 2026-07-10
 
 ### Fitur
