@@ -195,7 +195,6 @@ export function LaporanSemesterPage() {
     return {
       totalPendapatan,
       totalPengeluaran,
-      saldo: totalPendapatan - totalPengeluaran,
       summaries,
       count: filtered.length,
     };
@@ -234,7 +233,7 @@ export function LaporanSemesterPage() {
       </div>
 
       {/* Summary cards */}
-      <div className='grid gap-4 sm:grid-cols-3'>
+      <div className='grid gap-4 sm:grid-cols-2'>
         <Card>
           <CardContent className='flex items-center gap-4 py-5'>
             <div className='rounded-full bg-emerald-100 p-3 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'>
@@ -260,20 +259,6 @@ export function LaporanSemesterPage() {
                 {formatCurrency(semesterData.totalPengeluaran)}
               </p>
               <p className='text-xs text-slate-400'>{bulanLabel} {tahunLabel}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className='flex items-center gap-4 py-5'>
-            <div className='rounded-full bg-blue-100 p-3 text-blue-700 dark:bg-blue-950 dark:text-blue-300'>
-              <Wallet className='h-6 w-6' />
-            </div>
-            <div>
-              <p className='text-sm font-medium text-slate-500 dark:text-slate-400'>Saldo</p>
-              <p className={cn('text-2xl font-bold', semesterData.saldo >= 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300')}>
-                {formatCurrency(semesterData.saldo)}
-              </p>
-              <p className='text-xs text-slate-400'>Pendapatan - Pengeluaran</p>
             </div>
           </CardContent>
         </Card>
@@ -319,9 +304,6 @@ export function LaporanSemesterPage() {
                       <p className='text-xs text-slate-500 dark:text-slate-400'>
                         P: {formatCurrency(summary.totalPendapatan)} | B: {formatCurrency(summary.totalPengeluaran)}
                       </p>
-                      <p className={cn('text-sm font-semibold', summary.totalPendapatan - summary.totalPengeluaran >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400')}>
-                        Saldo: {formatCurrency(summary.totalPendapatan - summary.totalPengeluaran)}
-                      </p>
                     </div>
                   </div>
 
@@ -335,7 +317,6 @@ export function LaporanSemesterPage() {
                           <th className='px-3 py-3 font-semibold text-slate-700 dark:text-slate-300'>Program / Mata Anggaran</th>
                           <th className='px-3 py-3 text-right font-semibold text-slate-700 dark:text-slate-300'>Pendapatan</th>
                           <th className='px-3 py-3 text-right font-semibold text-slate-700 dark:text-slate-300'>Pengeluaran</th>
-                          <th className='px-3 py-3 text-right font-semibold text-slate-700 dark:text-slate-300'>Saldo</th>
                         </tr>
                       </thead>
                       <tbody className='divide-y divide-slate-200 dark:divide-slate-700'>
@@ -371,14 +352,11 @@ export function LaporanSemesterPage() {
                                 <td className='px-3 py-2.5 text-right font-mono text-rose-700 dark:text-rose-300'>
                                   {prog.totalPengeluaran > 0 ? formatCurrency(prog.totalPengeluaran) : '-'}
                                 </td>
-                                <td className={cn('px-3 py-2.5 text-right font-mono', prog.totalPendapatan - prog.totalPengeluaran >= 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300')}>
-                                  {formatCurrency(prog.totalPendapatan - prog.totalPengeluaran)}
-                                </td>
                               </tr>
                               {/* Expanded detail rows */}
                               {isExpanded && prog.transaksis.length > 0 && (
                                 <tr>
-                                  <td colSpan={6} className='bg-slate-50/70 px-0 dark:bg-slate-900/50'>
+                                  <td colSpan={5} className='bg-slate-50/70 px-0 dark:bg-slate-900/50'>
                                     <table className='w-full text-left text-xs'>
                                       <thead>
                                         <tr className='border-y border-slate-200 dark:border-slate-700'>
@@ -420,9 +398,6 @@ export function LaporanSemesterPage() {
                           <td className='px-3 py-3 text-right font-mono text-rose-700 dark:text-rose-300'>
                             {formatCurrency(summary.totalPengeluaran)}
                           </td>
-                          <td className={cn('px-3 py-3 text-right font-mono font-bold', summary.totalPendapatan - summary.totalPengeluaran >= 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300')}>
-                            {formatCurrency(summary.totalPendapatan - summary.totalPengeluaran)}
-                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -443,9 +418,6 @@ export function LaporanSemesterPage() {
                     <p className='text-sm text-slate-500 dark:text-slate-400'>
                       P: <span className='font-semibold text-emerald-700 dark:text-emerald-300'>{formatCurrency(semesterData.totalPendapatan)}</span>
                       {' | '}B: <span className='font-semibold text-rose-700 dark:text-rose-300'>{formatCurrency(semesterData.totalPengeluaran)}</span>
-                    </p>
-                    <p className={cn('text-xl font-bold', semesterData.saldo >= 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300')}>
-                      Saldo: {formatCurrency(semesterData.saldo)}
                     </p>
                   </div>
                 </div>
