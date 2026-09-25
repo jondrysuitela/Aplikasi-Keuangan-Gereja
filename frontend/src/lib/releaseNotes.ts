@@ -10,6 +10,27 @@ export type ReleaseNote = {
 
 export const releaseNotes: ReleaseNote[] = [
   {
+    version: '1.8.0',
+    date: '2026-09-25',
+    label: 'Rekon Klasis, Lembar Kosong & Stabilitas',
+    stability: 'stable',
+    summary: 'Export Rekon Klasis, penambahan lembar kosong Doorscrieft dengan notifikasi, identitas gereja sesuai pengaturan, dan perbaikan crash serta sinkronisasi data.',
+    highlights: [
+      'Export Rekon Klasis lengkap dengan template MAPPING REKON (perbulan, penetapan, tanggungan).',
+      'Tombol + Lembar di Doorscrieft kini langsung menambah lembar kosong yang terlihat di navigasi, plus notifikasi.',
+      'Export Batang Tubuh & Rekon Klasis memakai identitas gereja/jemaat dari Pengaturan, bukan nama hardcoded.',
+      'Kop laporan bulanan mengikuti pengaturan sehingga preview dan export selalu konsisten.',
+      'Buka file project korup tidak lagi crash — muncul peringatan yang jelas.',
+      'Master Kode Anggaran bisa tersinkronisasi ke workbook walau aplikasi terpasang (folder Program Files).',
+      'Nominal import format Rp seperti 1.500.000 terbaca benar (tidak lagi menjadi NaN atau 1).',
+    ],
+    checks: [
+      'Lint frontend hijau.',
+      'Build frontend hijau.',
+      'Test export/import hijau sebelum installer dibuat.',
+    ],
+  },
+  {
     version: '1.7.0',
     date: '2026-07-10',
     label: 'Kolom Realisasi & Carryover Anggaran',
