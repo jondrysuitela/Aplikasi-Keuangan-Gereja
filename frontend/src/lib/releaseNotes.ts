@@ -10,6 +10,22 @@ export type ReleaseNote = {
 
 export const releaseNotes: ReleaseNote[] = [
   {
+    version: '1.8.1',
+    date: '2026-09-25',
+    label: 'Laporan Semester Tanpa Saldo',
+    stability: 'patch',
+    summary: 'Laporan Semester difokuskan hanya pada ringkasan per sub-seksi (Pendapatan & Pengeluaran), kolom dan perhitungan Saldo dihilangkan.',
+    highlights: [
+      'Kartu ringkasan Saldo dihapus — hanya Total Pendapatan dan Total Pengeluaran.',
+      'Kolom Saldo di tabel program, header sub-seksi, subtotal, dan grand total dihilangkan.',
+      'Laporan per Sub Seksi kini menampilkan penerimaan dan pengeluaran saja.',
+    ],
+    checks: [
+      'Lint frontend hijau.',
+      'Build frontend hijau.',
+    ],
+  },
+  {
     version: '1.8.0',
     date: '2026-09-25',
     label: 'Rekon Klasis, Lembar Kosong & Stabilitas',
