@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/compare/v1.8.0...v1.8.1) (2026-09-25)
+
+
+### Dokumentasi
+
+* tambah release notes v1.8.0 ([8e931a1](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/8e931a151d93c4795d73d6f5aebd5dddc2fa0cc4))
+
+
+### Maintenance
+
+* perbaiki pola gitignore file excel besar ([605a5ec](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/605a5ec917fbafee893d0ed5bc2bea75547c3468))
+
+
+### Perbaikan
+
+* hapus kolom & perhitungan Saldo di Laporan Semester ([5beecbc](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/commit/5beecbc6f7a78babb2eab5825d80d5660de198ef))
+
 ## [1.8.0](https://github.com/jondryxx/Aplikasi-Keuangan-Gereja-v1/compare/v1.5.0...v1.8.0) (2026-09-25)
 
 
